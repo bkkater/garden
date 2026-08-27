@@ -5,16 +5,10 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
 import { TexturePass } from 'three/addons/postprocessing/TexturePass.js'
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js'
 import videoShader from '../shaders/videoShader.js'
+import { getShaderSettings } from '../design/tokens'
+import { video as videoMedia } from '../data/media'
 
-// Altere estes valores para personalizar o efeito na aula.
-const settings = {
-  gridSize: 72,
-  dotSize: 0.55,
-  contrast: 1.4,
-  brightness: 0.08,
-  effectStrength: 0.82,
-  color: [0.89, 0.11, 0.14],
-}
+const settings = getShaderSettings()
 
 function VideoComposer({ video }) {
   const { gl, size } = useThree()
@@ -115,7 +109,7 @@ export default function ShaderVideo() {
     <div className="shader-video">
       <video
         ref={videoRef}
-        src="/video/garden-live.mp4"
+        src={videoMedia.background}
         muted
         loop
         playsInline
@@ -130,7 +124,7 @@ export default function ShaderVideo() {
           dpr={[1, 1.5]}
           style={{ position: 'absolute', inset: 0 }}
           onCreated={({ gl }) => {
-            gl.setClearColor('#080808', 1)
+            gl.setClearColor(settings.clearColor, 1)
             gl.toneMapping = THREE.NoToneMapping
           }}
           onPointerDown={() => video.play().catch(() => {})}

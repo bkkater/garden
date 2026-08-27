@@ -1,3 +1,5 @@
+import { memberPhotos, covers, posterFiles, livePhotos, liveGallery } from './media'
+
 export const band = {
   name: 'Garden Psychedelia',
   since: 2019,
@@ -17,11 +19,11 @@ export const band = {
 }
 
 export const members = [
-  { name: 'Milton', role: 'Vocal', image: '/members/milton-vocalista.jpg' },
-  { name: 'Gabriel', role: 'Guitarra', image: '/members/gabriel-guitarrista.jpg' },
-  { name: 'Matheus', role: 'Guitarra', image: '/members/matheus-guitarrista.jpg' },
-  { name: 'Bob', role: 'Baixo', image: '/members/bob-baixista.jpg' },
-  { name: 'Bianca', role: 'Bateria', image: '/members/bianca-baterista.jpg' },
+  { name: 'Milton', role: 'Vocal', image: memberPhotos.milton },
+  { name: 'Gabriel', role: 'Guitarra', image: memberPhotos.gabriel },
+  { name: 'Matheus', role: 'Guitarra', image: memberPhotos.matheus },
+  { name: 'Bob', role: 'Baixo', image: memberPhotos.bob },
+  { name: 'Bianca', role: 'Bateria', image: memberPhotos.bianca },
 ]
 
 export const navItems = [
@@ -38,7 +40,7 @@ export const releases = [
     type: 'Single / Album',
     plays: '2.198',
     featured: true,
-    cover: '/images/dbawot.jpg',
+    cover: covers.dbawot,
     note: 'Lançamento mais recente. Capa orgânica, vinhas e figuras — o jardim como corpo.',
   },
   {
@@ -47,7 +49,7 @@ export const releases = [
     type: 'Single',
     plays: '19.614',
     featured: false,
-    cover: '/images/live-duo.jpg',
+    cover: livePhotos.festivalBand,
     note: 'Faixa mais ouvida. O começo da Garden em disco.',
   },
   {
@@ -56,7 +58,7 @@ export const releases = [
     type: 'Single',
     plays: '13.310',
     featured: false,
-    cover: '/images/live-bob.jpg',
+    cover: livePhotos.wp4Matheus,
     note: 'Casca, eco e guitarra. Ainda 2019, ainda o primeiro fôlego.',
   },
   {
@@ -65,7 +67,7 @@ export const releases = [
     type: 'Single',
     plays: '6.544',
     featured: false,
-    cover: '/images/live-gabriel.jpg',
+    cover: livePhotos.festivalGabriel,
     note: 'O segundo ano. Mais denso, mais perto do palco.',
   },
 ]
@@ -86,34 +88,22 @@ export const events = [
     note: 'Performance ao vivo na III edição. Palco, luz e o vocal de Milton.',
   },
   {
-    title: 'Weird Party',
+    title: 'Weird Party 1–3',
     place: 'Tales Tabacaria · R. Saldanha Marinho, 264',
     note: 'Série de noites da Garden: set ao vivo, DJs, exposição e a casa lotada.',
   },
   {
-    title: 'Kasick Tropical',
+    title: 'Weird Party 4 · Kasick Tropical',
     place: 'Dezembro 2024',
-    note: 'Morning Riser e Go Away registrados ao vivo.',
+    note: 'XMAS party + Morning Riser e Go Away registrados ao vivo.',
   },
 ]
 
 export const posters = [
-  { src: '/posters/weird-party-1.jpg', title: 'Weird Party 1' },
-  { src: '/posters/weird-party-2.jpg', title: 'Weird Party 2' },
-  { src: '/posters/weird-party-3.jpg', title: 'Weird Party Halloween' },
+  { src: posterFiles.weirdParty1, title: 'Weird Party 1' },
+  { src: posterFiles.weirdParty2, title: 'Weird Party 2' },
+  { src: posterFiles.weirdParty3, title: 'Weird Party Halloween' },
+  { src: posterFiles.weirdParty4, title: 'Weird Xmas Party' },
 ]
 
-export const gallery = [
-  { src: '/images/live-duo.jpg', event: 'Festival Troque o Disco', credit: 'Hyakuya', wide: true },
-  { src: '/images/live-gabriel.jpg', event: 'Festival Troque o Disco', credit: 'Maurinho', wide: false },
-  { src: '/images/live-bass.jpg', event: 'Festival Troque o Disco', credit: 'Maurinho', wide: false },
-  { src: '/images/live-guitars.jpg', event: 'Festival Troque o Disco', credit: 'Hyakuya', wide: false },
-  { src: '/images/wp4-gabriel.jpg', event: 'Weird Party 4', credit: 'Hyakuya', wide: false },
-  { src: '/images/wp4-milton.jpg', event: 'Weird Party 4', credit: 'Hyakuya', wide: true },
-  { src: '/images/wp1-milton.jpg', event: 'Weird Party 1', credit: 'Hyakuya', wide: false },
-  { src: '/images/wp3-gabriel.jpg', event: 'Weird Party 3', credit: 'Hyakuya', wide: false },
-  { src: '/images/live-bob.jpg', event: 'Festival Troque o Disco', credit: 'Min', wide: false },
-  { src: '/images/live-motion.jpg', event: 'Festival Troque o Disco', credit: 'Maurinho', wide: true },
-  { src: '/images/live-milton-bob.jpg', event: 'Festival Troque o Disco', credit: 'Min', wide: false },
-  { src: '/images/live-milton-stage.jpg', event: 'Festival Troque o Disco', credit: 'Hyakuya', wide: false },
-]
+export const gallery = liveGallery

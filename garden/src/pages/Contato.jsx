@@ -1,4 +1,5 @@
 import { band } from '../data/content'
+import { contatoMedia } from '../data/media'
 
 export default function Contato() {
   return (
@@ -33,7 +34,7 @@ export default function Contato() {
         </div>
 
         <figure>
-          <img src="/logos/logo-red.png" alt="Logo Garden Psychedelia" />
+          <img src={contatoMedia.figure.src} alt={contatoMedia.figure.alt} />
           <figcaption>{band.city} — {band.state} · desde {band.since}</figcaption>
         </figure>
       </div>

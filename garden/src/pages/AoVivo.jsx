@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { events, gallery, posters } from '../data/content'
+import { events, posters } from '../data/content'
+import { galleryByEvent } from '../data/media'
 
 export default function AoVivo() {
   const [active, setActive] = useState(null)
+  const groups = galleryByEvent()
 
   return (
     <section className="page ao-vivo">
@@ -30,22 +32,28 @@ export default function AoVivo() {
         ))}
       </div>
 
-      <div className="gallery">
-        {gallery.map((shot) => (
-          <button
-            key={shot.src}
-            type="button"
-            className={`shot ${shot.wide ? 'is-wide' : ''}`}
-            onClick={() => setActive(shot)}
-          >
-            <img src={shot.src} alt={`${shot.event}, foto ${shot.credit}`} loading="lazy" />
-            <span>
-              {shot.event}
-              <em>{shot.credit}</em>
-            </span>
-          </button>
-        ))}
-      </div>
+      {groups.map((group) => (
+        <section className="gallery-block" key={group.event}>
+          <p className="tag">{group.shots.length} fotos</p>
+          <h2>{group.event}</h2>
+          <div className="gallery">
+            {group.shots.map((shot) => (
+              <button
+                key={shot.src}
+                type="button"
+                className={`shot ${shot.wide ? 'is-wide' : ''}`}
+                onClick={() => setActive(shot)}
+              >
+                <img src={shot.src} alt={`${shot.event}, foto ${shot.credit}`} loading="lazy" />
+                <span>
+                  {shot.event}
+                  <em>{shot.credit}</em>
+                </span>
+              </button>
+            ))}
+          </div>
+        </section>
+      ))}
 
       {active && (
         <div className="lightbox" onClick={() => setActive(null)} role="presentation">

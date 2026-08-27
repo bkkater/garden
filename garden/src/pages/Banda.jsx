@@ -1,4 +1,5 @@
 import { band, members } from '../data/content'
+import { bandaMedia } from '../data/media'
 
 export default function Banda() {
   return (
@@ -12,8 +13,8 @@ export default function Banda() {
 
       <div className="banda-grid">
         <figure className="banda-photo">
-          <img src="/images/live-duo.jpg" alt="Garden Psychedelia no Festival Troque o Disco" />
-          <figcaption>Festival Troque o Disco · foto Hyakuya</figcaption>
+          <img src={bandaMedia.hero.src} alt={bandaMedia.hero.alt} />
+          <figcaption>{bandaMedia.hero.caption}</figcaption>
         </figure>
 
         <div className="banda-copy">
@@ -57,9 +58,9 @@ export default function Banda() {
       </section>
 
       <div className="banda-strip">
-        <img src="/images/live-bass.jpg" alt="Bob no baixo" />
-        <img src="/images/live-gabriel.jpg" alt="Gabriel no palco" />
-        <img src="/images/wp1-milton.jpg" alt="Milton no vocal" />
+        {bandaMedia.strip.map((shot) => (
+          <img key={shot.src} src={shot.src} alt={shot.alt} />
+        ))}
       </div>
     </section>
   )

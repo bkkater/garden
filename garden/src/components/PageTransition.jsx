@@ -70,7 +70,10 @@ function TransitionOverlay({ phase, onCovered, onRevealed }) {
       ctx.clearRect(0, 0, width, height)
       if (progress <= 0) return
 
-      ctx.fillStyle = '#e31b23'
+      const accent = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-accent')
+        .trim()
+      ctx.fillStyle = accent || '#e31b23'
       const cols = Math.ceil(width / cell)
       const rows = Math.ceil(height / cell)
       const threshold = progress * 16
