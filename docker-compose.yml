@@ -4,7 +4,7 @@ services:
   garden:
     build:
       context: ../garden
-      dockerfile: Dockerfile
+      dockerfile: ../garden-docker/Dockerfile
       additional_contexts:
         infra: .
     ports:
