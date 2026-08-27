@@ -1,4 +1,6 @@
 node_modules
+.next
+out
 dist
 dist-ssr
 .git
@@ -8,4 +10,10 @@ dist-ssr
 .vscode
 .idea
 .DS_Store
+.env
+.env.*
+!.env.example
 @oxlint
+_legacy_vite
+vite.config.js
+docs
