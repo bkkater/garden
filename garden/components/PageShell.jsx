@@ -7,7 +7,7 @@ export default function PageShell({ children }) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 -top-32 h-32 bg-gradient-to-b from-transparent to-bg"
       />
-      <div className="px-4 pt-12 pb-28 motion-safe:animate-[rise_0.8s_ease_both] lg:px-8">
+      <div className="px-4 pt-12 pb-28 motion-safe:animate-rise lg:px-8">
         {children}
       </div>
     </div>
