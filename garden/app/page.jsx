@@ -1,3 +1,5 @@
+import { band } from '@/lib/content'
+
 // Placeholder — a Home real é reconstruída na Fase 7 do plano de migração.
 export default function Home() {
   return (
@@ -6,9 +8,14 @@ export default function Home() {
         Migração Next + Tailwind em andamento
       </p>
       <h1 className="text-[clamp(48px,10vw,120px)] font-extrabold leading-[0.9] tracking-[-0.05em]">
-        Garden
-        <span className="block text-accent mix-blend-screen">Psychedelia</span>
+        {band.name.split(' ')[0]}
+        <span className="block text-accent mix-blend-screen">
+          {band.name.split(' ')[1]}
+        </span>
       </h1>
+      <p className="max-w-[34ch] font-serif text-lg leading-relaxed text-copy">
+        {band.about}
+      </p>
     </main>
   )
 }
