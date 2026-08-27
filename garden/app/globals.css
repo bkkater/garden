@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Tema — apenas cores e fontes (o espaçamento usa a escala padrão do Tailwind).
+   As cores viram utilitários: bg-bg, text-fg, text-accent, border-line, etc.
+   A troca de tema sobrescreve as mesmas variáveis em [data-theme="ember"].
+--------------------------------------------------------------------------- */
+@theme {
+  --color-bg: #080808;
+  --color-fg: #eadcc4;
+  --color-accent: #e31b23;
+  --color-muted: #9a8f82;
+  --color-line: rgba(234, 220, 196, 0.18);
+  --color-copy: #d8ccb8;
+  --color-overlay: rgba(8, 8, 8, 0.92);
+
+  --font-display: var(--font-syne), "Syne", sans-serif;
+  --font-serif: var(--font-fraunces), "Fraunces", serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", monospace;
+}
+
+:root[data-theme="ember"] {
+  --color-bg: #0c0706;
+  --color-fg: #f3d7b0;
+  --color-accent: #ff4d1a;
+  --color-muted: #a88972;
+  --color-line: rgba(243, 215, 176, 0.18);
+  --color-copy: #e4c9a6;
+  --color-overlay: rgba(12, 7, 6, 0.92);
+}
+
+@layer base {
+  html,
+  body {
+    min-height: 100%;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-display);
+    overflow-x: hidden;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+/* Grão sobre toda a página. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
