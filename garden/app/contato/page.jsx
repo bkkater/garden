@@ -3,9 +3,13 @@ import PageHead from '@/components/PageHead'
 import { band } from '@/lib/content'
 import { contatoMedia } from '@/lib/media'
 
+const description = 'Booking e contato da Garden Psychedelia — agenda 2026 aberta.'
+
 export const metadata = {
   title: 'Contato',
-  description: 'Booking e contato da Garden Psychedelia — agenda 2026 aberta.',
+  description,
+  alternates: { canonical: '/contato' },
+  openGraph: { title: 'Contato — Garden Psychedelia', description, url: '/contato' },
 }
 
 export default function Contato() {

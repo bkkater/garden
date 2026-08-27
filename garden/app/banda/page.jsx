@@ -3,10 +3,14 @@ import PageHead from '@/components/PageHead'
 import { band, members } from '@/lib/content'
 import { bandaMedia } from '@/lib/media'
 
+const description =
+  'A Garden Psychedelia — psicodelia de Campos dos Goytacazes (RJ) desde 2019, cinco integrantes.'
+
 export const metadata = {
   title: 'Banda',
-  description:
-    'A Garden Psychedelia — psicodelia de Campos dos Goytacazes (RJ) desde 2019, cinco integrantes.',
+  description,
+  alternates: { canonical: '/banda' },
+  openGraph: { title: 'Banda — Garden Psychedelia', description, url: '/banda' },
 }
 
 export default function Banda() {

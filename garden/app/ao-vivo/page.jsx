@@ -4,10 +4,14 @@ import LiveGallery from '@/components/LiveGallery'
 import { events, posters } from '@/lib/content'
 import { galleryByEvent } from '@/lib/media'
 
+const description =
+  'Shows, festivais e Weird Parties da Garden Psychedelia, com registro fotográfico.'
+
 export const metadata = {
   title: 'Ao vivo',
-  description:
-    'Shows, festivais e Weird Parties da Garden Psychedelia, com registro fotográfico.',
+  description,
+  alternates: { canonical: '/ao-vivo' },
+  openGraph: { title: 'Ao vivo — Garden Psychedelia', description, url: '/ao-vivo' },
 }
 
 export default function AoVivo() {

@@ -2,9 +2,13 @@ import PageShell from '@/components/PageShell'
 import PageHead from '@/components/PageHead'
 import { band, demos, releases } from '@/lib/content'
 
+const description = 'Discos, singles e demos da Garden Psychedelia.'
+
 export const metadata = {
   title: 'Sons',
-  description: 'Discos, singles e demos da Garden Psychedelia.',
+  description,
+  alternates: { canonical: '/sons' },
+  openGraph: { title: 'Sons — Garden Psychedelia', description, url: '/sons' },
 }
 
 export default function Sons() {
