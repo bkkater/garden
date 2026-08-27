@@ -28,7 +28,10 @@ const plexMono = IBM_Plex_Mono({
 })
 
 export const metadata = {
-  title: 'Garden Psychedelia',
+  title: {
+    default: 'Garden Psychedelia',
+    template: '%s — Garden Psychedelia',
+  },
   description:
     'Garden Psychedelia — banda de psicodelia de Campos dos Goytacazes (RJ), ativa desde 2019.',
 }

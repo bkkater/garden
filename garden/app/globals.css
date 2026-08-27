@@ -52,6 +52,15 @@
   }
 }
 
+/* Rótulo pequeno em mono, repetido em várias páginas (ex-".tag"/".page-head p"). */
+@utility kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
 /* Grão sobre toda a página. */
 .grain {
   position: fixed;
