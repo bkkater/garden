@@ -3,8 +3,8 @@ name: garden
 services:
   garden:
     build:
-      context: ../garden
-      dockerfile: ../garden-docker/Dockerfile
+      context: ./garden
+      dockerfile: ../Dockerfile
       additional_contexts:
         infra: .
     ports:
@@ -16,7 +16,7 @@ services:
     image: node:22-alpine
     working_dir: /app
     volumes:
-      - ../garden:/app
+      - ./garden:/app
       - garden_node_modules:/app/node_modules
     ports:
       - "5173:5173"
