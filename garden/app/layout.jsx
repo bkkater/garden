@@ -1,4 +1,5 @@
 import { Fraunces, IBM_Plex_Mono, Syne } from 'next/font/google'
+import { ACTIVE_THEME } from '@/lib/theme'
 import './globals.css'
 
 // Tipografia preservada da versão Vite, agora self-hosted via next/font
@@ -36,7 +37,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="pt-BR"
-      data-theme="night"
+      data-theme={ACTIVE_THEME}
       className={`${syne.variable} ${fraunces.variable} ${plexMono.variable}`}
     >
       <body>{children}</body>
