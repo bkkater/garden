@@ -34,7 +34,7 @@ export default function Home() {
 
       <div>
         <p className="mb-3 font-serif text-lg italic">psicodelia como referência</p>
-        <h1 className="font-extrabold leading-[0.92] tracking-[-0.05em] text-[clamp(52px,12vw,140px)]">
+        <h1 className="font-extrabold leading-[0.92] tracking-[-0.05em] text-[clamp(42px,11vw,140px)]">
           Garden
           <span className="block not-italic text-accent mix-blend-screen">
             Psychedelia

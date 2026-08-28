@@ -9,8 +9,8 @@ export default function Navigation() {
   const pathname = usePathname()
 
   return (
-    <header className="fixed inset-x-0 top-0 z-20 grid grid-cols-1 items-center gap-3 bg-gradient-to-b from-bg to-transparent px-4 py-4 mix-blend-normal lg:grid-cols-[auto_1fr_auto] lg:gap-6 lg:bg-none lg:px-8 lg:py-5 lg:mix-blend-difference">
-      <Link href="/" className="flex items-center gap-3 text-left">
+    <header className="fixed inset-x-0 top-0 z-20 flex items-center gap-4 bg-gradient-to-b from-bg via-bg/90 to-transparent px-4 py-3 lg:grid lg:grid-cols-[auto_1fr_auto] lg:gap-6 lg:bg-none lg:px-8 lg:py-5 lg:mix-blend-difference">
+      <Link href="/" className="flex shrink-0 items-center gap-3 text-left">
         <img
           src={logos.badge}
           alt=""
@@ -24,7 +24,7 @@ export default function Navigation() {
         </span>
       </Link>
 
-      <nav className="flex justify-start gap-2 overflow-x-auto lg:justify-end">
+      <nav className="flex flex-1 gap-2 overflow-x-auto lg:justify-end">
         {navItems.map((item) => {
           const active = pathname === item.to
           return (
@@ -32,11 +32,11 @@ export default function Navigation() {
               key={item.to}
               href={item.to}
               aria-current={active ? 'page' : undefined}
-              className={`px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] no-underline hover:text-accent hover:mix-blend-normal ${
+              className={`shrink-0 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] no-underline hover:text-accent hover:mix-blend-normal ${
                 active ? 'text-accent mix-blend-normal' : ''
               }`}
             >
-              <span className="block text-[9px] opacity-45">{item.index}</span>
+              <span className="hidden text-[9px] opacity-45 lg:block">{item.index}</span>
               {item.label}
             </Link>
           )

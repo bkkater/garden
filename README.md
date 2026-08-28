@@ -1,34 +1,33 @@
 # Garden Psychedelia — site
 
-Site da **Garden Psychedelia**, banda de Campos dos Goytacazes (RJ), ativa desde 2019. Uma single-page application com apresentação da
-banda, discografia, registros ao vivo e contato.
+Site da **Garden Psychedelia**, banda de Campos dos Goytacazes (RJ), ativa desde
+2019. Apresentação da banda, discografia, registros ao vivo e contato.
 
 ## O que é
 
-- **App**: React 19 + React Router 7, empacotado com Vite 8.
-- **Visual**: efeito de vídeo com shader via `three` / `@react-three/fiber`,
-  transições de página customizadas, tipografia do Google Fonts (Fraunces, Syne,
-  IBM Plex Mono).
-- **Idioma**: pt-BR. Conteúdo editorial fica em [`garden/src/data/`](garden/src/data/)
+- **App**: Next.js 16 (App Router) + React 19, estilizado com Tailwind CSS v4.
+- **Visual**: efeito de vídeo com shader via `three` / `@react-three/fiber`
+  (Client Component, carregado fora do bundle de entrada), transição de rota em
+  fade, tipografia self-hosted via `next/font` (Fraunces, Syne, IBM Plex Mono).
+- **Idioma**: pt-BR. Conteúdo editorial fica em [`garden/lib/`](garden/lib/)
   (`content.js`, `media.js`, `gallery.json`).
-- **Deploy**: build estático servido por Nginx dentro de um container Docker.
+- **Renderização**: páginas estáticas (SSG) com metadata/OpenGraph por rota,
+  `sitemap.xml`, `robots.txt` e JSON-LD `MusicGroup`.
+- **Deploy**: container Node rodando `next start` (build `output: 'standalone'`).
 
 ### Estrutura do repositório
 
 ```
 .
-├── Dockerfile            # build multi-stage: Node (Vite) -> Nginx
+├── Dockerfile            # multi-stage: deps -> build (next) -> runner (node server.js)
 ├── docker-compose.yml    # serviços "garden" (produção) e "garden-dev" (dev)
-├── nginx.conf            # config do Nginx (SPA fallback + cache de assets)
-└── garden/               # a aplicação React/Vite
-    ├── src/
-    │   ├── pages/         # Home, Banda, AoVivo, Sons, Contato
-    │   ├── components/    # Layout, Navigation, PageTransition, ShaderVideo
-    │   ├── data/          # conteúdo textual, mídia e galeria
-    │   ├── shaders/       # shader do vídeo
-    │   └── design/        # design tokens
-    ├── public/            # imagens, capas, pôsteres, vídeos
-    └── scripts/           # import-photos.py (processamento do acervo de fotos)
+└── garden/               # a aplicação Next
+    ├── app/              # rotas (page.jsx), layout, template, sitemap, robots, not-found
+    ├── components/       # SiteChrome, Navigation, ShaderVideo(+Client), LiveGallery, PageShell, PageHead
+    ├── lib/              # content.js, media.js, gallery.json, theme.js, site.js
+    ├── shaders/          # shader do vídeo de fundo
+    ├── public/           # imagens, capas, pôsteres, vídeo
+    └── scripts/          # import-photos.py (processamento do acervo de fotos)
 ```
 
 ### Rotas
@@ -41,11 +40,11 @@ banda, discografia, registros ao vivo e contato.
 | `/sons`    | Sons    |
 | `/contato` | Contato |
 
-Qualquer outra rota redireciona para `/`.
+Qualquer outra rota cai em `app/not-found.jsx` (HTTP 404, com link para a Home).
 
 ## Como rodar
 
-### Opção 1 — Local (Node)
+### Local (Node)
 
 Requisitos: **Node 22+** e npm.
 
@@ -55,17 +54,17 @@ npm install
 npm run dev
 ```
 
-Abre em `http://localhost:5173`.
+Abre em `http://localhost:3000`.
 
 Outros scripts (dentro de `garden/`):
 
 ```bash
-npm run build     # gera o bundle de produção em garden/dist
-npm run preview   # serve o build de produção localmente
-npm run lint      # oxlint
+npm run build   # next build (gera .next/ e .next/standalone/)
+npm run start   # serve o build de produção
+npm run lint    # oxlint
 ```
 
-### Opção 2 — Docker (produção)
+### Docker (produção)
 
 Requisitos: Docker + Docker Compose.
 
@@ -73,36 +72,45 @@ Requisitos: Docker + Docker Compose.
 docker compose up --build
 ```
 
-Sobe o container `garden`: Vite faz o build e o Nginx serve os arquivos
-estáticos em `http://localhost:8080`.
+Sobe o container `garden`: `next build` roda no estágio de build e o estágio
+runner executa `node server.js` (output standalone) em `http://localhost:8080`.
 
-### Opção 3 — Docker (desenvolvimento com hot reload)
+### Docker (desenvolvimento com hot reload)
 
 ```bash
 docker compose --profile dev up garden-dev
 ```
 
-Monta `./garden` no container `node:22-alpine`, roda `npm ci` + `npm run dev` e
-expõe o Vite em `http://localhost:5173` (com polling de arquivos habilitado para
-o watch funcionar dentro do container).
+Monta `./garden` em `node:22-alpine`, roda `npm ci` + `next dev` e expõe
+`http://localhost:3000` (`WATCHPACK_POLLING` liga o watch dentro do container).
+
+## Variáveis de ambiente
+
+| Variável | Uso |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Domínio público, usado em metadata (OpenGraph, canonical), `sitemap.xml` e `robots.txt`. **É embutido em build** — no Docker entra como build arg (ver `docker-compose.yml`). Sem barra final. |
+
+Ver [`garden/.env.example`](garden/.env.example).
 
 ## Detalhes do build Docker
 
-O [`Dockerfile`](Dockerfile) tem dois estágios:
+O [`Dockerfile`](Dockerfile) tem três estágios (contexto de build: `./garden`):
 
-1. **build** (`node:22-alpine`): instala dependências com `npm ci` e roda
-   `npm run build`.
-2. **production** (`nginx:1.27-alpine`): copia `dist/` para o Nginx e o
-   `nginx.conf` (que vem de um contexto adicional `infra`, definido no
-   `docker-compose.yml` como a raiz do repositório).
+1. **deps** (`node:22-alpine`): `npm ci`.
+2. **build**: `npm run build` com `NEXT_PUBLIC_SITE_URL` vindo de `ARG`.
+3. **runner**: copia `.next/standalone` + `.next/static` + `public` e roda
+   `node server.js` como usuário não-root na porta 3000.
 
-O `nginx.conf` faz o _fallback_ de SPA (`try_files ... /index.html`), habilita
-gzip e aplica cache de 7 dias para assets estáticos.
+## Temas
+
+[`garden/lib/theme.js`](garden/lib/theme.js) tem `ACTIVE_THEME` (`night` | `ember`).
+Trocar o valor muda as cores do site (via `@theme` / `[data-theme]` em
+`app/globals.css`) e os parâmetros do shader do vídeo ao mesmo tempo.
 
 ## Script de fotos
 
 [`garden/scripts/import-photos.py`](garden/scripts/import-photos.py) é um utilitário
 pontual (Python + Pillow) que redimensiona e seleciona fotos do acervo da banda,
-copia para `garden/public/live/` e regenera `garden/src/data/gallery.json`. Os
-caminhos de origem/destino são fixos para a máquina onde foi usado — ajuste as
-constantes `SRC` e `DEST` antes de rodar.
+copia para `garden/public/live/` e regenera `garden/lib/gallery.json`. Os caminhos
+de origem/destino são fixos para a máquina onde foi usado — ajuste as constantes
+`SRC` e `DEST` antes de rodar (e o destino do JSON, hoje `src/data/`).
