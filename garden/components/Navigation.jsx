@@ -17,8 +17,8 @@ export default function Navigation() {
           className="h-11 w-11 rounded-full object-cover"
         />
         <span className="flex flex-col leading-none">
-          <strong className="text-[13px] uppercase tracking-[0.18em]">Garden</strong>
-          <em className="text-[11px] not-italic uppercase tracking-[0.12em] opacity-70">
+          <strong className="text-sm uppercase tracking-widest">Garden</strong>
+          <em className="text-xs not-italic uppercase tracking-widest opacity-70">
             Psychedelia
           </em>
         </span>
@@ -32,11 +32,10 @@ export default function Navigation() {
               key={item.to}
               href={item.to}
               aria-current={active ? 'page' : undefined}
-              className={`shrink-0 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] no-underline hover:text-accent hover:mix-blend-normal ${
+              className={`shrink-0 px-3 py-3 font-mono text-xs uppercase tracking-widest no-underline hover:text-accent hover:mix-blend-normal ${
                 active ? 'text-accent mix-blend-normal' : ''
               }`}
             >
-              <span className="hidden text-[9px] opacity-45 lg:block">{item.index}</span>
               {item.label}
             </Link>
           )
@@ -45,7 +44,7 @@ export default function Navigation() {
 
       <a
         href={`mailto:${band.email}`}
-        className="hidden px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] no-underline hover:text-accent hover:mix-blend-normal lg:block"
+        className="hidden px-3 py-3 font-mono text-xs uppercase tracking-widest no-underline hover:text-accent hover:mix-blend-normal lg:block"
       >
         Booking
       </a>

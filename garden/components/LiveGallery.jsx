@@ -11,7 +11,7 @@ export default function LiveGallery({ groups }) {
       {groups.map((group) => (
         <section key={group.event} className="mb-14">
           <p className="kicker">{group.shots.length} fotos</p>
-          <h2 className="my-2 font-extrabold tracking-[-0.05em] text-[clamp(28px,4vw,48px)]">
+          <h2 className="my-2 font-extrabold tracking-tighter text-3xl md:text-4xl">
             {group.event}
           </h2>
           <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
@@ -28,9 +28,9 @@ export default function LiveGallery({ groups }) {
                   src={shot.src}
                   alt={`${shot.event}, foto ${shot.credit}`}
                   loading="lazy"
-                  className="h-full min-h-[280px] w-full object-cover transition-[transform,filter] duration-[600ms] [filter:contrast(1.08)_saturate(0.8)] group-hover:scale-[1.04] group-hover:[filter:contrast(1.25)_saturate(0.4)]"
+                  className="h-full min-h-[280px] w-full object-cover transition-[transform,filter] duration-700 [filter:contrast(1.08)_saturate(0.8)] group-hover:scale-[1.04] group-hover:[filter:contrast(1.25)_saturate(0.4)]"
                 />
-                <span className="absolute bottom-3 left-3 flex flex-col font-mono text-[10px] uppercase tracking-[0.12em] [text-shadow:0_1px_8px_var(--color-bg)]">
+                <span className="absolute bottom-3 left-3 flex flex-col font-mono text-xs uppercase tracking-widest [text-shadow:0_1px_8px_var(--color-bg)]">
                   {shot.event}
                   <em className="not-italic opacity-70">{shot.credit}</em>
                 </span>
@@ -51,7 +51,7 @@ export default function LiveGallery({ groups }) {
             alt=""
             className="max-h-[82vh] max-w-[92vw] object-contain"
           />
-          <p className="mt-4 font-mono text-xs uppercase tracking-[0.12em]">
+          <p className="mt-4 font-mono text-xs uppercase tracking-widest">
             {active.event} · foto {active.credit}
           </p>
         </div>

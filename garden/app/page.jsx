@@ -33,16 +33,14 @@ export default function Home() {
       </p>
 
       <div>
-        <p className="mb-3 font-serif text-lg italic">psicodelia como referência</p>
-        <h1 className="font-extrabold leading-[0.92] tracking-[-0.05em] text-[clamp(42px,11vw,140px)]">
+        <p className="mb-3 text-lg text-copy">psicodelia como referência</p>
+        <h1 className="font-extrabold leading-none tracking-tighter text-6xl sm:text-7xl lg:text-8xl">
           Garden
-          <span className="block not-italic text-accent mix-blend-screen">
-            Psychedelia
-          </span>
+          <span className="block text-accent mix-blend-screen">Psychedelia</span>
         </h1>
       </div>
 
-      <p className="max-w-[34ch] font-serif text-lg leading-[1.45]">{band.quote}</p>
+      <p className="max-w-[38ch] text-lg leading-relaxed text-copy">{band.quote}</p>
     </section>
   )
 }

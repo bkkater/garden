@@ -19,14 +19,14 @@ export default function Contato() {
 
       <a
         href={`mailto:${band.email}`}
-        className="mb-14 block break-words font-extrabold tracking-[-0.05em] no-underline text-[clamp(28px,6vw,72px)] hover:text-accent"
+        className="mb-14 block break-words font-extrabold tracking-tighter no-underline text-3xl sm:text-4xl lg:text-5xl hover:text-accent"
       >
         {band.email}
       </a>
 
       <div className="grid grid-cols-1 items-end gap-12 lg:grid-cols-2">
         <div>
-          <p className="leading-relaxed text-copy">
+          <p className="max-w-prose leading-relaxed text-copy">
             Shows, festivais, Weird Parties e o corre do ao vivo. Fala com a Garden
             pelo e-mail ou pelas redes.
           </p>
@@ -36,7 +36,7 @@ export default function Contato() {
                 href={band.instagram}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-block border-b border-line py-2.5 tracking-[0.08em] no-underline hover:text-accent"
+                className="inline-block border-b border-line py-2.5 tracking-wide no-underline hover:text-accent"
               >
                 Instagram · @gardenpsychedelia
               </a>
@@ -46,7 +46,7 @@ export default function Contato() {
                 href={band.spotify}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-block border-b border-line py-2.5 tracking-[0.08em] no-underline hover:text-accent"
+                className="inline-block border-b border-line py-2.5 tracking-wide no-underline hover:text-accent"
               >
                 Spotify · Garden Psychedelia
               </a>
@@ -60,7 +60,7 @@ export default function Contato() {
             alt={contatoMedia.figure.alt}
             className="w-full mix-blend-screen"
           />
-          <figcaption className="mt-2.5 font-mono text-[11px] tracking-[0.08em] text-muted">
+          <figcaption className="mt-2.5 font-mono text-xs uppercase tracking-widest text-muted">
             {band.city} — {band.state} · desde {band.since}
           </figcaption>
         </figure>

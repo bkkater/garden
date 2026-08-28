@@ -1,23 +1,16 @@
-import { Fraunces, IBM_Plex_Mono, Syne } from 'next/font/google'
+import { IBM_Plex_Mono, Syne } from 'next/font/google'
 import { ACTIVE_THEME } from '@/lib/theme'
 import { siteUrl } from '@/lib/site'
 import SiteChrome from '@/components/SiteChrome'
 import './globals.css'
 
-// Tipografia preservada da versão Vite, agora self-hosted via next/font
-// (sem <link> render-blocking para o Google Fonts).
+// Duas famílias, self-hosted via next/font:
+//   Syne          — títulos, marca, corpo
+//   IBM Plex Mono — rótulos, eyebrows, legendas (uppercase + tracking)
 const syne = Syne({
   subsets: ['latin'],
-  weight: ['400', '700', '800'],
+  weight: ['400', '600', '700', '800'],
   variable: '--font-syne',
-  display: 'swap',
-})
-
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  style: ['normal', 'italic'],
-  weight: ['500', '600'],
-  variable: '--font-fraunces',
   display: 'swap',
 })
 
@@ -69,7 +62,7 @@ export default function RootLayout({ children }) {
     <html
       lang="pt-BR"
       data-theme={ACTIVE_THEME}
-      className={`${syne.variable} ${fraunces.variable} ${plexMono.variable}`}
+      className={`${syne.variable} ${plexMono.variable}`}
     >
       <body>
         <SiteChrome>{children}</SiteChrome>

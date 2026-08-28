@@ -31,18 +31,18 @@ export default function Sons() {
           <p className="kicker">
             {featured.year} · {featured.type}
           </p>
-          <h2 className="my-3 font-extrabold leading-[0.85] tracking-[-0.06em] text-[clamp(48px,8vw,110px)]">
+          <h2 className="my-3 font-extrabold leading-none tracking-tighter text-5xl md:text-6xl lg:text-7xl">
             {featured.title}
           </h2>
-          <p className="leading-relaxed text-copy">{featured.note}</p>
-          <p className="my-4 font-mono text-xs uppercase tracking-[0.12em] text-accent">
+          <p className="max-w-prose leading-relaxed text-copy">{featured.note}</p>
+          <p className="my-4 font-mono text-xs uppercase tracking-widest text-accent">
             {featured.plays} plays
           </p>
           <a
             href={band.spotify}
             target="_blank"
             rel="noreferrer"
-            className="inline-block border border-fg px-4 py-3 text-xs uppercase tracking-[0.14em] no-underline hover:border-accent hover:bg-accent hover:text-bg"
+            className="inline-block border border-fg px-4 py-3 text-xs uppercase tracking-widest no-underline hover:border-accent hover:bg-accent hover:text-bg"
           >
             Ouvir no Spotify
           </a>
@@ -61,26 +61,28 @@ export default function Sons() {
               className="h-20 w-28 shrink-0 object-cover [filter:grayscale(0.3)_contrast(1.15)]"
             />
             <div>
-              <h3 className="text-3xl tracking-[-0.04em]">{item.title}</h3>
-              <p className="my-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
+              <h3 className="text-3xl tracking-tight">{item.title}</h3>
+              <p className="my-1.5 font-mono text-xs uppercase tracking-widest text-muted">
                 {item.year} · {item.type} · {item.plays} plays
               </p>
-              <span className="leading-relaxed text-copy">{item.note}</span>
+              <span className="block max-w-prose leading-relaxed text-copy">
+                {item.note}
+              </span>
             </div>
           </article>
         ))}
       </div>
 
       <aside className="mt-20 border-t border-line pt-8">
-        <h2 className="mb-2.5 text-4xl tracking-[-0.04em]">No estúdio</h2>
-        <p className="leading-relaxed text-copy">
+        <h2 className="mb-2.5 text-3xl md:text-4xl tracking-tight">No estúdio</h2>
+        <p className="max-w-prose leading-relaxed text-copy">
           Demos em processo — Morning Riser já vazou do palco para o arquivo ao vivo.
         </p>
         <ul className="mt-6 flex flex-wrap gap-2.5">
           {demos.map((name) => (
             <li
               key={name}
-              className="border border-line px-3.5 py-2.5 font-mono text-xs uppercase tracking-[0.08em]"
+              className="border border-line px-3.5 py-2.5 font-mono text-xs uppercase tracking-wider"
             >
               {name}
             </li>

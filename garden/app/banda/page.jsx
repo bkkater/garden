@@ -20,7 +20,7 @@ export default function Banda() {
         Alternativo por natureza. Sério por escolha.
       </PageHead>
 
-      <blockquote className="mb-16 max-w-[18em] font-serif font-medium leading-tight text-[clamp(26px,4vw,48px)]">
+      <blockquote className="mb-16 max-w-[24ch] leading-tight tracking-tight text-2xl md:text-3xl">
         {band.quote}
       </blockquote>
 
@@ -31,12 +31,12 @@ export default function Banda() {
             alt={bandaMedia.hero.alt}
             className="h-[70vh] w-full object-cover [filter:contrast(1.12)_saturate(0.85)]"
           />
-          <figcaption className="mt-2.5 font-mono text-[11px] tracking-[0.08em] text-muted">
+          <figcaption className="mt-2.5 font-mono text-xs uppercase tracking-widest text-muted">
             {bandaMedia.hero.caption}
           </figcaption>
         </figure>
 
-        <div>
+        <div className="max-w-prose">
           <p className="mb-4 text-lg leading-relaxed text-copy">{band.about}</p>
           <p className="mb-4 text-lg leading-relaxed text-copy">{band.manifesto}</p>
           <ul className="mt-8 border-t border-line">
@@ -50,7 +50,7 @@ export default function Banda() {
                 key={label}
                 className="flex justify-between gap-4 border-b border-line py-3.5 text-sm"
               >
-                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
+                <span className="font-mono text-xs uppercase tracking-widest text-muted">
                   {label}
                 </span>
                 <strong>{value}</strong>
@@ -62,7 +62,7 @@ export default function Banda() {
 
       <section className="my-20">
         <p className="kicker">Formação</p>
-        <h2 className="my-3 font-extrabold tracking-[-0.05em] text-[clamp(36px,6vw,72px)]">
+        <h2 className="my-3 font-extrabold tracking-tighter text-4xl lg:text-5xl">
           Integrantes
         </h2>
         <div className="grid grid-cols-2 gap-2 lg:grid-cols-5">
@@ -71,11 +71,11 @@ export default function Banda() {
               <img
                 src={member.image}
                 alt={`${member.name}, ${member.role}`}
-                className="h-[58vh] w-full object-cover object-[center_18%] transition-[transform,filter] duration-[600ms] [filter:contrast(1.12)_saturate(0.82)] group-hover:scale-[1.04] group-hover:[filter:contrast(1.22)_saturate(0.5)]"
+                className="h-[58vh] w-full object-cover object-[center_18%] transition-[transform,filter] duration-700 [filter:contrast(1.12)_saturate(0.82)] group-hover:scale-[1.04] group-hover:[filter:contrast(1.22)_saturate(0.5)]"
               />
               <figcaption className="absolute inset-x-3 bottom-3 flex flex-col gap-1 [text-shadow:0_1px_10px_var(--color-bg)]">
-                <strong className="text-xl tracking-[-0.04em]">{member.name}</strong>
-                <em className="font-mono text-[11px] not-italic uppercase tracking-[0.14em] text-accent">
+                <strong className="text-xl tracking-tight">{member.name}</strong>
+                <em className="font-mono text-xs not-italic uppercase tracking-widest text-accent">
                   {member.role}
                 </em>
               </figcaption>

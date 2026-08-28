@@ -15,8 +15,9 @@
   --color-overlay: rgba(8, 8, 8, 0.92);
 
   --font-display: var(--font-syne), "Syne", sans-serif;
-  --font-serif: var(--font-fraunces), "Fraunces", serif;
   --font-mono: var(--font-plex-mono), "IBM Plex Mono", monospace;
+  /* alias de compatibilidade — o site não usa mais serif */
+  --font-serif: var(--font-syne), "Syne", sans-serif;
 
   /* Animações nomeadas -> utilitários animate-rise / animate-fadein. */
   --animate-rise: rise 0.8s ease both;
@@ -58,11 +59,13 @@
   }
 }
 
-/* Rótulo pequeno em mono, repetido em várias páginas (ex-".tag"/".page-head p"). */
+/* Rótulo pequeno em mono, repetido em várias páginas (ex-".tag"/".page-head p").
+   Tamanho = text-xs (0.75rem); tracking = tracking-widest (0.1em). */
 @utility kicker {
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-muted);
 }

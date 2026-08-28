@@ -9,7 +9,7 @@ fecha.
 
 ---
 
-## Etapa 1 — Sistema de tipografia (fundação)
+## Etapa 1 — Sistema de tipografia (fundação) ✅
 
 > "É um site pequeno pra ter tantas variações de fontes, a legibilidade não
 > está boa. Os tamanhos de fontes estão muito personalizados, não dá pra
