@@ -1,10 +1,10 @@
 import {
-  memberPhotos,
   covers,
-  posterFiles,
-  livePhotos,
   liveGallery,
-} from './media'
+  livePhotos,
+  memberPhotos,
+  posterFiles,
+} from './media';
 
 export const band = {
   name: 'Garden Psychedelia',
@@ -24,7 +24,7 @@ export const band = {
     'Ecléticos, porém seletivos. Tudo é referência, não tem menção específica, mas a base é rock and roll.',
   about:
     'Desde 2019, um grupo de amigos em Campos dos Goytacazes faz um som fino, de qualidade e com muita psicodelia. As apresentações recentes são explosivas — a Garden namora o palco ao vivo e segue com agenda 2026 aberta.',
-}
+};
 
 export const members = [
   { name: 'Milton', role: 'Vocal', image: memberPhotos.milton },
@@ -32,17 +32,18 @@ export const members = [
   { name: 'Matheus', role: 'Guitarra', image: memberPhotos.matheus },
   { name: 'Bob', role: 'Baixo', image: memberPhotos.bob },
   { name: 'Bianca', role: 'Bateria', image: memberPhotos.bianca },
-]
+];
 
 export const navItems = [
   { to: '/banda', index: '01', label: 'Banda' },
   { to: '/ao-vivo', index: '02', label: 'Ao vivo' },
   { to: '/sons', index: '03', label: 'Sons' },
   { to: '/contato', index: '04', label: 'Contato' },
-]
+];
 
 // Home = vitrine. Uma linha por seção, cada uma linkando para a página cheia.
-export const homeIntro = 'Psicodelia como referência. Alternativo por natureza.'
+export const homeIntro =
+  'Psicodelia como referência. Alternativo por natureza.';
 
 export const homeSections = [
   {
@@ -70,10 +71,11 @@ export const homeSections = [
     to: '/contato',
     index: '04',
     label: 'Contato',
-    teaser: 'talktogarden@gmail.com — para shows, festivais e o corre do ao vivo.',
+    teaser:
+      'talktogarden@gmail.com — para shows, festivais e o corre do ao vivo.',
     image: livePhotos.wp3Milton,
   },
-]
+];
 
 export const releases = [
   {
@@ -112,24 +114,23 @@ export const releases = [
     cover: livePhotos.festivalGabriel,
     note: 'O segundo ano. Mais denso, mais perto do palco.',
   },
-]
+];
 
 export const demos = [
   'Morning Riser',
   'Éter',
-  "Cos I Lov U",
+  'Cos I Lov U',
   "Don't Waste My Time",
   "Don't Be",
   'Go Away',
-]
+];
 
 // Estado da agenda 2026. Sem datas fechadas até agora — atualize aqui.
 export const agenda = {
   status: 'A agenda 2026 está aberta.',
-  detail:
-    'Ainda sem datas confirmadas. Para chamar a Garden para um show, festival ou uma noite, escreve para o e-mail — a banda responde.',
+  detail: 'Ainda sem datas confirmadas. ',
   upcoming: [],
-}
+};
 
 // Já rolou — retrospectiva (2019–2024).
 export const events = [
@@ -148,21 +149,41 @@ export const events = [
     place: 'Dezembro 2024',
     note: 'XMAS party + Morning Riser e Go Away registrados ao vivo.',
   },
-]
+];
 
 export const posters = [
   { src: posterFiles.weirdParty1, title: 'Weird Party 1' },
   { src: posterFiles.weirdParty2, title: 'Weird Party 2' },
   { src: posterFiles.weirdParty3, title: 'Weird Party Halloween' },
   { src: posterFiles.weirdParty4, title: 'Weird Xmas Party' },
-]
+];
 
-export const gallery = liveGallery
+export const gallery = liveGallery;
 
 // Redes — usado na /contato e no footer. `key` casa com o ícone em SocialLinks.
 export const socials = [
-  { key: 'instagram', label: 'Instagram', handle: '@gardenpsychedelia', url: band.instagram },
-  { key: 'youtube', label: 'YouTube', handle: 'Garden Psychedelia', url: band.youtube },
-  { key: 'tiktok', label: 'TikTok', handle: '@gardenpsyched', url: band.tiktok },
-  { key: 'spotify', label: 'Spotify', handle: 'Garden Psychedelia', url: band.spotify },
-]
+  {
+    key: 'instagram',
+    label: 'Instagram',
+    handle: '@gardenpsychedelia',
+    url: band.instagram,
+  },
+  {
+    key: 'youtube',
+    label: 'YouTube',
+    handle: 'Garden Psychedelia',
+    url: band.youtube,
+  },
+  {
+    key: 'tiktok',
+    label: 'TikTok',
+    handle: '@gardenpsyched',
+    url: band.tiktok,
+  },
+  {
+    key: 'spotify',
+    label: 'Spotify',
+    handle: 'Garden Psychedelia',
+    url: band.spotify,
+  },
+];

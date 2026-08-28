@@ -51,13 +51,13 @@ export default function Home() {
             href={band.spotify}
             target="_blank"
             rel="noreferrer"
-            className="inline-block border border-fg px-5 py-3 font-mono text-xs uppercase tracking-widest no-underline hover:border-accent hover:bg-accent hover:text-bg"
+            className="inline-block border border-fg px-5 py-3 font-mono text-xs uppercase tracking-widest no-underline transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg"
           >
             Ouvir no Spotify
           </a>
           <Link
             href="/ao-vivo"
-            className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted no-underline hover:text-accent"
+            className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted no-underline transition-colors duration-200 hover:text-accent"
           >
             Ver a agenda <span aria-hidden="true">↓</span>
           </Link>

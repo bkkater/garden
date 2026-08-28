@@ -47,7 +47,7 @@ export default function Navigation() {
               key={item.to}
               href={item.to}
               aria-current={active ? 'page' : undefined}
-              className={`shrink-0 px-3 py-3 font-mono text-xs uppercase tracking-widest no-underline hover:text-accent hover:mix-blend-normal ${
+              className={`shrink-0 px-3 py-3 font-mono text-xs uppercase tracking-widest no-underline transition-colors duration-200 hover:text-accent hover:mix-blend-normal ${
                 active ? 'text-accent mix-blend-normal' : ''
               }`}
             >
@@ -59,7 +59,7 @@ export default function Navigation() {
 
       <a
         href={`mailto:${band.email}`}
-        className="hidden shrink-0 rounded-full border border-fg px-4 py-2 font-mono text-xs uppercase tracking-widest no-underline mix-blend-normal transition-colors hover:border-accent hover:bg-accent hover:text-bg lg:inline-block"
+        className="hidden shrink-0 rounded-full border border-fg px-4 py-2 font-mono text-xs uppercase tracking-widest no-underline mix-blend-normal transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg lg:inline-block"
       >
         Booking
       </a>

@@ -74,7 +74,7 @@ export default function Banda() {
               <img
                 src={member.image}
                 alt={`${member.name}, ${member.role}`}
-                className="h-[58vh] w-full object-cover object-[center_18%] transition-[transform,filter] duration-700 [filter:contrast(1.12)_saturate(0.82)] group-hover:scale-[1.04] group-hover:[filter:contrast(1.22)_saturate(0.5)]"
+                className="h-[58vh] w-full object-cover object-[center_18%] transition-[transform,filter] duration-500 ease-out [filter:contrast(1.12)_saturate(0.82)] group-hover:scale-[1.02] group-hover:[filter:contrast(1.15)_saturate(0.65)]"
               />
               <figcaption className="absolute inset-x-3 bottom-3 flex flex-col gap-1 [text-shadow:0_1px_10px_var(--color-bg)]">
                 <strong className="text-xl tracking-tight">{member.name}</strong>

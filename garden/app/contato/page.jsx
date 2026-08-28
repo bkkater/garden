@@ -20,7 +20,7 @@ export default function Contato() {
 
       <a
         href={`mailto:${band.email}`}
-        className="mb-14 block break-words font-extrabold tracking-tighter no-underline text-3xl sm:text-4xl lg:text-5xl hover:text-accent"
+        className="mb-14 block break-words font-extrabold tracking-tighter no-underline text-3xl sm:text-4xl lg:text-5xl transition-colors duration-200 hover:text-accent"
       >
         {band.email}
       </a>
@@ -28,8 +28,7 @@ export default function Contato() {
       <div className="flex flex-col gap-12 md:flex-row md:items-start md:gap-16">
         <div className="md:flex-1">
           <p className="max-w-prose leading-relaxed text-copy">
-            Shows, festivais, Weird Parties e o corre do ao vivo. Fala com a Garden
-            pelo e-mail ou pelas redes.
+            Fale com a Garden pelo e-mail ou pelas redes.
           </p>
           <SocialLinks className="mt-7 max-w-md" />
         </div>

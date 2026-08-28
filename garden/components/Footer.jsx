@@ -10,13 +10,13 @@ export default function Footer() {
         <div>
           <Link
             href="/"
-            className="font-mono text-xs uppercase tracking-widest no-underline hover:text-accent"
+            className="font-mono text-xs uppercase tracking-widest no-underline transition-colors duration-200 hover:text-accent"
           >
             Garden Psychedelia
           </Link>
           <a
             href={`mailto:${band.email}`}
-            className="mt-3 block break-words text-base no-underline hover:text-accent"
+            className="mt-3 block break-words text-base no-underline transition-colors duration-200 hover:text-accent"
           >
             {band.email}
           </a>

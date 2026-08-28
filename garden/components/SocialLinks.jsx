@@ -36,7 +36,7 @@ export default function SocialLinks({ variant = 'list', className = '' }) {
               target="_blank"
               rel="noreferrer"
               aria-label={`${s.label} — abre em nova aba`}
-              className="flex h-11 w-11 items-center justify-center text-muted transition-colors hover:text-accent"
+              className="flex h-11 w-11 items-center justify-center text-muted transition-colors duration-200 hover:text-accent"
             >
               <Icon name={s.key} />
             </a>
@@ -54,7 +54,7 @@ export default function SocialLinks({ variant = 'list', className = '' }) {
             href={s.url}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-3 py-3 no-underline transition-colors hover:text-accent"
+            className="flex items-center gap-3 py-3 no-underline transition-colors duration-200 hover:text-accent"
           >
             <Icon name={s.key} />
             <span className="font-mono text-xs uppercase tracking-widest">

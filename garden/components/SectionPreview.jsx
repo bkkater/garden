@@ -11,19 +11,19 @@ export default function SectionPreview({ index, label, teaser, image, to, flip }
         <img
           src={image}
           alt=""
-          className="aspect-[4/3] w-full object-cover transition duration-700 [filter:contrast(1.08)_saturate(0.85)] group-hover:scale-[1.03] group-hover:[filter:contrast(1.15)_saturate(0.7)]"
+          className="aspect-[4/3] w-full object-cover transition duration-500 ease-out [filter:contrast(1.08)_saturate(0.85)] group-hover:scale-[1.02] group-hover:[filter:contrast(1.12)_saturate(0.78)]"
         />
       </div>
 
       <div className={flip ? 'md:order-1' : ''}>
         <p className="font-mono text-xs tracking-widest text-muted">{index}</p>
-        <h2 className="mt-1 font-extrabold tracking-tighter text-4xl md:text-5xl group-hover:text-accent">
+        <h2 className="mt-1 font-extrabold tracking-tighter text-4xl md:text-5xl transition-colors duration-200 group-hover:text-accent">
           {label}
         </h2>
         <p className="mt-3 max-w-prose text-lg leading-relaxed text-copy">
           {teaser}
         </p>
-        <span className="mt-5 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest group-hover:text-accent">
+        <span className="mt-5 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest transition-colors duration-200 group-hover:text-accent">
           Abrir <span aria-hidden="true">↗</span>
         </span>
       </div>

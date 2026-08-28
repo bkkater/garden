@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { logos } from '@/lib/media'
+import { useEffect, useState } from 'react'
 
 const MIN_VISIBLE = 650 // ms — evita o "pisca" em cargas rápidas
 const FAILSAFE = 4500 // ms — nunca prende o usuário

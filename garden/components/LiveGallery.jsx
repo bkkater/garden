@@ -29,7 +29,7 @@ export default function LiveGallery({ groups, headingLevel: Heading = 'h3' }) {
                   src={shot.src}
                   alt={`${shot.event}, foto ${shot.credit}`}
                   loading="lazy"
-                  className="h-full min-h-[280px] w-full object-cover transition-[transform,filter] duration-700 [filter:contrast(1.08)_saturate(0.8)] group-hover:scale-[1.04] group-hover:[filter:contrast(1.25)_saturate(0.4)]"
+                  className="h-full min-h-[280px] w-full object-cover transition-[transform,filter] duration-500 ease-out [filter:contrast(1.08)_saturate(0.8)] group-hover:scale-[1.02] group-hover:[filter:contrast(1.15)_saturate(0.6)]"
                 />
                 <span className="absolute bottom-3 left-3 flex flex-col font-mono text-xs uppercase tracking-widest [text-shadow:0_1px_8px_var(--color-bg)]">
                   {shot.event}
