@@ -5,7 +5,7 @@ import { agenda, band, events, posters } from '@/lib/content';
 import { galleryByEvent } from '@/lib/media';
 import { AGENDA_YEAR } from '@/lib/site';
 
-const description = `Agenda ${AGENDA_YEAR} aberta. E a retrospectiva: Festival Troque o Disco, as Weird Parties e as fotos de cada noite.`;
+const description = `Festival Troque o Disco, as Weird Parties e os próximos shows da Garden. Agenda ${AGENDA_YEAR} aberta.`;
 
 export const metadata = {
   title: 'Shows',
@@ -49,8 +49,7 @@ export default function AoVivo() {
           Já rolou
         </h2>
         <p className='mt-3 mb-12 max-w-prose text-lg leading-relaxed text-copy'>
-          Um festival, quatro Weird Parties e muitas outras histórias. Tudo isso
-          entre {band.since} e {AGENDA_YEAR}.
+          Um festival, quatro Weird Parties e muitas outras histórias.
         </p>
 
         <h3 className='kicker'>Shows e festas</h3>

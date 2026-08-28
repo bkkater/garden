@@ -38,6 +38,7 @@ export default function Banda() {
 
         <div className="max-w-prose">
           <p className="mb-4 text-lg leading-relaxed text-copy">{band.about}</p>
+          <p className="mb-4 text-lg leading-relaxed text-copy">{band.live}</p>
           <p className="mb-4 text-lg leading-relaxed text-copy">{band.manifesto}</p>
           <ul className="mt-8 border-t border-line">
             {[

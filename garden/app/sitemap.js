@@ -1,6 +1,14 @@
+import { tracks } from '@/lib/content'
 import { siteUrl } from '@/lib/site'
 
-const routes = ['', '/banda', '/shows', '/sons', '/contato']
+const routes = [
+  '',
+  '/banda',
+  '/shows',
+  '/sons',
+  '/contato',
+  ...tracks.map((track) => `/sons/${track.slug}`),
+]
 
 export default function sitemap() {
   return routes.map((route) => ({

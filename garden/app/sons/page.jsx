@@ -1,8 +1,10 @@
+import Link from 'next/link'
 import PageShell from '@/components/PageShell'
 import PageHead from '@/components/PageHead'
-import { band, demos, releases } from '@/lib/content'
+import { band, demos, ep1, releases } from '@/lib/content'
 
-const description = 'Discos, singles e demos da Garden Psychedelia.'
+const description =
+  'Singles, o EP 1 em produção e as demos da Garden Psychedelia — com letras.'
 
 export const metadata = {
   title: 'Sons',
@@ -18,8 +20,12 @@ export default function Sons() {
   return (
     <PageShell>
       <PageHead eyebrow="03 — Sons">
-        Discos, singles e o que ainda está germinando.
+        EPs, singles e o que ainda está por vir.
       </PageHead>
+
+      <p className="mb-16 font-mono text-xs uppercase tracking-widest text-accent">
+        +40.000 plays nos streamings
+      </p>
 
       <article className="mb-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
         <img
@@ -38,14 +44,22 @@ export default function Sons() {
           <p className="my-4 font-mono text-xs uppercase tracking-widest text-accent">
             {featured.plays} plays
           </p>
-          <a
-            href={band.spotify}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-block border border-fg px-4 py-3 text-xs uppercase tracking-widest no-underline transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg"
-          >
-            Ouvir no Spotify
-          </a>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <a
+              href={band.spotify}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block border border-fg px-4 py-3 text-xs uppercase tracking-widest no-underline transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg"
+            >
+              Ouvir no Spotify
+            </a>
+            <Link
+              href={`/sons/${featured.slug}`}
+              className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted no-underline transition-colors duration-200 hover:text-accent"
+            >
+              Ver mais <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
         </div>
       </article>
 
@@ -68,23 +82,51 @@ export default function Sons() {
               <span className="block max-w-prose leading-relaxed text-copy">
                 {item.note}
               </span>
+              <Link
+                href={`/sons/${item.slug}`}
+                className="mt-2 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted no-underline transition-colors duration-200 hover:text-accent"
+              >
+                Ver mais <span aria-hidden="true">↗</span>
+              </Link>
             </div>
           </article>
         ))}
       </div>
 
+      <section className="mt-20 border-t border-line pt-8">
+        <h2 className="mb-2.5 text-3xl md:text-4xl tracking-tight">EP 1</h2>
+        <p className="max-w-prose leading-relaxed text-copy">
+          As quatro faixas em produção para o próximo EP. Letra completa e prévia
+          do som em cada página.
+        </p>
+        <ul className="mt-6 flex flex-wrap gap-2.5">
+          {ep1.map((track) => (
+            <li key={track.slug}>
+              <Link
+                href={`/sons/${track.slug}`}
+                className="inline-flex items-center gap-2 border border-fg px-3.5 py-2.5 font-mono text-xs uppercase tracking-wider no-underline transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg"
+              >
+                <span aria-hidden="true">✦</span> {track.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <aside className="mt-20 border-t border-line pt-8">
         <h2 className="mb-2.5 text-3xl md:text-4xl tracking-tight">No estúdio</h2>
         <p className="max-w-prose leading-relaxed text-copy">
-          Demos em processo — Morning Riser já vazou do palco para o arquivo ao vivo.
+          Demos em processo, sons que ainda estão por vir e que você já pode conferir.
         </p>
         <ul className="mt-6 flex flex-wrap gap-2.5">
-          {demos.map((name) => (
-            <li
-              key={name}
-              className="border border-line px-3.5 py-2.5 font-mono text-xs uppercase tracking-wider"
-            >
-              {name}
+          {demos.map((demo) => (
+            <li key={demo.slug}>
+              <Link
+                href={`/sons/${demo.slug}`}
+                className="inline-flex items-center gap-2 border border-line px-3.5 py-2.5 font-mono text-xs uppercase tracking-wider no-underline transition-colors duration-200 hover:border-accent hover:text-accent"
+              >
+                <span aria-hidden="true">▶</span> {demo.title}
+              </Link>
             </li>
           ))}
         </ul>
