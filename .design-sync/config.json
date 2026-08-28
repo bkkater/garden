@@ -1,8 +1,0 @@
-{
-  "projectId": "4e74ad25-0fe5-4da8-bbb1-cf4506a4b515",
-  "shape": "package",
-  "scope": "light",
-  "readmeHeader": ".design-sync/conventions.md",
-  "globalName": "GardenPsychedelia",
-  "note": "Site Next.js, nao design system empacotado. Sync leve OFF-SCRIPT: sem conversor, sem dist/, sem Storybook. Bundle montado a mao com esbuild (scratchpad). Sem _ds_sync.json -> re-sync re-verifica tudo."
-}

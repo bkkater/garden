@@ -5,5 +5,4 @@ Thumbs.db
 .env.*
 !.env.example
 
-# design-sync build artifact (regeneravel)
-ds-bundle/
+node_modules
