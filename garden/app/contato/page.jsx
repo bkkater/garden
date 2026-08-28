@@ -3,8 +3,9 @@ import PageHead from '@/components/PageHead'
 import SocialLinks from '@/components/SocialLinks'
 import { band } from '@/lib/content'
 import { contatoMedia } from '@/lib/media'
+import { AGENDA_YEAR } from '@/lib/site'
 
-const description = 'Booking e contato da Garden Psychedelia — agenda 2026 aberta.'
+const description = `Booking e contato da Garden Psychedelia — agenda ${AGENDA_YEAR} aberta.`
 
 export const metadata = {
   title: 'Contato',
@@ -16,7 +17,7 @@ export const metadata = {
 export default function Contato() {
   return (
     <PageShell>
-      <PageHead eyebrow="04 — Contato">Agenda 2026 aberta.</PageHead>
+      <PageHead eyebrow="04 — Contato">Agenda {AGENDA_YEAR} aberta.</PageHead>
 
       <a
         href={`mailto:${band.email}`}

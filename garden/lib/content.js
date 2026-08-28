@@ -5,6 +5,7 @@ import {
   memberPhotos,
   posterFiles,
 } from './media';
+import { AGENDA_YEAR } from './site';
 
 export const band = {
   name: 'Garden Psychedelia',
@@ -19,11 +20,10 @@ export const band = {
   monthlyListeners: 60,
   followers: 438,
   quote:
-    'O ponto de partida para o nascimento da Garden foi a necessidade de escutar algo diferente, algo que não esperávamos escutar. Psicodelia como referência, alternativo por natureza e sério por escolha.',
+    'O ponto de partida para o nascimento da Garden foi a necessidade de escutar algo diferente, algo que não esperávamos escutar.',
   manifesto:
     'Ecléticos, porém seletivos. Tudo é referência, não tem menção específica, mas a base é rock and roll.',
-  about:
-    'Desde 2019, um grupo de amigos em Campos dos Goytacazes faz um som fino, de qualidade e com muita psicodelia. As apresentações recentes são explosivas — a Garden namora o palco ao vivo e segue com agenda 2026 aberta.',
+  about: `Desde 2019, um grupo de amigos em Campos dos Goytacazes faz um som fino, de qualidade e com muita psicodelia. As apresentações recentes são explosivas — a Garden namora o palco ao vivo e segue com agenda ${AGENDA_YEAR} aberta.`,
 };
 
 export const members = [
@@ -50,6 +50,7 @@ export const homeSections = [
     to: '/banda',
     index: '01',
     label: 'Banda',
+    cta: 'Conhecer a banda',
     teaser: 'Cinco amigos em Campos dos Goytacazes, um som fino desde 2019.',
     image: livePhotos.festivalBand,
   },
@@ -57,13 +58,15 @@ export const homeSections = [
     to: '/ao-vivo',
     index: '02',
     label: 'Ao vivo',
-    teaser: 'Festival Troque o Disco, as Weird Parties e a agenda 2026 aberta.',
+    cta: 'Ver a agenda',
+    teaser: `Festival Troque o Disco, as Weird Parties e a agenda ${AGENDA_YEAR} aberta.`,
     image: posterFiles.weirdParty4,
   },
   {
     to: '/sons',
     index: '03',
     label: 'Sons',
+    cta: 'Ouvir a Garden',
     teaser: 'Dbawot é o lançamento mais recente — o jardim como corpo.',
     image: covers.dbawot,
   },
@@ -71,6 +74,7 @@ export const homeSections = [
     to: '/contato',
     index: '04',
     label: 'Contato',
+    cta: 'Falar com a Garden',
     teaser:
       'talktogarden@gmail.com — para shows, festivais e o corre do ao vivo.',
     image: livePhotos.wp3Milton,
@@ -125,9 +129,10 @@ export const demos = [
   'Go Away',
 ];
 
-// Estado da agenda 2026. Sem datas fechadas até agora — atualize aqui.
+// Estado da agenda em aberto. O ano vem de AGENDA_YEAR (lib/site.js).
 export const agenda = {
-  status: 'A agenda 2026 está aberta.',
+  year: AGENDA_YEAR,
+  status: `A agenda ${AGENDA_YEAR} está aberta.`,
   detail: 'Ainda sem datas confirmadas. ',
   upcoming: [],
 };

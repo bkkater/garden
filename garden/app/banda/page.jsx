@@ -20,7 +20,7 @@ export default function Banda() {
         Alternativo por natureza. Sério por escolha.
       </PageHead>
 
-      <blockquote className="mb-16 max-w-[24ch] leading-tight tracking-tight text-2xl md:text-3xl">
+      <blockquote className="mb-16 max-w-[46ch] font-normal leading-snug text-xl md:text-2xl text-copy">
         {band.quote}
       </blockquote>
 

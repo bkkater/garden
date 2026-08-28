@@ -3,9 +3,9 @@ import PageHead from '@/components/PageHead';
 import PageShell from '@/components/PageShell';
 import { agenda, band, events, posters } from '@/lib/content';
 import { galleryByEvent } from '@/lib/media';
+import { AGENDA_YEAR } from '@/lib/site';
 
-const description =
-  'Agenda 2026 aberta. E a retrospectiva: Festival Troque o Disco, as Weird Parties e as fotos de cada noite.';
+const description = `Agenda ${AGENDA_YEAR} aberta. E a retrospectiva: Festival Troque o Disco, as Weird Parties e as fotos de cada noite.`;
 
 export const metadata = {
   title: 'Ao vivo',
@@ -30,7 +30,7 @@ export default function AoVivo() {
       {/* Agenda — o que está por vir */}
       <section className='mb-20 max-w-prose border-t border-line pt-8'>
         <h2 className='font-extrabold tracking-tighter text-3xl md:text-4xl'>
-          Agenda 2026
+          Agenda {AGENDA_YEAR}
         </h2>
         <p className='mt-3 text-lg leading-relaxed text-copy'>
           {agenda.status} {agenda.detail}
@@ -50,7 +50,7 @@ export default function AoVivo() {
         </h2>
         <p className='mt-3 mb-12 max-w-prose text-lg leading-relaxed text-copy'>
           Um festival, quatro Weird Parties e muitas outras histórias. Tudo isso
-          entre 2019 e 2026.
+          entre {band.since} e {AGENDA_YEAR}.
         </p>
 
         <h3 className='kicker'>Shows e festas</h3>

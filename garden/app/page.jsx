@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import SectionPreview from '@/components/SectionPreview'
 import { band, homeIntro, homeSections } from '@/lib/content'
-import { siteUrl } from '@/lib/site'
+import { AGENDA_YEAR, siteUrl } from '@/lib/site'
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -35,7 +35,7 @@ export default function Home() {
             {band.city} — {band.state}
           </span>
           <span aria-hidden="true" className="text-muted/40">|</span>
-          <span className="text-fg">Agenda 2026 aberta</span>
+          <span className="text-fg">Agenda {AGENDA_YEAR} aberta</span>
         </p>
 
         <div>

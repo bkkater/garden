@@ -1,7 +1,15 @@
 import Link from 'next/link'
 
 // Bloco de prévia de uma seção na Home. O card inteiro é um link.
-export default function SectionPreview({ index, label, teaser, image, to, flip }) {
+export default function SectionPreview({
+  index,
+  label,
+  cta,
+  teaser,
+  image,
+  to,
+  flip,
+}) {
   return (
     <Link
       href={to}
@@ -23,8 +31,8 @@ export default function SectionPreview({ index, label, teaser, image, to, flip }
         <p className="mt-3 max-w-prose text-lg leading-relaxed text-copy">
           {teaser}
         </p>
-        <span className="mt-5 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest transition-colors duration-200 group-hover:text-accent">
-          Abrir <span aria-hidden="true">↗</span>
+        <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-fg px-4 py-2 font-mono text-xs uppercase tracking-widest transition-colors duration-200 group-hover:border-accent group-hover:text-accent">
+          {cta} <span aria-hidden="true">↗</span>
         </span>
       </div>
     </Link>
