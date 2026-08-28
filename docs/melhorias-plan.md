@@ -65,7 +65,7 @@ F19 (tracking em frases). Prepara F17.
 
 ---
 
-## Etapa 2 — Título das subpáginas visível sem scroll
+## Etapa 2 — Título das subpáginas visível sem scroll ✅
 
 > "Os textos do título das páginas só pegam metade da tela, tem que scrollar
 > pra ver. ex 'Alternativo por natureza. Sério por escolha.'"
