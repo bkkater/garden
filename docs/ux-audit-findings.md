@@ -10,7 +10,7 @@ Status por etapa:
 | 1 | Setup | ✅ concluída |
 | 2 | Varredura automática (Lighthouse + axe) | ✅ concluída |
 | 3 | Contraste + leitura sobre o vídeo | ✅ concluída |
-| 4 | Hierarquia + tipografia | ⬜ pendente |
+| 4 | Hierarquia + tipografia | ✅ concluída |
 | 5 | CTAs | ⬜ pendente |
 | 6 | Mobile | ⬜ pendente |
 | 7 | Performance aprofundada | ⬜ pendente |
@@ -267,7 +267,106 @@ claro e o scrim é mais fino (~40%).
 
 ## Etapa 4 — Hierarquia + tipografia
 
-_pendente_
+Método: extração automática (Playwright) da árvore de headings e das métricas
+de cada texto-folha (px / line-height / tracking / família / transform /
+caracteres por linha) nas 5 rotas em 1440px, + teste de zoom 200%, + leitura
+manual do conteúdo.
+
+### Árvore de headings
+
+| Rota | Estrutura | Observação |
+| --- | --- | --- |
+| `/` | H1 | 1 h1 (hero). ok |
+| `/banda` | H1 → H2 "Integrantes" | o bloco de bio (quote + about + facts) e a tira de fotos **não têm heading** |
+| `/ao-vivo` | H1 → **9× H2** | "Festival Troque o Disco" aparece **2×**; os h2 da lista de eventos (24px) vêm antes dos h2 das galerias (48px) — ordem no DOM invertida em relação ao tamanho; sem heading agrupador |
+| `/sons` | H1 → H2 "Dbawot" → H3×3 → H2 "No estúdio" | "Dbawot" (h2, **110px**) e "No estúdio" (h2, **36px**) — mesmo nível, tamanhos muito diferentes |
+| `/contato` | H1 | simples. ok |
+
+Nível de heading sem salto em todas (h1→h2→h3 correto). **Um h1 por rota.**
+
+### Inventário tipográfico
+
+| px | Onde | Nota |
+| --- | --- | --- |
+| **9** | índices "01–04" da nav (desktop) | abaixo de qualquer mínimo razoável |
+| **10** | créditos de foto na galeria ("Hyakuya"…), uppercase + tracking | 10px mono caixa-alta sobre foto |
+| **11** | kicker, "Booking", eyebrow, labels da tabela de facts, `role` dos integrantes, local dos eventos, "N fotos", figcaptions, meta dos releases | **~15 usos** — é o tamanho-padrão de rótulo e está 3–5px abaixo do confortável |
+| **12** | chips de demo, botão "Ouvir no Spotify", "N.NNN plays" | |
+| **13** | brand "Garden" na nav | |
+| **14** | valores da tabela de facts ("2019", "Cinco integrantes") | limítrofe ok |
+| **16** | notas de release, notas de evento, copy do contato | mínimo aceitável de corpo |
+| **18** | about da `/banda`, quote da Home, eyebrow serif da Home | bom |
+| 24–140 | headings display | |
+
+**Corpo de texto nunca abaixo de 16px (bom).** O problema é o **volume de
+rótulo/legenda em 9–12px**, agravado por caixa-alta + tracking largo.
+
+### Line-height / tracking
+
+- h1 em `leading-[0.92]`; "Dbawot" em `leading-[0.85]`. Em pt-BR o h1 da
+  `/banda` quebra em 3 linhas ("Alternativo por / natureza. Sério por /
+  escolha.") — os acentos (é, ç) da linha seguinte quase encostam. Apertado,
+  mas aceitável para display.
+- corpo em `leading-relaxed` (~1.63) — bom.
+- tracking 0.1–0.16em aplicado a **frases** uppercase de 3–4 palavras
+  ("Campos dos Goytacazes — RJ", "Tales Tabacaria · R. Saldanha Marinho,
+  264") — tracking ajuda rótulo curto, atrapalha frase.
+
+### Comprimento de linha (alvo 45–75 caracteres)
+
+| Rota | Bloco | ch/linha |
+| --- | --- | --- |
+| `/` | intro | ~45 ✅ |
+| `/banda` | about | ~74 ⚠️ no limite |
+| `/banda` | quote | ~36 ✅ |
+| `/ao-vivo` | notas de evento | ~49–54 ✅ |
+| `/sons` | nota do featured | **~84** ❌ |
+| `/sons` | "Demos em processo…" (sem `max-width`) | **~172** ❌ |
+| `/contato` | copy | **~83** ❌ |
+
+### Zoom 200% (WCAG 1.4.4 / 1.4.10 reflow)
+
+| Rota | scrollWidth vs viewport (1280) | |
+| --- | --- | --- |
+| `/` | **2638** | ❌ scroll horizontal |
+| `/banda` | 1512 | ❌ |
+| `/ao-vivo` | 1616 | ❌ |
+| `/sons` | 1943 | ❌ |
+| `/contato` | 1280 | ✅ |
+
+Os títulos display (`clamp(…, 11vw, 140px)`, "Dbawot" 110px) não encolhem no
+zoom e o `overflow-x: hidden` do `body` **corta** o conteúdo em vez de refluir.
+(medido com `body { zoom: 2 }` — confirmar com zoom real do navegador, mas a
+direção é clara: é a mesma causa do overflow já visto no mobile.)
+
+### Achados
+
+| id | eixo | onde | descrição | sev. | esforço |
+| --- | --- | --- | --- | --- | --- |
+| **F13** | hierarquia | `/ao-vivo` | 9 h2 numa página; "Festival Troque o Disco" duplicado (lista de eventos + galeria); h2 pequenos (eventos, 24px) antes dos h2 grandes (galerias, 48px); sem heading agrupando "Eventos" vs "Galeria". Navegação por headings fica confusa. | alto | M |
+| **F14** | hierarquia / conteúdo | `/banda`, `/ao-vivo`, `/sons` | Os h1 das subpáginas são **slogans poéticos** ("Alternativo por natureza…", "O trabalho desses anos…", "Discos, singles e o que ainda está germinando."), não rótulos funcionais. Quem escaneia não identifica "página da banda / dos shows / da música". O `<title>` é funcional, o h1 não. | alto | S |
+| **F15** | hierarquia | `/banda`, `/sons` | `/banda`: bloco de bio e tira de fotos sem heading (só "Integrantes" é h2). `/sons`: "Dbawot" (h2 110px) e "No estúdio" (h2 36px) — mesmo nível, tamanhos díspares. | médio | S |
+| **F16** | tipografia | global | ~20 elementos de texto entre 9 e 12px (nav índices, créditos, kicker, labels, roles, places, chips). Caixa-alta + tracking largo somam à dificuldade. | alto | M |
+| **F17** | tipografia / a11y | global | Zoom 200% gera scroll horizontal em 4 de 5 rotas — os títulos display não refluem e o `overflow-x: hidden` corta o conteúdo. Reprova WCAG 1.4.10. | alto | M |
+| **F18** | tipografia | `/sons`, `/contato`, `/banda` | Parágrafos acima de 75 caracteres/linha; "Demos em processo…" sem `max-width` chega a ~172. | médio | XS |
+| **F19** | tipografia | global | `letter-spacing` 0.1–0.16em em frases uppercase de 3–4 palavras — prejudica a leitura do rótulo. | baixo | XS |
+| **F20** | microcopy | Navigation | "Booking" (inglês) num site pt-BR. | baixo | XS |
+| **F21** | conteúdo | `/`, `/banda` | Redundância literal: Home — eyebrow "psicodelia como referência" repete no começo da quote. `/banda` — h1 repete o fim da quote ("alternativo por natureza e sério por escolha"). | baixo | XS |
+
+### Positivos
+
+- 1 h1 por rota, sem salto de nível de heading.
+- **CLS 0** — `next/font` com métricas de fallback funciona, sem jank de troca
+  de fonte.
+- Corpo 16–18px, `line-height` 1.45–1.63 — leitura confortável onde importa.
+- Eyebrow corretamente subordinado (11px muted vs h1 display).
+- Escala de display coerente entre rotas (PageHead sempre `clamp(40,7vw,92)`).
+
+### Atualização de suspeitas
+
+- **S7** (e-mail quebra) → é um sintoma de **F17** (o `break-words` no e-mail é
+  o que impede a `/contato` de estourar no zoom; as outras rotas não têm essa
+  válvula).
 
 ## Etapa 5 — CTAs
 
