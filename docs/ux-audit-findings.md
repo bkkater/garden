@@ -12,7 +12,7 @@ Status por etapa:
 | 3 | Contraste + leitura sobre o vídeo | ✅ concluída |
 | 4 | Hierarquia + tipografia | ✅ concluída |
 | 5 | CTAs | ✅ concluída |
-| 6 | Mobile | ⬜ pendente |
+| 6 | Mobile | ✅ concluída |
 | 7 | Performance aprofundada | ⬜ pendente |
 | 8 | Consolidação | ⬜ pendente |
 
@@ -435,7 +435,86 @@ continua ausente** (o primeiro Tab vai para o brand).
 
 ## Etapa 6 — Mobile
 
-_pendente_
+Método: emulação (Playwright, `isMobile` + touch) em 390, 320 (SE), 768
+(tablet) e 844×390 (landscape); overflow horizontal + culpado, altura da
+página em telas, alvos de toque, nav, lightbox. Sem dispositivo físico — os
+números de FPS/bateria do shader ficam para a etapa 7.
+
+### Overflow horizontal
+
+| Rota | 390 | 320 | landscape | tablet 768 |
+| --- | --- | --- | --- | --- |
+| `/` | ⚠️ 402>375 | ⚠️ 402>320 | ⚠️ 870>844 | ⚠️ 793>768 |
+| `/banda` | ok | ⚠️ 339>320 | ok | ok |
+| `/ao-vivo` | ok | ⚠️ 362>320 | ok | ok |
+| `/sons` | ⚠️ 395>390 | ⚠️ 395>320 | ok | ok |
+| `/contato` | ok | ok | ok | ok |
+
+Causa: **`overflow-x: hidden` está só no `body`, não no `html`** — o
+`document.documentElement` continua rolando na horizontal. O conteúdo que
+estoura (título display `clamp(…,11–12vw,140px)`, nav — ver abaixo) infla os
+elementos `fixed inset-0` (shader wrapper, `<canvas>`, `.video-scrim`,
+`.grain`, `<header>`), que passam todos a reportar 402px num viewport de 375.
+
+### Nav mobile
+
+| | |
+| --- | --- |
+| Altura | 68px (a `pt-28`/112px da Home limpa) |
+| Links | 4 links (~284px) num espaço de ~190px após o brand → **overflow com scroll oculto** |
+| Efeito visível | no mobile ≤~400px o **último item ("Contato") fica fora da tela**, sem nenhuma indicação de que a barra rola |
+| Alvo de toque | **todos os 4 links = ~65–81 × 33px** — 33px de altura reprova o mínimo de 44px |
+
+### Altura das páginas (scroll)
+
+| Rota | 390px | 320px | landscape |
+| --- | --- | --- | --- |
+| `/` | 1 tela | — | 1,3 |
+| `/contato` | 1,3 | 1,9 | 4,1 |
+| `/sons` | 2,3 | 3,1 | 5,6 |
+| `/banda` | **5** | 6,2 | 7,6 |
+| `/ao-vivo` | **11,1** | **14,6** | **29,3** |
+
+`/ao-vivo`: 52 fotos a `min-h-[280px]` em 2 colunas + eventos + pôsteres. Sem
+marcos internos, sem "voltar ao topo", sem índice das galerias. O grid de
+integrantes da `/banda` (2 col × `h-[58vh]`, 3 linhas) é o segundo maior peso.
+
+### Lightbox mobile
+
+| | |
+| --- | --- |
+| Área da imagem | 359×238 = **26% da viewport** (`p-10` + legenda + `object-contain`) |
+| Botão de fechar | **não existe** |
+| `Esc` fecha | **não** |
+| Scroll do fundo | **não travado** — dá para rolar a página atrás do modal |
+| Swipe / próxima foto | não |
+
+### Positivos
+
+- **Pinch-zoom permitido** — `<meta viewport>` sem `user-scalable=no` nem
+  `maximum-scale` (padrão do Next). ✅
+- Landscape: as subpáginas cabem (46vh de shader + conteúdo).
+- `body { overflow-x: hidden }` existe — só falta estender ao `html`.
+- `prefers-reduced-motion` no mobile: o shader não monta (verificado).
+
+### Achados
+
+| id | eixo | onde | descrição | sev. | esforço |
+| --- | --- | --- | --- | --- | --- |
+| **F31** | mobile | `Navigation` | No mobile ≤~400px o **último item da nav ("Contato") fica fora da tela**, sem affordance de scroll. `<header class="flex">` + `<nav class="flex-1 overflow-x-auto">` com 4 links que não cabem. Um visitante mobile não acha o link de contato. | **alto** | S |
+| **F32** | mobile / a11y | `globals.css` | `overflow-x: hidden` só no `body`; o `html` ainda rola horizontalmente. `/` e `/sons` rolam a 390px; 4/5 rotas a 320px; `/` no tablet e no landscape. | alto | XS |
+| **F33** | mobile / toque | `Navigation`, `/sons` | Os 4 links da nav têm 33px de altura no mobile (`py-2` + 11px) — reprova o alvo de 44px. "Ouvir no Spotify" 42px. | alto | S |
+| **F34** | mobile | `/ao-vivo`, `/banda` | Páginas longuíssimas: `/ao-vivo` = 11 telas a 390px, 29 em landscape; `/banda` = 5 telas. Sem marcos, sem "voltar ao topo", sem índice/filtro de galerias. | médio | M |
+| **F35** | mobile | `/banda` integrantes | Grid 2 col × `h-[58vh]` — cada linha ≈ 1,2 tela. Confirma **S6**; considerar `aspect-[3/4]` fixo em vez de `vh`. | médio | S |
+| **F36** | mobile / a11y | `LiveGallery` | Lightbox: imagem ocupa só 26% da tela no mobile; **sem botão de fechar**, **`Esc` não fecha**, **scroll do fundo não travado**, sem swipe. Confirma e amplia **S4**. | **alto** | M |
+| **F37** | mobile | `/`, `/sons` | Título "Psychedelia" / "Dbawot" toca ou excede a borda direita — é o gatilho do overflow (junto com a nav). Parte do **F17**. | médio | S |
+
+### Atualização de suspeitas
+
+- **S4** → confirmada e ampliada (F36).
+- **S6** → confirmada (F35), mas `/ao-vivo` (F34) é o problema de scroll maior.
+- **S7** → o e-mail quebrado é a válvula que faz a `/contato` ser a única rota
+  **sem** overflow (F32).
 
 ## Etapa 7 — Performance aprofundada
 
