@@ -39,6 +39,17 @@ export default async function TrackDetail({ params }) {
 
   const meta = [track.year, track.type].filter(Boolean).join(' · ')
 
+  const playButton = hasAudio(track) ? (
+    <TrackPlayButton
+      track={{
+        slug: track.slug,
+        title: track.title,
+        type: track.type,
+        audio: track.audio,
+      }}
+    />
+  ) : null
+
   return (
     <PageShell>
       <Link
@@ -48,19 +59,10 @@ export default async function TrackDetail({ params }) {
         <span aria-hidden="true">←</span> Voltar para Sons
       </Link>
 
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+      <div className="flex items-start justify-between gap-6">
         <PageHead eyebrow={`03 — Sons / ${track.title}`}>{track.title}</PageHead>
-        {hasAudio(track) && (
-          <div className="shrink-0 sm:pt-9">
-            <TrackPlayButton
-              track={{
-                slug: track.slug,
-                title: track.title,
-                type: track.type,
-                audio: track.audio,
-              }}
-            />
-          </div>
+        {playButton && (
+          <div className="hidden shrink-0 pt-9 sm:block">{playButton}</div>
         )}
       </div>
 
@@ -91,16 +93,19 @@ export default async function TrackDetail({ params }) {
               {track.plays} plays
             </p>
           )}
-          {track.spotifyTrackId && (
-            <a
-              href={`https://open.spotify.com/track/${track.spotifyTrackId}`}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center rounded-full border border-fg px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest no-underline transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg"
-            >
-              Ouvir no Spotify
-            </a>
-          )}
+          <div className="flex flex-wrap items-center gap-3">
+            {playButton && <span className="sm:hidden">{playButton}</span>}
+            {track.spotifyTrackId && (
+              <a
+                href={`https://open.spotify.com/track/${track.spotifyTrackId}`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center rounded-full border border-fg px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest no-underline transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg"
+              >
+                Ouvir no Spotify
+              </a>
+            )}
+          </div>
         </div>
 
       </article>
