@@ -11,7 +11,7 @@ Status por etapa:
 | 2 | Varredura automática (Lighthouse + axe) | ✅ concluída |
 | 3 | Contraste + leitura sobre o vídeo | ✅ concluída |
 | 4 | Hierarquia + tipografia | ✅ concluída |
-| 5 | CTAs | ⬜ pendente |
+| 5 | CTAs | ✅ concluída |
 | 6 | Mobile | ⬜ pendente |
 | 7 | Performance aprofundada | ⬜ pendente |
 | 8 | Consolidação | ⬜ pendente |
@@ -370,7 +370,68 @@ direção é clara: é a mesma causa do overflow já visto no mobile.)
 
 ## Etapa 5 — CTAs
 
-_pendente_
+Método: extração de todo elemento interativo por rota (texto, destino, posição,
+tratamento visual, acima/abaixo da dobra, alvo de toque, estado de foco) +
+percurso de teclado + três testes de tarefa raciocinados.
+
+### Inventário por rota
+
+| Rota | CTAs (além da nav) | Destino | Tratamento | Dobra (1440×900) |
+| --- | --- | --- | --- | --- |
+| `/` | **nenhum** | — | — | — |
+| `/banda` | **nenhum** | — | — | — |
+| `/ao-vivo` | ~50 `<button>` (abre lightbox) | — | sem estilo de botão | abaixo |
+| `/sons` | **1** — "Ouvir no Spotify" | Spotify **do artista** (não da faixa) | outline 12px, sem preenchimento | **abaixo** (y≈1383) |
+| `/contato` | e-mail (72px) + Instagram + Spotify | `mailto:` / externos | e-mail sem sublinhado; sociais com `border-b` (o `border-line` de 1.48:1) | e-mail acima; sociais abaixo |
+
+Persistente em todas: "Booking" (nav, 11px, inglês) → `mailto:` cru.
+Externos: `target="_blank"` **com** `rel="noreferrer"` ✅, mas **sem indicação
+visual** de "abre em nova aba".
+
+### Testes de tarefa
+
+| Tarefa | Caminho | Resultado |
+| --- | --- | --- |
+| "Ouça a música mais recente" | Home (sem CTA) → nav "Sons" → rolar até o botão → Spotify | **falha parcial**: botão abaixo da dobra, 12px; leva à **página do artista**, não a "Dbawot"; os outros 3 releases não têm link nenhum; sem player embed |
+| "Como contratar a banda" | "Booking" (nav) ou nav "Contato" → e-mail | **ok com atrito**: "Booking" é jargão em inglês; `mailto:` abre o cliente de e-mail sem assunto/corpo; a `/contato` resolve bem |
+| "Ver os próximos shows / agenda" | Home diz "Agenda 2026 aberta" (não é link) → nav "Ao vivo" | **falha**: `/ao-vivo` só tem shows **passados**; não existe agenda/próximas datas em lugar nenhum |
+
+### Foco (teclado)
+
+`outline: 1px auto rgb(0, 95, 204)` em todos os interativos — é o **anel padrão
+do Chrome**, não removido pelo reset do Tailwind. Existe, mas: 1px, azul
+off-brand, o estilo `auto` varia entre navegadores e, sobre a nav com
+`mix-blend-difference`, o anel é **misturado** e vira um traço quase invisível
+(confirmado visualmente). Nenhum `:focus-visible` customizado. **Skip-link
+continua ausente** (o primeiro Tab vai para o brand).
+
+### Achados
+
+| id | eixo | onde | descrição | sev. | esforço |
+| --- | --- | --- | --- | --- | --- |
+| **F22** | CTA | `/`, `/banda` | Nenhum call-to-action. A página institucional e a da banda não levam a nenhuma ação (ouvir, ver shows, contratar). Confirma e amplia **S3**. | alto | M |
+| **F23** | CTA | `/sons` | "Ouça a música" é o pior fluxo do site: único botão abaixo da dobra (12px, outline), aponta para a **página do artista** no Spotify em vez da faixa, e os outros 3 releases + as demos **não têm link nenhum**. Sem player embutido. | alto | M |
+| **F24** | CTA / conteúdo | `/` (kicker), `/contato` | "Agenda 2026 aberta" é afirmado 2× mas **não existe agenda** — `/ao-vivo` só mostra o passado. Promessa sem conteúdo nem CTA. | médio | M |
+| **F25** | CTA / microcopy | `Navigation` | "Booking" — único CTA de contato persistente, em inglês, 11px, dispara `mailto:` sem assunto/corpo pré-preenchidos. | médio | S |
+| **F26** | CTA | `/sons`, `/contato` | Afordância fraca: "Ouvir no Spotify" é só um contorno de 12px; o e-mail gigante da `/contato` não tem sublinhado em repouso (`no-underline`) — no mobile parece um título, não um link. | médio | S |
+| **F27** | CTA / a11y | links externos | Sem ícone/aviso de "abre em nova aba". | baixo | XS |
+| **F28** | a11y | `/ao-vivo` | Os ~50 botões da galeria têm nome acessível ruim: `"Festival Troque o DiscoHyakuya"` (evento + crédito colados, sem espaço, sem verbo). Um leitor de tela anuncia 50 botões quase idênticos e sem sentido. | médio | S |
+| **F29** | a11y | global | Indicador de foco = anel padrão do Chrome (1px, azul, `auto`), sem `:focus-visible` próprio; sobre a nav (`mix-blend-difference`) fica ilegível. **Skip-link ausente** (S5). | médio | S |
+| **F30** | mobile / toque | `Navigation` "Booking" (33px alt.), `/sons` botão (42px alt.) | Abaixo dos 44×44px recomendados. | baixo | XS |
+
+### Positivos
+
+- `/contato` faz CTA bem: e-mail em destaque, primeiro, com copy que
+  contextualiza ("Shows, festivais, Weird Parties e o corre do ao vivo").
+- `rel="noreferrer"` em **todos** os links externos.
+- Alvos de toque da nav principal: 46px de altura — acima de 44px ✅.
+- Há um indicador de foco (mesmo que fraco) — o reset do Tailwind não o apagou.
+
+### Atualização de suspeitas
+
+- **S3** → confirmada (F22).
+- **S5** → parcialmente: o foco **existe** (default do browser), mas não é
+  estilizado e some sobre a nav; o skip-link continua faltando.
 
 ## Etapa 6 — Mobile
 
