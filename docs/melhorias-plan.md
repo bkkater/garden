@@ -162,9 +162,9 @@ Imagem menor e circular; lista de redes completa.
   - Recomendação: **`logo-orb.png`** — é literalmente um círculo e bem
     psicodélico. (E reexportar num tamanho menor — ver F4.)
 - **Redes** — hoje `content.js` só tem `instagram` + `spotify`. Adicionar:
-  - `youtube` — **precisa da URL/handle**
-  - `tiktok` — **precisa da URL/handle**
-  - `instagram` (já existe: `@gardenpsychedelia`)
+  - `youtube` → `https://www.youtube.com/channel/UC6rGfPAbTqQWj3DCwdwvaDw`
+  - `tiktok` → `https://www.tiktok.com/@gardenpsyched`
+  - `instagram` (já existe: `https://www.instagram.com/gardenpsychedelia`)
   - manter `spotify`
   - Renderizar como lista com **ícone + label** (SVGs de Instagram / YouTube /
     TikTok / Spotify — inline, sem dependência).
@@ -247,7 +247,9 @@ Possível `components/Reveal.jsx` wrapper.
 
 - ✅ Etapa 1 — **2 famílias** (Syne + IBM Plex Mono), Fraunces aposentada.
 - ✅ Etapa 3 — Home vira **vitrine com prévia** das seções, com scroll.
-- ⬜ Etapa 4 — **URLs de YouTube e TikTok** da banda (Instagram já temos).
+- ✅ Etapa 4 — redes: YouTube `youtube.com/channel/UC6rGfPAbTqQWj3DCwdwvaDw`,
+  TikTok `tiktok.com/@gardenpsyched`, Instagram `instagram.com/gardenpsychedelia`,
+  Spotify (já em `content.js`).
 - ⬜ Etapa 5 — footer persistente com as redes: confirmar.
 
 ## Ordem de execução
