@@ -46,12 +46,11 @@ tamanhos e (opcionalmente) de famílias.
   ≥ 16px.
 - **`letter-spacing`** — manter só em rótulo curto (`tracking-wider`/
   `tracking-[0.16em]` no `kicker`); tirar de frases uppercase de 3+ palavras.
-- **Famílias — decisão aberta:** hoje são 3 (Syne / Fraunces / IBM Plex Mono).
-  Opções:
-  1. **Manter 3**, com papéis mais rígidos (Fraunces só para 1–2 citações).
-  2. **Reduzir para 2** — Syne (display + corpo) + IBM Plex Mono (rótulos),
-     aposentar Fraunces. Corta ~40 KB de fonte e simplifica.
-  Recomendação: **opção 2** para um site deste tamanho.
+- **Famílias — DECIDIDO: reduzir para 2.** Syne (display + corpo) + IBM Plex
+  Mono (rótulos). **Aposentar a Fraunces.** As citações (`.quote`,
+  "psicodelia como referência", notas de release) passam a usar Syne — em
+  itálico ou peso normal, a definir no passe. Remove o import da Fraunces em
+  `layout.jsx` e o token `--font-serif` (ou re-aponta para Syne).
 
 ### Fecha
 
@@ -112,25 +111,23 @@ Parte de F17 e F37 (o título não deve mais tocar/estourar depois da Etapa 1).
 A Home deixa de ser um splash institucional e passa a **fazer alguma coisa** —
 ou um foco único forte, ou uma vitrine que dá prévia de cada seção.
 
-### Decisão aberta (fork principal)
+### DECIDIDO: B — Vitrine com prévia (com scroll)
 
-| A — Foco único | B — Vitrine com prévia |
-| --- | --- |
-| Continua 1 tela, sem scroll. Nome da banda + 1 frase curta + 1 CTA claro ("Ouça", "Agenda 2026"). Máximo impacto, mínimo conteúdo. | Vira uma página **com scroll**: hero curto + um bloco resumido por seção (Banda / Ao vivo / Sons / Contato), cada um linkando para a página cheia. Funciona como landing. |
+A Home vira uma página **com scroll**: hero curto + um bloco resumido por
+seção (Banda / Ao vivo / Sons / Contato), cada um linkando para a página
+cheia. Funciona como landing.
 
-### O que muda nos dois casos
+### O que muda
 
 - **Cortar a quote longa** abaixo do nome. Trocar por: nada, ou uma linha
   (ex. "Psicodelia como referência." — 3 palavras), ou mover a quote inteira
   para `/banda` (onde já existe quase igual).
 - Adicionar **pelo menos 1 CTA** na Home (hoje tem zero).
-
-### Se for B
-
-- Bloco "Banda": foto + 1 frase + link.
-- Bloco "Ao vivo": última/próxima data + link.
-- Bloco "Sons": capa do lançamento mais recente + "Ouvir" + link.
-- Bloco "Contato": e-mail + redes.
+- Blocos de prévia:
+  - "Banda": foto + 1 frase + link.
+  - "Ao vivo": última/próxima data + link.
+  - "Sons": capa do lançamento mais recente + "Ouvir" + link.
+  - "Contato": e-mail + redes.
 - Reaproveita os blocos do design system (`Hero`, `PageHead`, `Kicker`).
 
 ### Fecha
@@ -246,13 +243,12 @@ Possível `components/Reveal.jsx` wrapper.
 
 ---
 
-## O que preciso da Bianca antes de começar
+## Decisões
 
-1. **Famílias de fonte** (Etapa 1) — manter 3 ou reduzir para 2?
-2. **Direção da Home** (Etapa 3) — A (foco único, sem scroll) ou B (vitrine
-   com prévia das seções, com scroll)?
-3. **URLs de YouTube e TikTok** da banda (Etapa 4).
-4. **Redes no site** (Etapa 5) — footer persistente, ok?
+- ✅ Etapa 1 — **2 famílias** (Syne + IBM Plex Mono), Fraunces aposentada.
+- ✅ Etapa 3 — Home vira **vitrine com prévia** das seções, com scroll.
+- ⬜ Etapa 4 — **URLs de YouTube e TikTok** da banda (Instagram já temos).
+- ⬜ Etapa 5 — footer persistente com as redes: confirmar.
 
 ## Ordem de execução
 
