@@ -3,6 +3,7 @@ import {
   liveGallery,
   livePhotos,
   memberPhotos,
+  memberSlides,
   posterFiles,
 } from './media';
 import { AGENDA_YEAR } from './site';
@@ -28,11 +29,11 @@ export const band = {
 };
 
 export const members = [
-  { name: 'Milton', role: 'Vocal', image: memberPhotos.milton },
-  { name: 'Gabriel', role: 'Guitarra', image: memberPhotos.gabriel },
-  { name: 'Matheus', role: 'Guitarra', image: memberPhotos.matheus },
-  { name: 'Bianca', role: 'Bateria', image: memberPhotos.bianca },
-  { name: 'Bob', role: 'Baixo', image: memberPhotos.bob },
+  { name: 'Milton', role: 'Vocal', image: memberPhotos.milton, images: memberSlides.milton },
+  { name: 'Gabriel', role: 'Guitarra', image: memberPhotos.gabriel, images: memberSlides.gabriel },
+  { name: 'Matheus', role: 'Guitarra', image: memberPhotos.matheus, images: memberSlides.matheus },
+  { name: 'Bianca', role: 'Bateria', image: memberPhotos.bianca, images: memberSlides.bianca },
+  { name: 'Bob', role: 'Baixo', image: memberPhotos.bob, images: memberSlides.bob },
 ];
 
 export const navItems = [
@@ -273,6 +274,7 @@ export const ep1 = [
     slug: 'morning-riser',
     title: 'Morning Riser',
     type: 'EP 1',
+    audio: '/audio/morning-riser.mp3',
     lyrics: `Sunday morning
 I'm feeling that I'm the only one that
 Is a morning riser
@@ -318,6 +320,7 @@ You won't forget`,
     slug: 'eter',
     title: 'Éter',
     type: 'EP 1',
+    audio: '/audio/eter.mp3',
     lyrics: `Fire
 I need your fire
 Give me a lighter
@@ -343,6 +346,7 @@ Running from you
     slug: 'cos-i-lov-u',
     title: 'Cos I Lov U',
     type: 'EP 1',
+    audio: '/audio/cos-i-lov-u.mp3',
     lyrics: `I know it's getting harder
 We get along everyday
 But there's something I would like to say
@@ -378,6 +382,7 @@ Because I love you since the first day`,
     slug: 'me',
     title: '@Me',
     type: 'EP 1',
+    audio: '/audio/me.mp3',
     lyrics: `Look at me
 But I don't wanna…
 You said to me,
@@ -455,6 +460,7 @@ export const demos = [
     slug: 'go-away',
     title: 'Go Away',
     type: 'Demo',
+    audio: '/audio/go-away.mp3',
     lyrics: `Your big mouth say words that I don't want to hear
 You keep saying that we don't belong in here
 
@@ -497,6 +503,7 @@ Frost, frost, frost`,
     slug: 'weird-party',
     title: 'Weird Party',
     type: 'Demo',
+    audio: '/audio/weird-party.mp3',
     lyrics: `I was sitted on the table
 Waiting time to arrive
 Emptying a bottle of
@@ -527,6 +534,7 @@ Here with them`,
     slug: 'anaphor',
     title: 'Anaphor',
     type: 'Demo',
+    audio: '/audio/anaphor.mp3',
     lyrics: `After all, what do I have to do?
 Why you called?
 Who am I talking to?
@@ -558,6 +566,7 @@ And keep my good behave`,
     slug: 'jed-n-warhol',
     title: 'Jed N Warhol',
     type: 'Demo',
+    audio: '/audio/jed-n-warhol.mp3',
     lyrics: `Sometimes I was afraid to see
 The tricks my mind was playing with me
 Don't cry, they said "Don't be a bitch"
@@ -582,6 +591,7 @@ What happened with me?`,
     slug: 'ydkhtba',
     title: 'YDKHTBA',
     type: 'Demo',
+    audio: '/audio/ydkhtba.mp3',
     lyrics: `I think I got you, baby
 But you don't know
 You don't know how to be alone
@@ -616,6 +626,7 @@ You don't know how to be alone`,
     slug: 'new-star',
     title: 'New Star',
     type: 'Demo',
+    audio: '/audio/new-star.mp3',
     lyrics: `I've been kissed by a new star
 Sweet, smart and pretty
 That's what you are
@@ -644,6 +655,8 @@ When I'm screamin' I'm leaving
 It ain't goodbye`,
   },
 ];
+
+
 
 export const tracks = [...releases, ...ep1, ...demos];
 
@@ -674,7 +687,7 @@ export const events = [
 export const posters = [
   { src: posterFiles.weirdParty1, title: 'Weird Party 1' },
   { src: posterFiles.weirdParty2, title: 'Weird Party 2' },
-  { src: posterFiles.weirdParty3, title: 'Weird Party Halloween' },
+  { src: posterFiles.weirdParty3, title: 'Weird Party 3' },
   { src: posterFiles.weirdParty4, title: 'Weird Xmas Party' },
 ];
 

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import PageShell from '@/components/PageShell'
 import PageHead from '@/components/PageHead'
+import TrackPlayButton from '@/components/TrackPlayButton'
 import { tracks, trackBySlug } from '@/lib/content'
 
 export const dynamicParams = false
@@ -45,7 +46,22 @@ export default async function TrackDetail({ params }) {
       >
         <span aria-hidden="true">←</span> Voltar para Sons
       </Link>
-      <PageHead eyebrow={`03 — Sons / ${track.title}`}>{track.title}</PageHead>
+
+      <PageHead eyebrow={`03 — Sons / ${track.title}`}>
+        <span className="inline-flex flex-wrap items-center gap-4 sm:gap-6">
+          <span>{track.title}</span>
+          {track.audio && (
+            <TrackPlayButton
+              track={{
+                slug: track.slug,
+                title: track.title,
+                type: track.type,
+                audio: track.audio,
+              }}
+            />
+          )}
+        </span>
+      </PageHead>
 
       <article className="mb-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
         {track.cover && (
@@ -74,7 +90,7 @@ export default async function TrackDetail({ params }) {
               {track.plays} plays
             </p>
           )}
-          {track.spotifyTrackId ? (
+          {track.spotifyTrackId && (
             <a
               href={`https://open.spotify.com/track/${track.spotifyTrackId}`}
               target="_blank"
@@ -83,14 +99,9 @@ export default async function TrackDetail({ params }) {
             >
               Ouvir no Spotify
             </a>
-          ) : (
-            track.type === 'EP 1' && (
-              <p className="font-mono text-xs uppercase tracking-widest text-muted">
-                Prévia em breve.
-              </p>
-            )
           )}
         </div>
+
       </article>
 
       {track.lyrics && (
