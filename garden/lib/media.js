@@ -7,7 +7,6 @@ import gallery from './gallery.json'
 
 export const logos = {
   badge: '/logos/logo-badge.png',
-  orb: '/logos/logo-orb-400.jpg', // selo circular reduzido (era 2,6 MB → 82 KB)
   red: '/logos/logo-red.png',
 }
 
@@ -62,7 +61,7 @@ export const bandaMedia = {
 
 export const contatoMedia = {
   figure: {
-    src: logos.orb,
+    src: logos.badge,
     alt: 'Selo Garden Psychedelia',
   },
 }

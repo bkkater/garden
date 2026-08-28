@@ -35,9 +35,9 @@ export const members = [
 ];
 
 export const navItems = [
-  { to: '/banda', index: '01', label: 'Banda' },
+  { to: '/banda', index: '01', label: 'A banda' },
   { to: '/shows', index: '02', label: 'Shows' },
-  { to: '/sons', index: '03', label: 'Sons' },
+  { to: '/sons', index: '03', label: 'Nossas músicas' },
   { to: '/contato', index: '04', label: 'Contato' },
 ];
 

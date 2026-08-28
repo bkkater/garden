@@ -28,17 +28,12 @@ export default function Home() {
 
       {/* Hero — sobre o shader */}
       <section className="flex min-h-[88vh] flex-col justify-between px-4 pt-28 pb-12 lg:px-8">
-        <p className="kicker flex flex-wrap items-center gap-x-4 gap-y-1">
-          <span>Desde {band.since}</span>
-          <span aria-hidden="true" className="text-muted/40">|</span>
-          <span>
-            {band.city} — {band.state}
-          </span>
-          <span aria-hidden="true" className="text-muted/40">|</span>
-          <span className="text-fg">Agenda {AGENDA_YEAR} aberta</span>
+        <p className="kicker">
+          {band.city}, {band.state} · desde {band.since}
         </p>
 
         <div>
+          <p className="kicker mb-3 text-fg">Agenda {AGENDA_YEAR} aberta</p>
           <h1 className="font-extrabold leading-none tracking-tighter text-4xl sm:text-5xl md:text-6xl lg:text-8xl">
             Garden
             <span className="block text-accent mix-blend-screen">Psychedelia</span>
@@ -59,7 +54,7 @@ export default function Home() {
             href="/shows"
             className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted no-underline transition-colors duration-200 hover:text-accent"
           >
-            Ver a agenda <span aria-hidden="true">↓</span>
+            Ver a agenda <span aria-hidden="true">↗</span>
           </Link>
         </div>
       </section>

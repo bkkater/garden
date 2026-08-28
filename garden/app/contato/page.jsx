@@ -34,7 +34,7 @@ export default function Contato() {
           <SocialLinks className="mt-7 max-w-md" />
         </div>
 
-        <figure className="shrink-0">
+        <figure className="flex w-44 shrink-0 flex-col items-center text-center">
           <img
             src={contatoMedia.figure.src}
             alt={contatoMedia.figure.alt}
@@ -42,7 +42,7 @@ export default function Contato() {
             height={176}
             className="size-44 rounded-full object-cover"
           />
-          <figcaption className="mt-2.5 font-mono text-xs uppercase tracking-widest text-muted">
+          <figcaption className="mt-3 font-mono text-xs uppercase leading-relaxed tracking-widest text-muted">
             {band.city} — {band.state} · desde {band.since}
           </figcaption>
         </figure>
