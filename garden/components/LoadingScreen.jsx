@@ -1,14 +1,39 @@
 'use client'
 
-import { logos } from '@/lib/media'
 import { useEffect, useState } from 'react'
 
 const MIN_VISIBLE = 650 // ms — evita o "pisca" em cargas rápidas
 const FAILSAFE = 4500 // ms — nunca prende o usuário
 
-// Tela de carregamento no estilo linkinpark.com: fundo escuro, uma marca
-// centralizada respirando, sem porcentagem nem barra. Some quando o documento
-// e as fontes terminam de carregar.
+function Vinyl() {
+  return (
+    <svg
+      className="sound-vinyl motion-reduce:animate-none"
+      width={72}
+      height={72}
+      viewBox="0 0 72 72"
+      fill="none"
+      stroke="currentColor"
+    >
+      <circle cx={36} cy={36} r={32} strokeWidth={2.5} />
+      <circle cx={36} cy={36} r={24} strokeWidth={1} opacity={0.5} />
+      <circle
+        cx={36}
+        cy={36}
+        r={17}
+        strokeWidth={1.5}
+        stroke="var(--color-accent)"
+      />
+      <circle cx={36} cy={36} r={9} fill="currentColor" stroke="none" />
+      <circle cx={36} cy={36} r={2.5} fill="var(--color-bg)" stroke="none" />
+      <path d="M36 4 A32 32 0 0 1 61 17" strokeWidth={4} strokeLinecap="round" />
+    </svg>
+  )
+}
+
+// Tela de carregamento no estilo linkinpark.com: fundo escuro, um vinil creme
+// girando com um sulco em vermelho. Some quando o documento e as fontes
+// terminam de carregar.
 export default function LoadingScreen() {
   const [dismissed, setDismissed] = useState(false)
   const [gone, setGone] = useState(false)
@@ -58,14 +83,8 @@ export default function LoadingScreen() {
           dismissed ? 'pointer-events-none opacity-0' : 'opacity-100'
         }`}
       >
-        <div className="animate-mark-spin motion-reduce:animate-none">
-          <img
-            src={logos.badge}
-            alt=""
-            width={96}
-            height={96}
-            className="h-24 w-24 rounded-full animate-mark-breathe motion-reduce:animate-none"
-          />
+        <div className="text-fg">
+          <Vinyl />
         </div>
       </div>
     </>
