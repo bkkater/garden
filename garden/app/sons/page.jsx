@@ -136,6 +136,9 @@ export default function Sons() {
             />
           ))}
         </div>
+        <p className="mt-2.5 font-mono text-xs uppercase tracking-widest text-muted">
+          Fotos por Flávia Motta
+        </p>
       </section>
 
       <aside className="mt-20 border-t border-line pt-8">
