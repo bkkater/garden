@@ -1,0 +1,194 @@
+import {
+  covers,
+  liveGallery,
+  livePhotos,
+  memberPhotos,
+  posterFiles,
+} from './media';
+import { AGENDA_YEAR } from './site';
+
+export const band = {
+  name: 'Garden Psychedelia',
+  since: 2019,
+  city: 'Campos dos Goytacazes',
+  state: 'RJ',
+  email: 'talktogarden@gmail.com',
+  instagram: 'https://www.instagram.com/gardenpsychedelia',
+  spotify: 'https://open.spotify.com/intl-pt/artist/2Gz78gC3i0E5nLHKwzfGGh',
+  youtube: 'https://www.youtube.com/channel/UC6rGfPAbTqQWj3DCwdwvaDw',
+  tiktok: 'https://www.tiktok.com/@gardenpsyched',
+  monthlyListeners: 60,
+  followers: 438,
+  quote:
+    'O ponto de partida para o nascimento da Garden foi a necessidade de escutar algo diferente, algo que não esperávamos escutar.',
+  manifesto:
+    'Ecléticos, porém seletivos. Tudo é referência, não tem menção específica, mas a base é rock and roll.',
+  about: `Desde 2019, um grupo de amigos em Campos dos Goytacazes faz um som fino, de qualidade e com muita psicodelia. As apresentações recentes são explosivas — a Garden namora o palco ao vivo e segue com agenda ${AGENDA_YEAR} aberta.`,
+};
+
+export const members = [
+  { name: 'Milton', role: 'Vocal', image: memberPhotos.milton },
+  { name: 'Gabriel', role: 'Guitarra', image: memberPhotos.gabriel },
+  { name: 'Matheus', role: 'Guitarra', image: memberPhotos.matheus },
+  { name: 'Bob', role: 'Baixo', image: memberPhotos.bob },
+  { name: 'Bianca', role: 'Bateria', image: memberPhotos.bianca },
+];
+
+export const navItems = [
+  { to: '/banda', index: '01', label: 'A banda' },
+  { to: '/shows', index: '02', label: 'Shows' },
+  { to: '/sons', index: '03', label: 'Nossas músicas' },
+  { to: '/contato', index: '04', label: 'Contato' },
+];
+
+// Home = vitrine. Uma linha por seção, cada uma linkando para a página cheia.
+export const homeIntro =
+  'Psicodelia como referência. Alternativo por natureza.';
+
+export const homeSections = [
+  {
+    to: '/banda',
+    index: '01',
+    label: 'Banda',
+    cta: 'Conhecer a banda',
+    teaser: 'Cinco amigos em Campos dos Goytacazes, um som fino desde 2019.',
+    image: livePhotos.festivalBand,
+  },
+  {
+    to: '/shows',
+    index: '02',
+    label: 'Shows',
+    cta: 'Ver a agenda',
+    teaser: `Festival Troque o Disco, as Weird Parties e a agenda ${AGENDA_YEAR} aberta.`,
+    image: posterFiles.weirdParty4,
+  },
+  {
+    to: '/sons',
+    index: '03',
+    label: 'Sons',
+    cta: 'Ouvir a Garden',
+    teaser: 'Dbawot é o lançamento mais recente — o jardim como corpo.',
+    image: covers.dbawot,
+  },
+  {
+    to: '/contato',
+    index: '04',
+    label: 'Contato',
+    cta: 'Falar com a Garden',
+    teaser:
+      'talktogarden@gmail.com — para shows, festivais e o corre do ao vivo.',
+    image: livePhotos.wp3Milton,
+  },
+];
+
+export const releases = [
+  {
+    title: 'Dbawot',
+    year: 2026,
+    type: 'Single / Album',
+    plays: '2.198',
+    featured: true,
+    cover: covers.dbawot,
+    note: 'Lançamento mais recente. Capa orgânica, vinhas e figuras — o jardim como corpo.',
+  },
+  {
+    title: 'We Again',
+    year: 2019,
+    type: 'Single',
+    plays: '19.614',
+    featured: false,
+    cover: livePhotos.festivalBand,
+    note: 'Faixa mais ouvida. O começo da Garden em disco.',
+  },
+  {
+    title: 'Shell',
+    year: 2019,
+    type: 'Single',
+    plays: '13.310',
+    featured: false,
+    cover: livePhotos.wp4Matheus,
+    note: 'Casca, eco e guitarra. Ainda 2019, ainda o primeiro fôlego.',
+  },
+  {
+    title: 'Madman',
+    year: 2020,
+    type: 'Single',
+    plays: '6.544',
+    featured: false,
+    cover: livePhotos.festivalGabriel,
+    note: 'O segundo ano. Mais denso, mais perto do palco.',
+  },
+];
+
+export const demos = [
+  'Morning Riser',
+  'Éter',
+  'Cos I Lov U',
+  "Don't Waste My Time",
+  "Don't Be",
+  'Go Away',
+];
+
+// Estado da agenda em aberto. O ano vem de AGENDA_YEAR (lib/site.js).
+export const agenda = {
+  year: AGENDA_YEAR,
+  status: `A agenda ${AGENDA_YEAR} está aberta.`,
+  detail: 'Ainda sem datas confirmadas. ',
+  upcoming: [],
+};
+
+// Já rolou — retrospectiva (2019–2024).
+export const events = [
+  {
+    title: 'Festival Troque o Disco',
+    place: 'Campos dos Goytacazes — RJ',
+    note: 'Performance ao vivo na III edição. Palco, luz e o vocal de Milton.',
+  },
+  {
+    title: 'Weird Party 1–3',
+    place: 'Tales Tabacaria · R. Saldanha Marinho, 264',
+    note: 'Série de noites da Garden: set ao vivo, DJs, exposição e a casa lotada.',
+  },
+  {
+    title: 'Weird Party 4 · Kasick Tropical',
+    place: 'Dezembro 2024',
+    note: 'XMAS party + Morning Riser e Go Away registrados ao vivo.',
+  },
+];
+
+export const posters = [
+  { src: posterFiles.weirdParty1, title: 'Weird Party 1' },
+  { src: posterFiles.weirdParty2, title: 'Weird Party 2' },
+  { src: posterFiles.weirdParty3, title: 'Weird Party Halloween' },
+  { src: posterFiles.weirdParty4, title: 'Weird Xmas Party' },
+];
+
+export const gallery = liveGallery;
+
+// Redes — usado na /contato e no footer. `key` casa com o ícone em SocialLinks.
+export const socials = [
+  {
+    key: 'instagram',
+    label: 'Instagram',
+    handle: '@gardenpsychedelia',
+    url: band.instagram,
+  },
+  {
+    key: 'youtube',
+    label: 'YouTube',
+    handle: 'Garden Psychedelia',
+    url: band.youtube,
+  },
+  {
+    key: 'tiktok',
+    label: 'TikTok',
+    handle: '@gardenpsyched',
+    url: band.tiktok,
+  },
+  {
+    key: 'spotify',
+    label: 'Spotify',
+    handle: 'Garden Psychedelia',
+    url: band.spotify,
+  },
+];
