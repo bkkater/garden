@@ -243,17 +243,18 @@ Possível `components/Reveal.jsx` wrapper.
 
 ---
 
-## Decisões
+## Status — todas as 6 etapas concluídas
 
-- ✅ Etapa 1 — **2 famílias** (Syne + IBM Plex Mono), Fraunces aposentada.
-- ✅ Etapa 3 — Home vira **vitrine com prévia** das seções, com scroll.
-- ✅ Etapa 4 — redes: YouTube `youtube.com/channel/UC6rGfPAbTqQWj3DCwdwvaDw`,
-  TikTok `tiktok.com/@gardenpsyched`, Instagram `instagram.com/gardenpsychedelia`,
-  Spotify (já em `content.js`).
-- ⬜ Etapa 5 — footer persistente com as redes: confirmar.
+| Etapa | Commit | Fecha |
+| --- | --- | --- |
+| 1 · Tipografia (escala padrão do Tailwind, 2 famílias) | `9ea7d1a` | F16, F18, F19 |
+| 2 · Título das subpáginas sem scroll (offset 46vh → 24/28vh) | `6c0a3a4` | F17, F37 (parcial) |
+| 3 · Home vira vitrine (+ overflow-x clip, título cabe) | `650a857` `5118cc9` | F21, F22, F32, F37 |
+| 4 · Contato: selo circular + 4 redes com ícone | `dff372b` | F4 (parcial), F27 |
+| 5 · Footer persistente com as redes | `beae7ed` | F22, F25, F30 |
+| 6 · Fotos entram com fade no scroll (`animation-timeline: view()`) | `2b679d0` | — |
+| extra · CTA "Booking" vira botão pill outline | `eb28746` | — |
 
-## Ordem de execução
-
-1 → 2 → 3 são a espinha (tipografia → layout → conteúdo). 4, 5, 6 são
-independentes entre si e podem entrar em qualquer ordem depois. Cada etapa
-fecha com `npm run build` + revisão visual contra `docs/baseline/`.
+**Não entrou:** F39 (pausar o shader fora de vista) — a Etapa 6 usou CSS puro
+sem `IntersectionObserver`. Fica para uma onda de performance junto de F1/F2/F3
+(ver [ux-audit-findings.md](ux-audit-findings.md), "plano 2").
