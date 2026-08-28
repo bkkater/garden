@@ -33,6 +33,34 @@ export const memberPhotos = {
   bianca: '/members/bianca-baterista.jpg',
 }
 
+export const memberSlides = {
+  milton: [
+    '/members/milton-vocalista.jpg',
+    '/members/milton-vocalista2.jpg',
+    '/members/milton-vocalista3.jpg',
+  ],
+  gabriel: [
+    '/members/gabriel-guitarrista.jpg',
+    '/members/gabriel-guitarrista2.jpg',
+    '/members/gabriel-guitarrista3.jpg',
+  ],
+  matheus: [
+    '/members/matheus-guitarrista.jpg',
+    '/members/matheus-guitarrista2.jpg',
+    '/members/matheus-guitarrista3.jpg',
+  ],
+  bob: [
+    '/members/bob-baixista.jpg',
+    '/members/bob-baixista2.jpg',
+    '/members/bob-baixista3.jpg',
+  ],
+  bianca: [
+    '/members/bianca-baterista.jpg',
+    '/members/bianca-baterista2.jpg',
+    '/members/bianca-baterista3.jpg',
+  ],
+}
+
 export const livePhotos = {
   festivalGabriel: '/live/festival/hyakuya-01.jpg',
   festivalMilton: '/live/festival/hyakuya-02.jpg',

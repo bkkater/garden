@@ -1,5 +1,6 @@
 import PageShell from '@/components/PageShell'
 import PageHead from '@/components/PageHead'
+import MemberCard from '@/components/MemberCard'
 import { band, members } from '@/lib/content'
 import { bandaMedia } from '@/lib/media'
 
@@ -66,22 +67,7 @@ export default function Banda() {
         </h2>
         <div className="grid grid-cols-2 gap-2 lg:grid-cols-5">
           {members.map((member) => (
-            <figure
-              key={member.name}
-              className="reveal group relative overflow-hidden"
-            >
-              <img
-                src={member.image}
-                alt={`${member.name}, ${member.role}`}
-                className="h-[58vh] w-full object-cover object-[center_18%] transition-[transform,filter] duration-500 ease-out [filter:contrast(1.12)_saturate(0.82)] group-hover:scale-[1.02] group-hover:[filter:contrast(1.15)_saturate(0.65)]"
-              />
-              <figcaption className="absolute inset-x-3 bottom-3 flex flex-col gap-1 [text-shadow:0_1px_10px_var(--color-bg)]">
-                <strong className="text-xl tracking-tight">{member.name}</strong>
-                <em className="font-mono text-xs not-italic uppercase tracking-widest text-accent">
-                  {member.role}
-                </em>
-              </figcaption>
-            </figure>
+            <MemberCard key={member.name} member={member} />
           ))}
         </div>
       </section>
