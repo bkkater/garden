@@ -8,13 +8,13 @@ import { AGENDA_YEAR } from '@/lib/site';
 const description = `Agenda ${AGENDA_YEAR} aberta. E a retrospectiva: Festival Troque o Disco, as Weird Parties e as fotos de cada noite.`;
 
 export const metadata = {
-  title: 'Ao vivo',
+  title: 'Shows',
   description,
-  alternates: { canonical: '/ao-vivo' },
+  alternates: { canonical: '/shows' },
   openGraph: {
-    title: 'Ao vivo — Garden Psychedelia',
+    title: 'Shows — Garden Psychedelia',
     description,
-    url: '/ao-vivo',
+    url: '/shows',
   },
 };
 
@@ -23,7 +23,7 @@ export default function AoVivo() {
 
   return (
     <PageShell>
-      <PageHead eyebrow='02 — Ao vivo'>
+      <PageHead eyebrow='02 — Shows'>
         Shows, festivais e Weird Parties.
       </PageHead>
 

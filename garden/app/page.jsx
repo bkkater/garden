@@ -56,7 +56,7 @@ export default function Home() {
             Ouvir no Spotify
           </a>
           <Link
-            href="/ao-vivo"
+            href="/shows"
             className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted no-underline transition-colors duration-200 hover:text-accent"
           >
             Ver a agenda <span aria-hidden="true">↓</span>

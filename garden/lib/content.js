@@ -36,7 +36,7 @@ export const members = [
 
 export const navItems = [
   { to: '/banda', index: '01', label: 'Banda' },
-  { to: '/ao-vivo', index: '02', label: 'Ao vivo' },
+  { to: '/shows', index: '02', label: 'Shows' },
   { to: '/sons', index: '03', label: 'Sons' },
   { to: '/contato', index: '04', label: 'Contato' },
 ];
@@ -55,9 +55,9 @@ export const homeSections = [
     image: livePhotos.festivalBand,
   },
   {
-    to: '/ao-vivo',
+    to: '/shows',
     index: '02',
-    label: 'Ao vivo',
+    label: 'Shows',
     cta: 'Ver a agenda',
     teaser: `Festival Troque o Disco, as Weird Parties e a agenda ${AGENDA_YEAR} aberta.`,
     image: posterFiles.weirdParty4,
