@@ -162,6 +162,17 @@
   }
 }
 
+/* Vinil girando na tela de carregamento. */
+.sound-vinyl {
+  animation: mark-spin 4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sound-vinyl {
+    animation: none;
+  }
+}
+
 /* Tela de carregamento: se o JS travar, revela o site sozinha. */
 .loading-screen {
   animation: loading-failsafe 0.5s ease 5s forwards;
