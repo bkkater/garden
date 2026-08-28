@@ -9,7 +9,7 @@ Status por etapa:
 | --- | --- | --- |
 | 1 | Setup | ✅ concluída |
 | 2 | Varredura automática (Lighthouse + axe) | ✅ concluída |
-| 3 | Contraste + leitura sobre o vídeo | ⬜ pendente |
+| 3 | Contraste + leitura sobre o vídeo | ✅ concluída |
 | 4 | Hierarquia + tipografia | ⬜ pendente |
 | 5 | CTAs | ⬜ pendente |
 | 6 | Mobile | ⬜ pendente |
@@ -169,9 +169,9 @@ cenário; num Wi-Fi rápido o vídeo ainda baixa inteiro, mas em ~1–2 s. O ach
 **F1 vale nos dois casos** — 4,5 MB por visita é desperdício mesmo em conexão
 boa, e é o teto de melhoria de performance do site.
 
-## Etapa 3 — Contraste + leitura sobre o vídeo
+## Etapa 3 — Contraste + leitura sobre o vídeo ✅
 
-_pendente_ (medição frame a frame)
+
 
 ### Correção já aplicada — véu sob o conteúdo (a pedido)
 
@@ -187,6 +187,83 @@ De quebra, o wrapper do shader ganhou `aria-hidden="true"` → **resolve F7**
 
 Ainda a medir na etapa 3: o contraste real do kicker (`text-muted`) e da nav
 (`mix-blend-difference`) sobre o shader já escurecido, frame a frame.
+
+### Método
+
+- **Fundo sólido:** cálculo determinístico (relative luminance + WCAG ratio)
+  de cada token de cor sobre `#080808` (night) e `#0c0706` (ember).
+- **Sobre o vídeo:** Playwright na build de produção — para cada texto-chave,
+  esconde o elemento (`visibility:hidden`), tira 4–10 screenshots do recorte do
+  fundo ao longo de ~3 s (o shader anima), mede a luminância mínima/máxima do
+  fundo e calcula o contraste do texto contra o **pior frame**.
+- Estados: padrão, `prefers-reduced-motion: reduce`, `prefers-contrast: more`.
+
+### Contraste sobre fundo sólido (fora do vídeo)
+
+| Token | Contraste vs `#080808` | Texto normal (AA 4.5:1) |
+| --- | --- | --- |
+| `--color-fg` `#eadcc4` | 14.81:1 | ✅ AAA |
+| `--color-copy` `#d8ccb8` | 12.64:1 | ✅ AAA |
+| `--color-muted` `#9a8f82` | **6.32:1** | ✅ AA (não AAA) |
+| `--color-accent` `#e31b23` | **4.24:1** | ❌ **reprova** (passa só como "large" ≥ 24px / 18.7px bold) |
+| `--color-line` (composto `#312e2a`) | **1.48:1** | ❌ reprova WCAG 1.4.11 (não-textual precisa 3:1) |
+
+`ember` é melhor: accent `#ff4d1a` = 6.03:1 (passa AA). O problema do accent é
+específico do tema **night** (padrão).
+
+### Contraste sobre o shader + `.video-scrim` (pior frame)
+
+| Elemento | Cor | Tam. | Pior contraste | Verdict |
+| --- | --- | --- | --- | --- |
+| Home — kicker "DESDE 2019…" | muted | 11px | **3.75:1** | ❌ reprova AA |
+| Home — título "Garden" | fg | ~130px | 3.15:1 | ⚠️ passa AA-large (≥3), marginal |
+| Home — "Psychedelia" (`mix-blend-screen`) | accent | ~130px | **1.18:1** | ❌ **reprova até como large** — some sobre o halftone claro |
+| Home — quote | fg | 18px | 8.02:1 | ✅ AA |
+| Home — nav "BANDA" (`mix-blend-difference`) | fg efetivo | 11px | **3.15:1** (pior de 10 frames) | ❌ reprova AA (o scrim reduziu, não eliminou) |
+| Home — brand "GARDEN" | fg | 13px | 13.75:1 | ✅ |
+| `/banda` — eyebrow "01 — Banda" (a 46vh) | muted | 11px | 6.31:1 | ✅ AA |
+| `/banda` — `<h1>` (a 46vh) | fg | ~72px | 14.80:1 | ✅ |
+
+O véu resolveu as subpáginas (o conteúdo entra onde o shader já está escuro) e
+a quote. Sobra o **topo da Home** — kicker, título e nav — onde o shader é mais
+claro e o scrim é mais fino (~40%).
+
+### Estados
+
+- **`prefers-reduced-motion: reduce`** — o shader **não monta** (canvas ausente
+  confirmado); tudo cai sobre `#080808` sólido. É o "modo legível". Único
+  problema que sobra: accent como texto pequeno (não ocorre na Home).
+- **`prefers-contrast: more`** — o site **não tem nenhuma regra**
+  `@media (prefers-contrast)`. Não é falha, é oportunidade.
+
+### Achados
+
+| id | eixo | onde | descrição | pior contraste | sev. | esforço |
+| --- | --- | --- | --- | --- | --- | --- |
+| **F6** (atualizado) | contraste | todo `text-accent` pequeno | `#e31b23` sobre `#080808` = 4.24:1 reprova AA para < 24px. Ocorrências: local dos eventos (`/ao-vivo`), "plays" (`/sons`), `role` dos integrantes (`/banda`), créditos de foto, notas de evento. | 4.24:1 | **sério** | S–M |
+| **F8** | contraste não-textual | `--color-line` | bordas de tabela (`.facts`), divisores (`.release-list`), topo de card, sublinhado de links sociais, borda dos chips de demo — todos a 1.48:1, quase invisíveis. Reprova WCAG 1.4.11. | 1.48:1 | médio | XS |
+| **F9** | contraste | botões hover | estado hover `bg-accent` + `text-bg`: `#080808` sobre `#e31b23` = 4.24:1 — o rótulo do botão reprova AA no hover. "Ouvir no Spotify", link do featured. | 4.24:1 | médio | S |
+| **F10** | leitura sobre vídeo | Home — kicker | `text-muted` 11px sobre o shader claro = 3.75:1. A linha "DESDE 2019 · CAMPOS… · AGENDA 2026" fica fraca. | 3.75:1 | alto | S |
+| **F11** | leitura sobre vídeo | Home — título "Psychedelia" | o `mix-blend-screen` + accent sobre o halftone claro derruba para 1.18:1 — o título principal do site **desaparece** em alguns frames. "Garden" (3.15:1) fica marginal. | 1.18:1 | **alto** | S–M |
+| **F12** | leitura sobre vídeo | Navigation — links (desktop) | `mix-blend-difference` sobre o shader: pior frame 3.15:1 (11px) → reprova AA. O véu ajudou mas o blend depende do frame. A abordagem do mobile (gradiente + `mix-blend-normal`) é mais estável. | 3.15:1 | alto | S |
+
+### Recomendações (para o plano de correção)
+
+- **F10/F12** — engrossar a faixa superior do `.video-scrim` (de ~88% para
+  ~95% nos primeiros ~12vh) **ou** dar `text-shadow` sutil ao kicker e à nav,
+  **ou** adotar no desktop o mesmo tratamento do mobile (gradiente sólido +
+  `mix-blend-normal` na nav).
+- **F11** — `text-shadow` no `<h1>` da Home, ou uma tarja escura localizada
+  atrás do título, ou remover o `mix-blend-screen` e usar um vermelho um pouco
+  mais claro só no título.
+- **F6** — subir a luminância do accent no tema night (mirar ~4.5–6:1, como o
+  ember já tem) **ou** reservar o accent para texto grande/decorativo e usar
+  `fg`/`copy` nos rótulos pequenos.
+- **F8** — subir o alfa de `--color-line` de `.18` para ~`.35–.40`.
+- **F9** — no hover, usar `text-fg` em vez de `text-bg` sobre o accent, ou
+  escurecer o accent do hover.
+- Considerar tornar o **modo sem shader** (hoje só em `prefers-reduced-motion`)
+  acessível por um controle visível de pausar/ocultar o vídeo (WCAG 2.2.2).
 
 ## Etapa 4 — Hierarquia + tipografia
 
