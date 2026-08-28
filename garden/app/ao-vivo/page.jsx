@@ -37,7 +37,7 @@ export default function AoVivo() {
 
       <div className="mb-14 grid grid-cols-2 gap-4 lg:grid-cols-4">
         {posters.map((poster) => (
-          <figure key={poster.src}>
+          <figure key={poster.src} className="reveal">
             <img
               src={poster.src}
               alt={poster.title}

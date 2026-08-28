@@ -53,7 +53,7 @@ export default function Sons() {
         {rest.map((item) => (
           <article
             key={item.title}
-            className="flex gap-6 border-t border-line py-5"
+            className="reveal flex gap-6 border-t border-line py-5"
           >
             <img
               src={item.cover}

@@ -20,7 +20,7 @@ export default function LiveGallery({ groups }) {
                 key={shot.src}
                 type="button"
                 onClick={() => setActive(shot)}
-                className={`group relative min-h-[280px] overflow-hidden text-left ${
+                className={`reveal group relative min-h-[280px] overflow-hidden text-left ${
                   shot.wide ? 'col-span-1 lg:col-span-2' : ''
                 }`}
               >

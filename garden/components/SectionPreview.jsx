@@ -7,7 +7,7 @@ export default function SectionPreview({ index, label, teaser, image, to, flip }
       href={to}
       className="group grid grid-cols-1 items-center gap-6 border-t border-line py-10 md:grid-cols-2 md:gap-12"
     >
-      <div className={`overflow-hidden ${flip ? 'md:order-2' : ''}`}>
+      <div className={`reveal overflow-hidden ${flip ? 'md:order-2' : ''}`}>
         <img
           src={image}
           alt=""

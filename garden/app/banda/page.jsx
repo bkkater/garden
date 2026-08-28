@@ -67,7 +67,10 @@ export default function Banda() {
         </h2>
         <div className="grid grid-cols-2 gap-2 lg:grid-cols-5">
           {members.map((member) => (
-            <figure key={member.name} className="group relative overflow-hidden">
+            <figure
+              key={member.name}
+              className="reveal group relative overflow-hidden"
+            >
               <img
                 src={member.image}
                 alt={`${member.name}, ${member.role}`}
@@ -90,7 +93,7 @@ export default function Banda() {
             key={shot.src}
             src={shot.src}
             alt={shot.alt}
-            className="h-72 w-full object-cover [filter:grayscale(0.2)_contrast(1.1)]"
+            className="reveal h-72 w-full object-cover [filter:grayscale(0.2)_contrast(1.1)]"
           />
         ))}
       </div>

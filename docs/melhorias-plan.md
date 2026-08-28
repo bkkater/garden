@@ -210,7 +210,7 @@ Reforça F22/F25 (contato acessível de qualquer página), F30 (alvo de toque do
 
 ---
 
-## Etapa 6 — Efeitos de entrada das fotos no scroll
+## Etapa 6 — Efeitos de entrada das fotos no scroll ✅
 
 > "Sinto falta de efeitos das fotos aparecendo enquanto scrollo."
 
