@@ -39,12 +39,10 @@ export default function Banda() {
         <div className="max-w-prose">
           <p className="mb-4 text-lg leading-relaxed text-copy">{band.about}</p>
           <p className="mb-4 text-lg leading-relaxed text-copy">{band.live}</p>
-          <p className="mb-4 text-lg leading-relaxed text-copy">{band.manifesto}</p>
           <ul className="mt-8 border-t border-line">
             {[
               ['Origem', `${band.city} — ${band.state}`],
               ['Desde', band.since],
-              ['Formação', 'Cinco integrantes'],
               ['Base', 'Rock and roll + psicodelia'],
             ].map(([label, value]) => (
               <li
@@ -87,17 +85,6 @@ export default function Banda() {
           ))}
         </div>
       </section>
-
-      <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-3">
-        {bandaMedia.strip.map((shot) => (
-          <img
-            key={shot.src}
-            src={shot.src}
-            alt={shot.alt}
-            className="reveal h-72 w-full object-cover [filter:grayscale(0.2)_contrast(1.1)]"
-          />
-        ))}
-      </div>
     </PageShell>
   )
 }

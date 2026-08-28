@@ -2,8 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import PageShell from '@/components/PageShell'
 import PageHead from '@/components/PageHead'
-import TrackPlayer from '@/components/TrackPlayer'
-import { band, tracks, trackBySlug } from '@/lib/content'
+import { tracks, trackBySlug } from '@/lib/content'
 
 export const dynamicParams = false
 
@@ -50,11 +49,18 @@ export default async function TrackDetail({ params }) {
 
       <article className="mb-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
         {track.cover && (
-          <img
-            src={track.cover}
-            alt={`Capa de ${track.title}`}
-            className="aspect-square w-full object-cover"
-          />
+          <figure>
+            <img
+              src={track.cover}
+              alt={`Capa de ${track.title}`}
+              className="aspect-square w-full object-cover"
+            />
+            {track.coverCredit && (
+              <figcaption className="mt-2.5 font-mono text-xs uppercase tracking-widest text-muted">
+                {track.coverCredit}
+              </figcaption>
+            )}
+          </figure>
         )}
         <div className={track.cover ? '' : 'lg:col-span-2'}>
           {meta && <p className="kicker">{meta}</p>}
@@ -69,11 +75,14 @@ export default async function TrackDetail({ params }) {
             </p>
           )}
           {track.spotifyTrackId ? (
-            <TrackPlayer
-              trackId={track.spotifyTrackId}
-              title={track.title}
-              fallbackUrl={band.spotify}
-            />
+            <a
+              href={`https://open.spotify.com/track/${track.spotifyTrackId}`}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center rounded-full border border-fg px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest no-underline transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg"
+            >
+              Ouvir no Spotify
+            </a>
           ) : (
             track.type === 'EP 1' && (
               <p className="font-mono text-xs uppercase tracking-widest text-muted">

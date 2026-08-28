@@ -20,21 +20,19 @@ export const band = {
   monthlyListeners: 60,
   followers: 438,
   quote:
-    'O ponto de partida para o nascimento da Garden foi a necessidade de escutar algo que não esperávamos escutar.',
+    'A apoteose da amizade. A explosão energética gerada por estética e demanda. A Garden existe para suprir a necessidade da expressão genuína.',
   about:
-    'Um grupo de amigos imerso na cena do rock alternativo de Campos dos Goytacazes, construindo desde 2019 uma sonoridade intensa, visceral e cheia de identidade.',
+    'Desde 2019, por amigos e para todos. Nossa base é Rock and Roll, mas nossas referências são maiores que os nossos rótulos. Vivemos a produção, mas namoramos a plateia. Queremos te provocar, queremos te impressionar. Agenda sempre aberta.',
   live:
     'Com cinco shows em diferentes espaços e encontros, 2025 foi um ano de expansão e consolidação da Garden nos palcos, fortalecendo a conexão entre sua música autoral e a comunidade que movimenta a cultura independente da cidade. Em 2026, a Garden abre um novo capítulo com o single “DBAWOT” e a chegada de um novo EP,',
-  manifesto:
-    'De referências diversas nasce uma sonoridade que não se prende a rótulos. O rock and roll dá o tom, enquanto diferentes influências ampliam os caminhos da Garden.',
 };
 
 export const members = [
   { name: 'Milton', role: 'Vocal', image: memberPhotos.milton },
   { name: 'Gabriel', role: 'Guitarra', image: memberPhotos.gabriel },
   { name: 'Matheus', role: 'Guitarra', image: memberPhotos.matheus },
-  { name: 'Bob', role: 'Baixo', image: memberPhotos.bob },
   { name: 'Bianca', role: 'Bateria', image: memberPhotos.bianca },
+  { name: 'Bob', role: 'Baixo', image: memberPhotos.bob },
 ];
 
 export const navItems = [
@@ -89,10 +87,11 @@ export const releases = [
     slug: 'dbawot',
     title: 'Dbawot',
     year: 2026,
-    type: 'Single / Album',
+    type: 'Single',
     plays: '2.198',
     featured: true,
     cover: covers.dbawot,
+    coverCredit: 'Arte por Marina Vicente',
     note: 'Lançamento mais recente. A síntese da nossa nova identidade sonora.',
     spotifyTrackId: '0YznfY0th8l3O1CBo61SHL',
     lyrics: `I saw you yesterday
@@ -233,7 +232,7 @@ In the sunshine of my life`,
     plays: '6.544',
     featured: false,
     cover: livePhotos.festivalGabriel,
-    note: 'O som ganha corpo. Mais denso, mais perto do palco.',
+    note: 'O último som antes da pandemia. Um registro de um tempo que estava prestes a parar.',
     spotifyTrackId: '2plcfAvkI08GVFv13PUmvN',
     lyrics: `He knows well what he wants to do
 He can teach you one lesson or two
@@ -664,18 +663,11 @@ export const agenda = {
 export const events = [
   {
     title: 'Festival Troque o Disco',
-    place: 'Campos dos Goytacazes — RJ',
-    note: 'Performance ao vivo na III edição. Palco, luz e o vocal de Milton.',
+    note: 'Performance ao vivo na III edição do maior festival de música de Campos dos Goytacazes.',
   },
   {
-    title: 'Weird Party 1–3',
-    place: 'Tales Tabacaria · R. Saldanha Marinho, 264',
-    note: 'Série de noites da Garden: set ao vivo, DJs, exposição e a casa lotada.',
-  },
-  {
-    title: 'Weird Party 4 · Kasick Tropical',
-    place: 'Dezembro 2024',
-    note: 'XMAS party + Morning Riser e Go Away registrados ao vivo.',
+    title: 'Weird Party 1–4',
+    note: 'Série de noites da Garden: set ao vivo, DJs, exposição e casa lotada.',
   },
 ];
 
