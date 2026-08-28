@@ -2,6 +2,7 @@ import Link from 'next/link'
 import PageShell from '@/components/PageShell'
 import PageHead from '@/components/PageHead'
 import { band, demos, ep1, releases } from '@/lib/content'
+import { ep1Media } from '@/lib/media'
 
 const description =
   'Singles, o EP 1 em produção e as demos da Garden Psychedelia — com letras.'
@@ -28,11 +29,18 @@ export default function Sons() {
       </p>
 
       <article className="mb-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
-        <img
-          src={featured.cover}
-          alt={`Capa de ${featured.title}`}
-          className="aspect-square w-full object-cover"
-        />
+        <figure>
+          <img
+            src={featured.cover}
+            alt={`Capa de ${featured.title}`}
+            className="aspect-square w-full object-cover"
+          />
+          {featured.coverCredit && (
+            <figcaption className="mt-2.5 font-mono text-xs uppercase tracking-widest text-muted">
+              {featured.coverCredit}
+            </figcaption>
+          )}
+        </figure>
         <div>
           <p className="kicker">
             {featured.year} · {featured.type}
@@ -111,6 +119,23 @@ export default function Sons() {
             </li>
           ))}
         </ul>
+
+        <h3 className="kicker mt-12">Prévia da estética</h3>
+        <p className="mt-3 max-w-prose leading-relaxed text-copy">
+          As fotos que acompanham o lançamento — a virada da Garden também no
+          visual.
+        </p>
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {ep1Media.map((shot) => (
+            <img
+              key={shot.src}
+              src={shot.src}
+              alt={shot.alt}
+              loading="lazy"
+              className="aspect-[4/5] w-full object-cover [filter:contrast(1.05)_saturate(0.95)]"
+            />
+          ))}
+        </div>
       </section>
 
       <aside className="mt-20 border-t border-line pt-8">
