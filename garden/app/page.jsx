@@ -28,12 +28,14 @@ export default function Home() {
 
       {/* Hero — sobre o shader */}
       <section className="flex min-h-[88vh] flex-col justify-between px-4 pt-28 pb-12 lg:px-8">
-        <p className="kicker flex flex-wrap gap-x-7 gap-y-1">
+        <p className="kicker flex flex-wrap items-center gap-x-4 gap-y-1">
           <span>Desde {band.since}</span>
+          <span aria-hidden="true" className="text-muted/40">|</span>
           <span>
             {band.city} — {band.state}
           </span>
-          <span>Agenda 2026 aberta</span>
+          <span aria-hidden="true" className="text-muted/40">|</span>
+          <span className="text-fg">Agenda 2026 aberta</span>
         </p>
 
         <div>
@@ -41,7 +43,7 @@ export default function Home() {
             Garden
             <span className="block text-accent mix-blend-screen">Psychedelia</span>
           </h1>
-          <p className="mt-4 max-w-[34ch] text-lg text-copy">{homeIntro}</p>
+          <p className="mt-4 max-w-[34ch] text-lg text-muted">{homeIntro}</p>
         </div>
 
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
