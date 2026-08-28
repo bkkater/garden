@@ -44,7 +44,7 @@ export default function Navigation() {
 
       <a
         href={`mailto:${band.email}`}
-        className="hidden px-3 py-3 font-mono text-xs uppercase tracking-widest no-underline hover:text-accent hover:mix-blend-normal lg:block"
+        className="hidden shrink-0 rounded-full border border-fg px-4 py-2 font-mono text-xs uppercase tracking-widest no-underline mix-blend-normal transition-colors hover:border-accent hover:bg-accent hover:text-bg lg:inline-block"
       >
         Booking
       </a>
