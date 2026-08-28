@@ -67,6 +67,23 @@
   color: var(--color-muted);
 }
 
+/* Véu escuro entre o shader e o conteúdo: melhora a leitura sem apagar o vídeo.
+   Mais denso no topo (nav + kicker) e no rodapé (quote da Home); no meio deixa
+   o shader aparecer. Fica atrás do <main> (z-2), então não escurece o texto. */
+.video-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-bg) 88%, transparent) 0%,
+    color-mix(in srgb, var(--color-bg) 42%, transparent) 28%,
+    color-mix(in srgb, var(--color-bg) 38%, transparent) 55%,
+    color-mix(in srgb, var(--color-bg) 84%, transparent) 100%
+  );
+}
+
 /* Grão sobre toda a página. */
 .grain {
   position: fixed;

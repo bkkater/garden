@@ -171,7 +171,22 @@ boa, e é o teto de melhoria de performance do site.
 
 ## Etapa 3 — Contraste + leitura sobre o vídeo
 
-_pendente_
+_pendente_ (medição frame a frame)
+
+### Correção já aplicada — véu sob o conteúdo (a pedido)
+
+`components/SiteChrome.jsx` + `.video-scrim` em `globals.css`: gradiente vertical
+de `var(--color-bg)` entre o shader (z-0) e o `<main>` (z-2) — ~88% opaco no
+topo (nav + kicker), ~40% no meio (o shader continua visível atrás do título),
+~84% no rodapé (quote da Home). `pointer-events: none`, theme-aware via
+`color-mix`, não afeta o texto (fica atrás do `<main>`) nem o modo
+`prefers-reduced-motion` (sobre `bg` sólido o `color-mix` resulta em `bg`).
+
+De quebra, o wrapper do shader ganhou `aria-hidden="true"` → **resolve F7**
+(axe `region`).
+
+Ainda a medir na etapa 3: o contraste real do kicker (`text-muted`) e da nav
+(`mix-blend-difference`) sobre o shader já escurecido, frame a frame.
 
 ## Etapa 4 — Hierarquia + tipografia
 

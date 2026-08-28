@@ -6,9 +6,11 @@ import LoadingScreen from './LoadingScreen'
 export default function SiteChrome({ children }) {
   return (
     <div className="min-h-screen">
-      <div className="fixed inset-0 z-0">
+      <div className="fixed inset-0 z-0" aria-hidden="true">
         <ShaderVideo />
       </div>
+
+      <div className="video-scrim" aria-hidden="true" />
 
       <Navigation />
 
