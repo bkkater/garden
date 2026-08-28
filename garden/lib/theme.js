@@ -23,7 +23,7 @@ export const themes = {
     },
     shader: {
       gridSize: 72,
-      dotSize: 0.55,
+      dotSize: 0.42,
       contrast: 1.4,
       brightness: 0.08,
       effectStrength: 0.82,

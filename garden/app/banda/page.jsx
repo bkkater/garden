@@ -1,5 +1,6 @@
 import PageShell from '@/components/PageShell'
 import PageHead from '@/components/PageHead'
+import MemberCard from '@/components/MemberCard'
 import { band, members } from '@/lib/content'
 import { bandaMedia } from '@/lib/media'
 
@@ -38,12 +39,11 @@ export default function Banda() {
 
         <div className="max-w-prose">
           <p className="mb-4 text-lg leading-relaxed text-copy">{band.about}</p>
-          <p className="mb-4 text-lg leading-relaxed text-copy">{band.manifesto}</p>
+          <p className="mb-4 text-lg leading-relaxed text-copy">{band.live}</p>
           <ul className="mt-8 border-t border-line">
             {[
               ['Origem', `${band.city} — ${band.state}`],
               ['Desde', band.since],
-              ['Formação', 'Cinco integrantes'],
               ['Base', 'Rock and roll + psicodelia'],
             ].map(([label, value]) => (
               <li
@@ -67,36 +67,10 @@ export default function Banda() {
         </h2>
         <div className="grid grid-cols-2 gap-2 lg:grid-cols-5">
           {members.map((member) => (
-            <figure
-              key={member.name}
-              className="reveal group relative overflow-hidden"
-            >
-              <img
-                src={member.image}
-                alt={`${member.name}, ${member.role}`}
-                className="h-[58vh] w-full object-cover object-[center_18%] transition-[transform,filter] duration-500 ease-out [filter:contrast(1.12)_saturate(0.82)] group-hover:scale-[1.02] group-hover:[filter:contrast(1.15)_saturate(0.65)]"
-              />
-              <figcaption className="absolute inset-x-3 bottom-3 flex flex-col gap-1 [text-shadow:0_1px_10px_var(--color-bg)]">
-                <strong className="text-xl tracking-tight">{member.name}</strong>
-                <em className="font-mono text-xs not-italic uppercase tracking-widest text-accent">
-                  {member.role}
-                </em>
-              </figcaption>
-            </figure>
+            <MemberCard key={member.name} member={member} />
           ))}
         </div>
       </section>
-
-      <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-3">
-        {bandaMedia.strip.map((shot) => (
-          <img
-            key={shot.src}
-            src={shot.src}
-            alt={shot.alt}
-            className="reveal h-72 w-full object-cover [filter:grayscale(0.2)_contrast(1.1)]"
-          />
-        ))}
-      </div>
     </PageShell>
   )
 }

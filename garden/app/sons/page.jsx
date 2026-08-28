@@ -1,8 +1,12 @@
+import Link from 'next/link'
 import PageShell from '@/components/PageShell'
 import PageHead from '@/components/PageHead'
-import { band, demos, releases } from '@/lib/content'
+import DemoPlayer from '@/components/DemoPlayer'
+import { band, demos, ep1, releases } from '@/lib/content'
+import { ep1Media } from '@/lib/media'
 
-const description = 'Discos, singles e demos da Garden Psychedelia.'
+const description =
+  'Singles, o EP 1 em produção e as demos da Garden Psychedelia — com letras.'
 
 export const metadata = {
   title: 'Sons',
@@ -18,15 +22,26 @@ export default function Sons() {
   return (
     <PageShell>
       <PageHead eyebrow="03 — Sons">
-        Discos, singles e o que ainda está germinando.
+        EPs, singles e o que ainda está por vir.
       </PageHead>
 
+      <p className="mb-16 font-mono text-xs uppercase tracking-widest text-accent">
+        +40.000 plays nos streamings
+      </p>
+
       <article className="mb-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
-        <img
-          src={featured.cover}
-          alt={`Capa de ${featured.title}`}
-          className="aspect-square w-full object-cover"
-        />
+        <figure>
+          <img
+            src={featured.cover}
+            alt={`Capa de ${featured.title}`}
+            className="aspect-square w-full object-cover"
+          />
+          {featured.coverCredit && (
+            <figcaption className="mt-2.5 font-mono text-xs uppercase tracking-widest text-muted">
+              {featured.coverCredit}
+            </figcaption>
+          )}
+        </figure>
         <div>
           <p className="kicker">
             {featured.year} · {featured.type}
@@ -38,14 +53,22 @@ export default function Sons() {
           <p className="my-4 font-mono text-xs uppercase tracking-widest text-accent">
             {featured.plays} plays
           </p>
-          <a
-            href={band.spotify}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-block border border-fg px-4 py-3 text-xs uppercase tracking-widest no-underline transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg"
-          >
-            Ouvir no Spotify
-          </a>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <a
+              href={band.spotify}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block border border-fg px-4 py-3 text-xs uppercase tracking-widest no-underline transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg"
+            >
+              Ouvir no Spotify
+            </a>
+            <Link
+              href={`/sons/${featured.slug}`}
+              className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted no-underline transition-colors duration-200 hover:text-accent"
+            >
+              Ver mais <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
         </div>
       </article>
 
@@ -68,25 +91,87 @@ export default function Sons() {
               <span className="block max-w-prose leading-relaxed text-copy">
                 {item.note}
               </span>
+              <Link
+                href={`/sons/${item.slug}`}
+                className="mt-2 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted no-underline transition-colors duration-200 hover:text-accent"
+              >
+                Ver mais <span aria-hidden="true">↗</span>
+              </Link>
             </div>
           </article>
         ))}
       </div>
 
+      <section className="mt-20 border-t border-line pt-8">
+        <h2 className="mb-2.5 text-3xl md:text-4xl tracking-tight">EP 1</h2>
+        <p className="max-w-prose leading-relaxed text-copy">
+          As quatro faixas em produção para o próximo EP. Letra completa e prévia
+          do som em cada página.
+        </p>
+        <ul className="mt-6">
+          {ep1.map((track) =>
+            track.audio ? (
+              <DemoPlayer key={track.slug} demo={track} />
+            ) : (
+              <li key={track.slug} className="border-t border-line">
+                <Link
+                  href={`/sons/${track.slug}`}
+                  className="flex items-center gap-3 py-3 font-mono text-xs uppercase tracking-widest text-muted no-underline transition-colors hover:text-accent"
+                >
+                  <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-current">
+                    <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6L0 12V0z"/></svg>
+                  </span>
+                  {track.title}
+                </Link>
+              </li>
+            )
+          )}
+        </ul>
+
+        <h3 className="kicker mt-12">Prévia da estética</h3>
+        <p className="mt-3 max-w-prose leading-relaxed text-copy">
+          As fotos que acompanham o lançamento — a virada da Garden também no
+          visual.
+        </p>
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {ep1Media.map((shot) => (
+            <img
+              key={shot.src}
+              src={shot.src}
+              alt={shot.alt}
+              loading="lazy"
+              className="aspect-[4/5] w-full object-cover [filter:contrast(1.05)_saturate(0.95)]"
+            />
+          ))}
+        </div>
+        <p className="mt-2.5 font-mono text-xs uppercase tracking-widest text-muted">
+          Fotos por Flávia Motta
+        </p>
+      </section>
+
       <aside className="mt-20 border-t border-line pt-8">
         <h2 className="mb-2.5 text-3xl md:text-4xl tracking-tight">No estúdio</h2>
         <p className="max-w-prose leading-relaxed text-copy">
-          Demos em processo — Morning Riser já vazou do palco para o arquivo ao vivo.
+          Demos em processo, sons que ainda estão por vir e que você já pode conferir.
         </p>
-        <ul className="mt-6 flex flex-wrap gap-2.5">
-          {demos.map((name) => (
-            <li
-              key={name}
-              className="border border-line px-3.5 py-2.5 font-mono text-xs uppercase tracking-wider"
-            >
-              {name}
-            </li>
-          ))}
+        <ul className="mt-6">
+          {demos.map((demo) =>
+            demo.audio ? (
+              <DemoPlayer key={demo.slug} demo={demo} />
+            ) : (
+              <li key={demo.slug} className="border-t border-line">
+                <Link
+                  href={`/sons/${demo.slug}`}
+                  className="flex items-center gap-3 py-3 font-mono text-xs uppercase tracking-widest text-muted no-underline transition-colors hover:text-accent"
+                >
+                  <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-current">
+                    <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6L0 12V0z"/></svg>
+                  </span>
+                  {demo.title}
+                </Link>
+              </li>
+            )
+          )}
         </ul>
       </aside>
     </PageShell>

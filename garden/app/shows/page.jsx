@@ -5,7 +5,7 @@ import { agenda, band, events, posters } from '@/lib/content';
 import { galleryByEvent } from '@/lib/media';
 import { AGENDA_YEAR } from '@/lib/site';
 
-const description = `Agenda ${AGENDA_YEAR} aberta. E a retrospectiva: Festival Troque o Disco, as Weird Parties e as fotos de cada noite.`;
+const description = `Festival Troque o Disco, as Weird Parties e os próximos shows da Garden. Agenda ${AGENDA_YEAR} aberta.`;
 
 export const metadata = {
   title: 'Shows',
@@ -43,33 +43,20 @@ export default function AoVivo() {
         </a>
       </section>
 
-      {/* Já rolou — retrospectiva */}
-      <section className='border-t border-line pt-8'>
+      {/* Nossos eventos — as Weird Parties */}
+      <section className='mb-20 border-t border-line pt-8'>
         <h2 className='font-extrabold tracking-tighter text-3xl md:text-4xl'>
-          Já rolou
+          Nossos eventos
         </h2>
         <p className='mt-3 mb-12 max-w-prose text-lg leading-relaxed text-copy'>
-          Um festival, quatro Weird Parties e muitas outras histórias. Tudo isso
-          entre {band.since} e {AGENDA_YEAR}.
+          Se a cena não te abraça, abrace a cena. As Weird Parties são os eventos
+          que a própria Garden organiza — line-up, espaço, cartaz, tudo montado
+          por nós — pra fazer o palco que a gente queria tocar e chamar outros
+          artistas junto. Já foram quatro, entre edições de Halloween e de Natal.
         </p>
 
-        <h3 className='kicker'>Shows e festas</h3>
-        <ul className='mt-4 mb-16 grid grid-cols-1 gap-6 md:grid-cols-3'>
-          {events.map((event) => (
-            <li key={event.title} className='border-t border-line pt-4'>
-              <h4 className='mb-2 text-2xl tracking-tight'>{event.title}</h4>
-              <p className='mb-2.5 font-mono text-xs uppercase tracking-widest text-muted'>
-                {event.place}
-              </p>
-              <span className='block leading-relaxed text-copy'>
-                {event.note}
-              </span>
-            </li>
-          ))}
-        </ul>
-
         <h3 className='kicker'>Cartazes</h3>
-        <div className='mt-4 mb-16 grid grid-cols-2 gap-4 lg:grid-cols-4'>
+        <div className='mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4'>
           {posters.map((poster) => (
             <figure key={poster.src} className='reveal'>
               <img
@@ -83,6 +70,33 @@ export default function AoVivo() {
             </figure>
           ))}
         </div>
+      </section>
+
+      {/* Já rolou — retrospectiva */}
+      <section className='border-t border-line pt-8'>
+        <h2 className='font-extrabold tracking-tighter text-3xl md:text-4xl'>
+          Já rolou
+        </h2>
+        <p className='mt-3 mb-12 max-w-prose text-lg leading-relaxed text-copy'>
+          Um festival, quatro Weird Parties e muitas outras histórias.
+        </p>
+
+        <h3 className='kicker'>Shows e festas</h3>
+        <ul className='mt-4 mb-16 grid grid-cols-1 gap-6 md:grid-cols-2'>
+          {events.map((event) => (
+            <li key={event.title} className='border-t border-line pt-4'>
+              <h4 className='mb-2 text-2xl tracking-tight'>{event.title}</h4>
+              {event.place && (
+                <p className='mb-2.5 font-mono text-xs uppercase tracking-widest text-muted'>
+                  {event.place}
+                </p>
+              )}
+              <span className='block leading-relaxed text-copy'>
+                {event.note}
+              </span>
+            </li>
+          ))}
+        </ul>
 
         <h3 className='kicker mb-6'>Fotos por noite</h3>
         <LiveGallery groups={groups} headingLevel='h4' />

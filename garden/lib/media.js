@@ -33,6 +33,34 @@ export const memberPhotos = {
   bianca: '/members/bianca-baterista.jpg',
 }
 
+export const memberSlides = {
+  milton: [
+    '/members/milton-vocalista.jpg',
+    '/members/milton-vocalista2.jpg',
+    '/members/milton-vocalista3.jpg',
+  ],
+  gabriel: [
+    '/members/gabriel-guitarrista.jpg',
+    '/members/gabriel-guitarrista2.jpg',
+    '/members/gabriel-guitarrista3.jpg',
+  ],
+  matheus: [
+    '/members/matheus-guitarrista.jpg',
+    '/members/matheus-guitarrista2.jpg',
+    '/members/matheus-guitarrista3.jpg',
+  ],
+  bob: [
+    '/members/bob-baixista.jpg',
+    '/members/bob-baixista2.jpg',
+    '/members/bob-baixista3.jpg',
+  ],
+  bianca: [
+    '/members/bianca-baterista.jpg',
+    '/members/bianca-baterista2.jpg',
+    '/members/bianca-baterista3.jpg',
+  ],
+}
+
 export const livePhotos = {
   festivalGabriel: '/live/festival/hyakuya-01.jpg',
   festivalMilton: '/live/festival/hyakuya-02.jpg',
@@ -52,12 +80,16 @@ export const bandaMedia = {
     alt: 'Garden Psychedelia no Festival Troque o Disco',
     caption: 'Festival Troque o Disco · foto Hyakuya',
   },
-  strip: [
-    { src: livePhotos.festivalGabriel, alt: 'Gabriel no palco' },
-    { src: livePhotos.festivalSmile, alt: 'Milton no vocal' },
-    { src: livePhotos.wp4Matheus, alt: 'Matheus na guitarra' },
-  ],
 }
+
+export const ep1Media = [
+  { src: '/ep1/ep1-01.jpg', alt: 'A Garden caminhando à beira da represa, uma placa escrita DBAWOT' },
+  { src: '/ep1/ep1-02.jpg', alt: 'A banda em volta de uma manta com instrumentos, tintas e um cavalete' },
+  { src: '/ep1/ep1-03.jpg', alt: 'Os cinco integrantes vistos de baixo, cabeças formando um círculo' },
+  { src: '/ep1/ep1-04.jpg', alt: 'A Garden em pé no meio do mato, luz de fim de tarde' },
+  { src: '/ep1/ep1-05.jpg', alt: 'Retrato da banda no campo, olhando para a câmera' },
+  { src: '/ep1/ep1-06.jpg', alt: 'Duas guitarras e baquetas largadas na grama' },
+]
 
 export const contatoMedia = {
   figure: {
