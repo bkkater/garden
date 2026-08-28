@@ -64,7 +64,7 @@ export default function TrackPlayButton({ track }) {
               cy="18"
               r={R}
               fill="none"
-              stroke="#fff"
+              stroke="var(--color-accent)"
               strokeWidth="2"
               strokeLinecap="round"
               strokeDasharray={CIRC}

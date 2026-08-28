@@ -37,13 +37,13 @@ export default function DemoPlayer({ demo }) {
         </Link>
 
         {/* Controle de prévia à direita — rótulo + círculo ▶/⏸.
-            O anel branco acompanha o progresso dos 15s. */}
+            Uma cor só: apagado no repouso, vermelho da marca quando ativo. */}
         <button
           type="button"
           onClick={() => play(demo, { previewSeconds: PREVIEW_SECONDS })}
           aria-label={`${isPlaying ? 'Pausar prévia de' : 'Ouvir prévia de'} ${demo.title}`}
           className={[
-            'group/preview flex shrink-0 items-center gap-2 rounded-full border py-1 pl-3 pr-1 font-mono text-[10px] uppercase tracking-widest transition-colors duration-200',
+            'flex shrink-0 items-center gap-2 rounded-full border py-1 pl-3 pr-1 font-mono text-[10px] uppercase tracking-widest transition-colors duration-200',
             isThis
               ? 'border-accent text-accent'
               : 'border-line text-muted hover:border-accent hover:text-accent',
@@ -74,8 +74,8 @@ export default function DemoPlayer({ demo }) {
           <span className="relative flex h-7 w-7 items-center justify-center">
             <span
               className={[
-                'flex h-7 w-7 items-center justify-center rounded-full border text-fg transition-colors',
-                isThis ? 'border-transparent' : 'border-current group-hover/preview:border-accent group-hover/preview:text-accent',
+                'flex h-7 w-7 items-center justify-center rounded-full border text-current transition-colors',
+                isThis ? 'border-transparent' : 'border-current',
               ].join(' ')}
             >
               {isPlaying ? (
@@ -102,7 +102,7 @@ export default function DemoPlayer({ demo }) {
                   cy="14"
                   r={R}
                   fill="none"
-                  stroke="#fff"
+                  stroke="var(--color-accent)"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeDasharray={CIRC}
