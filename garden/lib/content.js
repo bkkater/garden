@@ -1,4 +1,10 @@
-import { memberPhotos, covers, posterFiles, livePhotos, liveGallery } from './media'
+import {
+  memberPhotos,
+  covers,
+  posterFiles,
+  livePhotos,
+  liveGallery,
+} from './media'
 
 export const band = {
   name: 'Garden Psychedelia',
@@ -31,6 +37,40 @@ export const navItems = [
   { to: '/ao-vivo', index: '02', label: 'Ao vivo' },
   { to: '/sons', index: '03', label: 'Sons' },
   { to: '/contato', index: '04', label: 'Contato' },
+]
+
+// Home = vitrine. Uma linha por seção, cada uma linkando para a página cheia.
+export const homeIntro = 'Psicodelia como referência. Alternativo por natureza.'
+
+export const homeSections = [
+  {
+    to: '/banda',
+    index: '01',
+    label: 'Banda',
+    teaser: 'Cinco amigos em Campos dos Goytacazes, um som fino desde 2019.',
+    image: livePhotos.festivalBand,
+  },
+  {
+    to: '/ao-vivo',
+    index: '02',
+    label: 'Ao vivo',
+    teaser: 'Festival Troque o Disco, as Weird Parties e a agenda 2026 aberta.',
+    image: posterFiles.weirdParty4,
+  },
+  {
+    to: '/sons',
+    index: '03',
+    label: 'Sons',
+    teaser: 'Dbawot é o lançamento mais recente — o jardim como corpo.',
+    image: covers.dbawot,
+  },
+  {
+    to: '/contato',
+    index: '04',
+    label: 'Contato',
+    teaser: 'talktogarden@gmail.com — para shows, festivais e o corre do ao vivo.',
+    image: livePhotos.wp3Milton,
+  },
 ]
 
 export const releases = [

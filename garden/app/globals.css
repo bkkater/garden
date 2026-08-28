@@ -40,13 +40,15 @@
   html,
   body {
     min-height: 100%;
+    /* corta qualquer transbordo horizontal — o shader e o grão são fixed
+       inset-0 e podem reportar largura inflada (F32 da auditoria). */
+    overflow-x: clip;
   }
 
   body {
     background: var(--color-bg);
     color: var(--color-fg);
     font-family: var(--font-display);
-    overflow-x: hidden;
   }
 
   button {

@@ -98,7 +98,7 @@ Parte de F17 e F37 (o título não deve mais tocar/estourar depois da Etapa 1).
 
 ---
 
-## Etapa 3 — Repensar a Home (`/`)
+## Etapa 3 — Repensar a Home (`/`) ✅
 
 > "A / é uma página sem scroll. Cada seção do site tem sua página, mas não
 > deveria ter o foco central da banda ou apenas uma prévia do conteúdo na
