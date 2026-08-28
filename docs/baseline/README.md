@@ -1,6 +1,6 @@
 # Baseline visual — antes da migração Next + Tailwind
 
-Capturado em 2026-08-27, branch `next-tailwind-migration`, a partir do build Vite
+Capturado em 2026-08-27, branch `next-tailwind-improvements`, a partir do build Vite
 atual (`npm run build` + `npm run preview`).
 
 Servem de referência de regressão visual para comparar contra a versão Next durante
