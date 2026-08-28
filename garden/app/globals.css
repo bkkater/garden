@@ -77,10 +77,10 @@
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    color-mix(in srgb, var(--color-bg) 88%, transparent) 0%,
-    color-mix(in srgb, var(--color-bg) 42%, transparent) 28%,
-    color-mix(in srgb, var(--color-bg) 38%, transparent) 55%,
-    color-mix(in srgb, var(--color-bg) 84%, transparent) 100%
+    color-mix(in srgb, var(--color-bg) 96%, transparent) 0%,
+    color-mix(in srgb, var(--color-bg) 68%, transparent) 22%,
+    color-mix(in srgb, var(--color-bg) 62%, transparent) 55%,
+    color-mix(in srgb, var(--color-bg) 92%, transparent) 100%
   );
 }
 
