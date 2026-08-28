@@ -123,6 +123,15 @@ export const demos = [
   'Go Away',
 ]
 
+// Estado da agenda 2026. Sem datas fechadas até agora — atualize aqui.
+export const agenda = {
+  status: 'A agenda 2026 está aberta.',
+  detail:
+    'Ainda sem datas confirmadas. Para chamar a Garden para um show, festival ou uma noite, escreve para o e-mail — a banda responde.',
+  upcoming: [],
+}
+
+// Já rolou — retrospectiva (2019–2024).
 export const events = [
   {
     title: 'Festival Troque o Disco',

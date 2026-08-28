@@ -3,7 +3,8 @@
 import { useState } from 'react'
 
 // Galerias por evento + lightbox. Recebe os grupos já montados do Server Component.
-export default function LiveGallery({ groups }) {
+// `headingLevel` controla o nível do título de cada noite (default h3).
+export default function LiveGallery({ groups, headingLevel: Heading = 'h3' }) {
   const [active, setActive] = useState(null)
 
   return (
@@ -11,9 +12,9 @@ export default function LiveGallery({ groups }) {
       {groups.map((group) => (
         <section key={group.event} className="mb-14">
           <p className="kicker">{group.shots.length} fotos</p>
-          <h2 className="my-2 font-extrabold tracking-tighter text-3xl md:text-4xl">
+          <Heading className="my-2 font-extrabold tracking-tighter text-2xl md:text-3xl">
             {group.event}
-          </h2>
+          </Heading>
           <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
             {group.shots.map((shot) => (
               <button
