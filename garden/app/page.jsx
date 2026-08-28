@@ -15,7 +15,7 @@ const jsonLd = {
   genre: 'Psychedelic rock',
   email: band.email,
   url: siteUrl,
-  sameAs: [band.instagram, band.spotify],
+  sameAs: [band.instagram, band.youtube, band.tiktok, band.spotify],
 }
 
 export default function Home() {

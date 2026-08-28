@@ -1,5 +1,6 @@
 import PageShell from '@/components/PageShell'
 import PageHead from '@/components/PageHead'
+import SocialLinks from '@/components/SocialLinks'
 import { band } from '@/lib/content'
 import { contatoMedia } from '@/lib/media'
 
@@ -24,41 +25,22 @@ export default function Contato() {
         {band.email}
       </a>
 
-      <div className="grid grid-cols-1 items-end gap-12 lg:grid-cols-2">
-        <div>
+      <div className="flex flex-col gap-12 md:flex-row md:items-start md:gap-16">
+        <div className="md:flex-1">
           <p className="max-w-prose leading-relaxed text-copy">
             Shows, festivais, Weird Parties e o corre do ao vivo. Fala com a Garden
             pelo e-mail ou pelas redes.
           </p>
-          <ul className="mt-7">
-            <li>
-              <a
-                href={band.instagram}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block border-b border-line py-2.5 tracking-wide no-underline hover:text-accent"
-              >
-                Instagram · @gardenpsychedelia
-              </a>
-            </li>
-            <li>
-              <a
-                href={band.spotify}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block border-b border-line py-2.5 tracking-wide no-underline hover:text-accent"
-              >
-                Spotify · Garden Psychedelia
-              </a>
-            </li>
-          </ul>
+          <SocialLinks className="mt-7 max-w-md" />
         </div>
 
-        <figure>
+        <figure className="shrink-0">
           <img
             src={contatoMedia.figure.src}
             alt={contatoMedia.figure.alt}
-            className="w-full mix-blend-screen"
+            width={176}
+            height={176}
+            className="size-44 rounded-full object-cover"
           />
           <figcaption className="mt-2.5 font-mono text-xs uppercase tracking-widest text-muted">
             {band.city} — {band.state} · desde {band.since}

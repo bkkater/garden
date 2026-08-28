@@ -14,6 +14,8 @@ export const band = {
   email: 'talktogarden@gmail.com',
   instagram: 'https://www.instagram.com/gardenpsychedelia',
   spotify: 'https://open.spotify.com/intl-pt/artist/2Gz78gC3i0E5nLHKwzfGGh',
+  youtube: 'https://www.youtube.com/channel/UC6rGfPAbTqQWj3DCwdwvaDw',
+  tiktok: 'https://www.tiktok.com/@gardenpsyched',
   monthlyListeners: 60,
   followers: 438,
   quote:
@@ -147,3 +149,11 @@ export const posters = [
 ]
 
 export const gallery = liveGallery
+
+// Redes — usado na /contato e no footer. `key` casa com o ícone em SocialLinks.
+export const socials = [
+  { key: 'instagram', label: 'Instagram', handle: '@gardenpsychedelia', url: band.instagram },
+  { key: 'youtube', label: 'YouTube', handle: 'Garden Psychedelia', url: band.youtube },
+  { key: 'tiktok', label: 'TikTok', handle: '@gardenpsyched', url: band.tiktok },
+  { key: 'spotify', label: 'Spotify', handle: 'Garden Psychedelia', url: band.spotify },
+]

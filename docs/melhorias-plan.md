@@ -142,7 +142,7 @@ de "bloco de seção".
 
 ---
 
-## Etapa 4 — Página de Contato
+## Etapa 4 — Página de Contato ✅
 
 > "A imagem está muito grande, ela deveria ser um círculo e não um quadrado."
 > "Falta as redes sociais da banda: YouTube, Instagram e TikTok."
