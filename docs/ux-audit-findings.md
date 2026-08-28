@@ -13,7 +13,7 @@ Status por etapa:
 | 4 | Hierarquia + tipografia | ✅ concluída |
 | 5 | CTAs | ✅ concluída |
 | 6 | Mobile | ✅ concluída |
-| 7 | Performance aprofundada | ⬜ pendente |
+| 7 | Performance aprofundada | ✅ concluída |
 | 8 | Consolidação | ⬜ pendente |
 
 ---
@@ -518,7 +518,105 @@ integrantes da `/banda` (2 col × `h-[58vh]`, 3 linhas) é o segundo maior peso.
 
 ## Etapa 7 — Performance aprofundada
 
-_pendente_
+Método: trace de rede por rota (bytes por tipo), trace de CPU do CDP com a
+página parada, cabeçalhos de cache, dimensões reais de vídeo/imagem, teste em
+`prefers-reduced-motion`. Build de produção.
+
+### Peso total por rota
+
+| Rota | Total | vídeo | imagens | script | fontes | css |
+| --- | --- | --- | --- | --- | --- | --- |
+| `/` | **15,9 MB** | 9,0 (2×) | 5,2 (16 img) | 1,3 | 0,13 | 0,03 |
+| `/banda` | 11,4 MB | 4,5 | 5,2 (16) | 1,3 | | |
+| `/ao-vivo` | **19,9 MB** | 9,0 (2×) | 9,2 (32) | 1,3 | | |
+| `/sons` | 11,3 MB | 4,5 | 5,2 (16) | 1,3 | | |
+| `/contato` | 11,3 MB | 4,5 | 5,2 (16) | 1,3 | | |
+
+**Toda rota baixa 11–20 MB.** A `/contato` — que mostra 1 logo e um bloco de
+texto — baixa **5,2 MB de imagens de outras rotas** (integrantes, pôsteres,
+galeria) via prefetch dos `<Link>`, + 4,5 MB de vídeo + 1,3 MB de JS.
+
+### Detalhamento
+
+**Vídeo** — `garden-live.mp4`: **1280×720, H.264, 2054 kbps, 18 s, 4,6 MB**.
+- 720p é mais do que o halftone (grade de 72 células) precisa — 480–540p + CRF
+  + uma fonte `<source>` WebM/AV1 cortaria para ~1,5–2 MB.
+- Em `/` e `/ao-vivo` são **2 requests** (~9 MB): provável combinação de
+  `Cache-Control: max-age=0` + `<video>` no SSR + refetch quando o
+  `ShaderVideo` client monta a `THREE.VideoTexture`.
+- **`prefers-reduced-motion`: 0 requests de vídeo** — quando o shader não
+  monta, o `<video>` nem é renderizado. ✅ O modo econômico funciona.
+
+**Imagens** — dimensões reais vs. exibição:
+
+| Asset | Real | Exibido | Peso | Sobredim. |
+| --- | --- | --- | --- | --- |
+| `members/*.jpg` | 1400×930 | ~180–270px | 144 KB | ~5–8× |
+| `covers/dbawot.jpg` | 1400×1400 | ~350–600px | 456 KB | ~2–4× |
+| `posters/*.jpg` | 1080×1350 | ~180–330px | **596 KB** | ~3–6× |
+| `live/**/*.jpg` | 1800×… | ~180–680px | ~260 KB | ~3–10× |
+| `logos/logo-badge.png` | **4096×4096** | 44–96px | 528 KB | ~90× |
+| `logos/logo-red.png` | **4096×4096** | ~200–400px | 712 KB | ~10× |
+
+`import-photos.py` fixa `MAX_SIDE = 1800` — grande demais para thumbnail. Sem
+`next/image`, sem `srcset`.
+
+**JavaScript** — `script` = 1,3 MB em toda rota (o chunk do `three` +
+`@react-three/fiber`, ~880 KB, + runtime). Pré-hidratação: **0 script
+bloqueante** no HTML inicial → o FCP não espera JS (bate com FCP 0,2–0,8 s da
+etapa 2). O `three` carrega **depois** da hidratação, mas em **toda** rota.
+
+**CPU do shader (parado)** — desktop, sem throttle, 5 s de janela:
+
+| Métrica | Valor |
+| --- | --- |
+| TaskDuration | 1,94 s = **~39% de 1 core, contínuo** |
+| ScriptDuration | 0,28 s (o resto é render/composição WebGL) |
+| com `document.hidden` | Task cai para 0,06 s ✅ |
+
+O cap de 30 fps ajuda, mas o loop roda sempre. **Não há `IntersectionObserver`**
+— o shader é `position: fixed`, "sempre visível", e continua renderizando a
+todo vapor mesmo em `/ao-vivo` (11 telas), atrás de conteúdo sólido.
+`document.hidden` (trocar de aba) pausa corretamente.
+
+**Cache**:
+
+| Recurso | `Cache-Control` |
+| --- | --- |
+| `/_next/static/*` | `public, max-age=31536000, immutable` ✅ |
+| `public/*` (vídeo, imagens) | **`public, max-age=0`** ❌ revalida a cada navegação |
+
+**Terceiros**: nenhum (sem analytics, sem CDN de fonte). ✅
+
+**CSS**: 32 KB cru / **6,4 KB gzip** / 355 regras. Valores arbitrários todos de
+uso único e razoáveis. **S9 é não-problema** — 6,4 KB é irrelevante ao lado de
+15 MB de mídia.
+
+### Achados
+
+| id | eixo | onde | descrição | sev. | esforço |
+| --- | --- | --- | --- | --- | --- |
+| **F2** (ampliado) | perf | `Navigation` / **todas as rotas** | O prefetch dos `<Link>` da nav faz **cada rota** baixar **5–9 MB de imagens das outras rotas**. Não é só a Home — `/contato` (1 logo visível) baixa 5,2 MB de fotos de integrantes/pôsteres/galeria. | **crítico** | S |
+| **F38** | perf | deploy / `public/` | `public/*` servido com `max-age=0` — vídeo (4,6 MB) e imagens revalidam a cada navegação. Fix: regra de CDN/proxy para `/video` e `/live` etc., ou importar imagens como módulos (hasheadas), ou `next/image`. | alto | S |
+| **F39** | perf | `ShaderVideo.jsx` | O shader consome **~39% de 1 core continuamente** enquanto a aba está aberta (mesmo parado, mesmo com conteúdo sólido por cima). Falta pausar quando rolado para fora de vista (só `document.hidden` pausa hoje). | alto | S |
+| **F40** | perf | `ShaderVideo.jsx` | O `garden-live.mp4` é baixado 2× em `/` e `/ao-vivo` (~9 MB de vídeo numa carga). | médio | S |
+| **F42** | perf | `public/video`, `import-photos.py` | Vídeo 720p/2 Mbps (cabe 480–540p); `MAX_SIDE=1800` no script de fotos gera thumbnails 3–10× maiores que o exibido; logos PNG 4096² (F4). | alto | M |
+
+### Positivos
+
+- **Pré-hidratação sem JS bloqueante** — FCP 0,2–0,8 s.
+- **`prefers-reduced-motion` não baixa o vídeo** — modo econômico real.
+- `document.hidden` pausa o shader.
+- `/_next/static` com cache imutável correto.
+- Fontes 134 KB / 5 `.woff2` — ok.
+- **Zero terceiros.**
+- CSS 6,4 KB gzip.
+- CLS 0 (etapa 2).
+
+### Atualização de suspeitas
+
+- **S8** → totalmente confirmada e pior que o previsto (F2 ampliado, F38, F42).
+- **S9** → **descartada** — CSS gzip é irrelevante.
 
 ## Etapa 8 — Consolidação
 
