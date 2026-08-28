@@ -4,6 +4,7 @@ import PageShell from '@/components/PageShell'
 import PageHead from '@/components/PageHead'
 import TrackPlayButton from '@/components/TrackPlayButton'
 import { tracks, trackBySlug } from '@/lib/content'
+import { hasAudio } from '@/lib/audio.server'
 
 export const dynamicParams = false
 
@@ -47,10 +48,10 @@ export default async function TrackDetail({ params }) {
         <span aria-hidden="true">←</span> Voltar para Sons
       </Link>
 
-      <PageHead eyebrow={`03 — Sons / ${track.title}`}>
-        <span className="inline-flex flex-wrap items-center gap-4 sm:gap-6">
-          <span>{track.title}</span>
-          {track.audio && (
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+        <PageHead eyebrow={`03 — Sons / ${track.title}`}>{track.title}</PageHead>
+        {hasAudio(track) && (
+          <div className="shrink-0 sm:pt-9">
             <TrackPlayButton
               track={{
                 slug: track.slug,
@@ -59,9 +60,9 @@ export default async function TrackDetail({ params }) {
                 audio: track.audio,
               }}
             />
-          )}
-        </span>
-      </PageHead>
+          </div>
+        )}
+      </div>
 
       <article className="mb-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
         {track.cover && (

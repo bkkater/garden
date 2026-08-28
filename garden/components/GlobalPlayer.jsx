@@ -41,14 +41,6 @@ function IconVolume({ muted }) {
   )
 }
 
-function IconMinimize() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <polyline points="6 9 12 15 18 9" />
-    </svg>
-  )
-}
-
 function IconMaximize() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -82,7 +74,8 @@ export default function GlobalPlayer() {
   const volRef = useRef(volume)
   const [minimized, setMinimized] = useState(false)
 
-  if (!track) return null
+  // Prévia de 15s (tocada da lista) roda inline no próprio item — sem barra.
+  if (!track || state.previewLimit) return null
 
   const handlePlayPause = (e) => {
     e?.stopPropagation()
@@ -243,7 +236,7 @@ export default function GlobalPlayer() {
           borderTop: '1px solid var(--color-line)',
         }}
       >
-        <div className="mx-auto flex max-w-5xl items-center gap-4 px-4 py-3 md:px-8">
+        <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 md:px-8">
 
           {/* Info da faixa — clicável → página da letra */}
           <Link
@@ -304,22 +297,12 @@ export default function GlobalPlayer() {
               />
             </div>
 
-            {/* Minimizar / Esconder */}
+            {/* X — tocando: minimiza; pausado/parado: fecha de vez */}
             <button
-              onClick={() => setMinimized(true)}
-              aria-label="Esconder player"
+              onClick={() => (isPlaying ? setMinimized(true) : close())}
+              aria-label={isPlaying ? 'Minimizar player' : 'Fechar player'}
               className="flex h-7 w-7 items-center justify-center rounded-full text-muted transition-colors hover:bg-line/40 hover:text-fg"
-              title="Esconder player"
-            >
-              <IconMinimize />
-            </button>
-
-            {/* Fechar */}
-            <button
-              onClick={close}
-              aria-label="Fechar player"
-              className="flex h-7 w-7 items-center justify-center rounded-full text-muted transition-colors hover:bg-line/40 hover:text-fg"
-              title="Fechar player"
+              title={isPlaying ? 'Minimizar' : 'Fechar'}
             >
               <IconClose />
             </button>

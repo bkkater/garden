@@ -2,8 +2,10 @@ import Link from 'next/link'
 import PageShell from '@/components/PageShell'
 import PageHead from '@/components/PageHead'
 import DemoPlayer from '@/components/DemoPlayer'
+import TrackLinkRow from '@/components/TrackLinkRow'
 import { band, demos, ep1, releases } from '@/lib/content'
 import { ep1Media } from '@/lib/media'
+import { hasAudio } from '@/lib/audio.server'
 
 const description =
   'Singles, o EP 1 em produção e as demos da Garden Psychedelia — com letras.'
@@ -110,20 +112,10 @@ export default function Sons() {
         </p>
         <ul className="mt-6">
           {ep1.map((track) =>
-            track.audio ? (
+            hasAudio(track) ? (
               <DemoPlayer key={track.slug} demo={track} />
             ) : (
-              <li key={track.slug} className="border-t border-line">
-                <Link
-                  href={`/sons/${track.slug}`}
-                  className="flex items-center gap-3 py-3 font-mono text-xs uppercase tracking-widest text-muted no-underline transition-colors hover:text-accent"
-                >
-                  <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-current">
-                    <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6L0 12V0z"/></svg>
-                  </span>
-                  {track.title}
-                </Link>
-              </li>
+              <TrackLinkRow key={track.slug} track={track} />
             )
           )}
         </ul>
@@ -156,20 +148,10 @@ export default function Sons() {
         </p>
         <ul className="mt-6">
           {demos.map((demo) =>
-            demo.audio ? (
+            hasAudio(demo) ? (
               <DemoPlayer key={demo.slug} demo={demo} />
             ) : (
-              <li key={demo.slug} className="border-t border-line">
-                <Link
-                  href={`/sons/${demo.slug}`}
-                  className="flex items-center gap-3 py-3 font-mono text-xs uppercase tracking-widest text-muted no-underline transition-colors hover:text-accent"
-                >
-                  <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-current">
-                    <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6L0 12V0z"/></svg>
-                  </span>
-                  {demo.title}
-                </Link>
-              </li>
+              <TrackLinkRow key={demo.slug} track={demo} />
             )
           )}
         </ul>

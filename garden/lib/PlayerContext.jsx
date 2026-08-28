@@ -16,14 +16,27 @@ const initial = {
   progress: 0,      // 0–1
   duration: 0,
   volume: 0.8,
+  previewLimit: null, // segundos — quando setado, a reprodução para nesse ponto
 }
 
 function reducer(state, action) {
   switch (action.type) {
     case 'LOAD':
-      return { ...state, track: action.track, isPlaying: true, progress: 0, duration: 0 }
+      return {
+        ...state,
+        track: action.track,
+        isPlaying: true,
+        progress: 0,
+        duration: 0,
+        previewLimit: action.previewLimit ?? null,
+      }
     case 'PLAY':
-      return { ...state, isPlaying: true }
+      return {
+        ...state,
+        isPlaying: true,
+        previewLimit:
+          action.previewLimit !== undefined ? action.previewLimit : state.previewLimit,
+      }
     case 'PAUSE':
       return { ...state, isPlaying: false }
     case 'TICK':
@@ -53,17 +66,20 @@ export function PlayerProvider({ children }) {
 
   /** Toca uma faixa. Se for a mesma já carregada, faz toggle play/pause. */
   const play = useCallback(
-    (track) => {
+    (track, opts = {}) => {
       const el = audioRef.current
       if (!el) return
+
+      const previewLimit = opts.previewSeconds ?? null
 
       if (state.track?.slug === track.slug) {
         if (state.isPlaying) {
           el.pause()
           dispatch({ type: 'PAUSE' })
         } else {
+          if (previewLimit && el.currentTime >= previewLimit) el.currentTime = 0
           el.play().catch(() => {})
-          dispatch({ type: 'PLAY' })
+          dispatch({ type: 'PLAY', previewLimit })
         }
         return
       }
@@ -72,7 +88,7 @@ export function PlayerProvider({ children }) {
       el.src = track.audio
       el.volume = state.volume
       el.load()
-      dispatch({ type: 'LOAD', track })
+      dispatch({ type: 'LOAD', track, previewLimit })
       el.play().catch(() => {})
     },
     [state.track, state.isPlaying, state.volume],
@@ -89,12 +105,18 @@ export function PlayerProvider({ children }) {
   }, [])
 
   /** ratio: 0–1 */
-  const seek = useCallback((ratio) => {
-    const el = audioRef.current
-    if (!el || !el.duration) return
-    el.currentTime = ratio * el.duration
-    dispatch({ type: 'TICK', progress: ratio, duration: el.duration })
-  }, [])
+  const seek = useCallback(
+    (ratio) => {
+      const el = audioRef.current
+      if (!el || !el.duration) return
+      const effDur = state.previewLimit
+        ? Math.min(state.previewLimit, el.duration)
+        : el.duration
+      el.currentTime = ratio * effDur
+      dispatch({ type: 'TICK', progress: ratio, duration: effDur })
+    },
+    [state.previewLimit],
+  )
 
   /** volume: 0–1 */
   const setVolume = useCallback((v) => {
@@ -113,12 +135,27 @@ export function PlayerProvider({ children }) {
   const onTimeUpdate = () => {
     const el = audioRef.current
     if (!el || !el.duration) return
-    dispatch({ type: 'TICK', progress: el.currentTime / el.duration, duration: el.duration })
+
+    const limit = state.previewLimit
+    if (limit && el.currentTime >= limit) {
+      el.pause()
+      el.currentTime = 0
+      dispatch({ type: 'ENDED' })
+      return
+    }
+
+    const effDur = limit ? Math.min(limit, el.duration) : el.duration
+    dispatch({ type: 'TICK', progress: el.currentTime / effDur, duration: effDur })
   }
 
   const onLoadedMetadata = () => {
     const el = audioRef.current
-    if (el) dispatch({ type: 'METADATA', duration: el.duration })
+    if (!el) return
+    const limit = state.previewLimit
+    dispatch({
+      type: 'METADATA',
+      duration: limit ? Math.min(limit, el.duration) : el.duration,
+    })
   }
 
   const onEnded = () => dispatch({ type: 'ENDED' })
