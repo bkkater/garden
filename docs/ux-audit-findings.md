@@ -14,7 +14,7 @@ Status por etapa:
 | 5 | CTAs | ✅ concluída |
 | 6 | Mobile | ✅ concluída |
 | 7 | Performance aprofundada | ✅ concluída |
-| 8 | Consolidação | ⬜ pendente |
+| 8 | Consolidação | ✅ concluída |
 
 ---
 
@@ -620,4 +620,153 @@ uso único e razoáveis. **S9 é não-problema** — 6,4 KB é irrelevante ao la
 
 ## Etapa 8 — Consolidação
 
-_pendente_
+### Sumário executivo
+
+O site tem uma **fundação técnica muito boa** — SSR com FCP de 0,2–0,8 s, CLS 0,
+SEO e Best Practices 100, `next/font` self-hosted, zero terceiros, cache
+imutável no bundle, semântica limpa (1 `<h1>`/rota, sem salto de heading,
+`alt`/`lang`/nomes ok), `prefers-reduced-motion` que realmente desliga o shader
+e nem baixa o vídeo.
+
+E uma **entrega problemática** em cima dela: **cada rota transfere 11–20 MB**
+(vídeo de 4,5 MB baixado inteiro — às vezes 2× — + 5–9 MB de imagens de rotas
+que o visitante não abriu, via prefetch), o **LCP mobile fica entre 10 e 23 s**,
+o **texto sobre o vídeo** só ficou legível depois do véu desta auditoria (e o
+título "Psychedelia" ainda some em alguns frames), a **navegação mobile
+esconde o link de Contato**, o **lightbox não fecha por teclado nem por botão**,
+e **Home e /banda não têm nenhum call-to-action**.
+
+### Nota por eixo
+
+| Eixo | Nota | Resumo |
+| --- | --- | --- |
+| 1. Hierarquia de conteúdo | **C** | Base semântica certa, mas os `<h1>` são slogans decorativos e `/ao-vivo` tem 9 `<h2>` sem ordem |
+| 2. Tipografia / legibilidade | **C−** | Corpo ≥ 16px e CLS 0, mas ~20 elementos em 9–12px e zoom 200% quebra 4/5 rotas |
+| 3. Leitura sobre o vídeo | **B−** (era D) | O véu desta auditoria trouxe kicker/título/nav/quote para AA; sobra "Psychedelia" (`mix-blend-screen`) |
+| 4. Contraste / acessibilidade | **C−** | axe quase limpo e semântica boa, mas accent reprova AA, bordas invisíveis, foco fraco, sem skip-link, lightbox sem teclado |
+| 5. CTAs | **D+** | `/contato` faz bem; o resto do site quase não tem ação, e "ouça a música" / "ver agenda" falham |
+| 6. Experiência mobile | **D+** | pinch-zoom e landscape ok, mas nav esconde item, overflow horizontal, toque 33px, páginas de 11–29 telas, lightbox |
+| 7. Performance | **D** (fundação B, entrega F) | SSR/cache-static/zero-terceiros excelentes; 11–20 MB/rota e LCP 10–23 s no mobile destroem a nota |
+
+### Top 10 achados
+
+| # | id | eixo | 1 linha |
+| --- | --- | --- | --- |
+| 1 | **F1** | perf | vídeo 4,5 MB baixado inteiro em toda rota → LCP mobile 10–23 s |
+| 2 | **F2** | perf | prefetch dos `<Link>` faz cada rota baixar 5–9 MB de imagens de outras rotas |
+| 3 | **F36** | a11y / mobile | lightbox: sem botão de fechar, `Esc` não fecha, scroll do fundo não travado, `role`/foco ausentes |
+| 4 | **F31** | mobile | o último item da nav ("Contato") fica fora da tela no mobile, sem affordance |
+| 5 | **F17** | tipografia / a11y | zoom 200% → scroll horizontal em 4/5 rotas (reprova WCAG 1.4.10) |
+| 6 | **F6** | contraste | `text-accent` (#e31b23/#080808) = 4,24:1 reprova AA em texto pequeno (`/ao-vivo`, `/sons`, roles) |
+| 7 | **F22 / F23** | CTA | Home e `/banda` sem CTA; "ouça a música" leva ao artista (não à faixa), 3/4 releases sem link |
+| 8 | **F39** | perf | shader consome ~39% de 1 core continuamente; só pausa em `document.hidden` |
+| 9 | **F33** | mobile | os 4 links da nav têm 33px de altura (< 44px de toque) |
+| 10 | **F11** | leitura | título "Psychedelia" (`mix-blend-screen` + accent) some sobre o halftone claro (1,68:1 mesmo com o véu) |
+
+### Todos os achados
+
+| id | eixo | sev. | esforço | status |
+| --- | --- | --- | --- | --- |
+| F1 | perf/vídeo | crítico | M | aberto |
+| F2 | perf | crítico | S | aberto |
+| F3 | perf | alto | M | aberto |
+| F4 | perf | alto | S | aberto |
+| F5 | perf | alto | M | aberto |
+| F6 | contraste | sério | S | aberto |
+| F7 | a11y | médio | XS | **resolvido** (`aria-hidden` no wrapper do shader) |
+| F8 | contraste | médio | XS | aberto |
+| F9 | contraste | médio | S | aberto |
+| F10 | leitura/vídeo | alto | S | **mitigado** (véu: 3,75→5,05:1) |
+| F11 | leitura/vídeo | alto | S–M | **parcial** (véu: 1,18→1,68:1; ainda reprova) |
+| F12 | leitura/vídeo | alto | S | **mitigado** (véu; falta padronizar com o mobile) |
+| F13 | hierarquia | alto | M | aberto |
+| F14 | hierarquia/conteúdo | alto | S | **parcial** (`/sons` editado p/ "Álbuns, EPs e singles") |
+| F15 | hierarquia | médio | S | aberto |
+| F16 | tipografia | alto | M | aberto |
+| F17 | tipografia/a11y | alto | M | aberto |
+| F18 | tipografia | médio | XS | aberto |
+| F19 | tipografia | baixo | XS | aberto |
+| F20 | microcopy | baixo | XS | aberto |
+| F21 | conteúdo | baixo | XS | aberto |
+| F22 | CTA | alto | M | aberto |
+| F23 | CTA | alto | M | aberto |
+| F24 | CTA/conteúdo | médio | M | aberto |
+| F25 | CTA/microcopy | médio | S | aberto |
+| F26 | CTA | médio | S | aberto |
+| F27 | CTA/a11y | baixo | XS | aberto |
+| F28 | a11y | médio | S | aberto |
+| F29 | a11y | médio | S | aberto |
+| F30 | mobile/toque | baixo | XS | aberto |
+| F31 | mobile | alto | S | aberto |
+| F32 | mobile/a11y | alto | XS | aberto |
+| F33 | mobile/toque | alto | S | aberto |
+| F34 | mobile | médio | M | aberto |
+| F35 | mobile | médio | S | aberto |
+| F36 | a11y/mobile | alto | M | aberto |
+| F37 | mobile | médio | S | aberto |
+| F38 | perf | alto | S | aberto |
+| F39 | perf | alto | S | aberto |
+| F40 | perf | médio | S | aberto |
+| F42 | perf | alto | M | aberto |
+
+Positivos (não são achados — o que **não** mexer): SSR sem JS bloqueante ·
+CLS 0 · SEO/BP 100 · `prefers-reduced-motion` completo · `document.hidden`
+pausa o shader · `/_next/static` imutável · zero terceiros · CSS 6,4 KB gz ·
+1 `<h1>`/rota · pinch-zoom permitido · `rel="noreferrer"` nos externos ·
+`next/font` self-hosted · `/contato` como referência de CTA.
+
+### Sequência de correção sugerida (o "plano 2")
+
+**Onda 1 — performance, muito impacto / pouco esforço.** Deve tirar o LCP
+mobile de ~15 s para ~2–3 s e o peso de rota de ~15 MB para ~2 MB.
+
+1. **F2** — `prefetch={false}` nos `<Link>` da nav (ou prefetch só no hover).
+2. **F1 / F40** — `<video preload="none">`, montar a fonte em
+   `requestIdleCallback`; não deixar o `<canvas>` ser o elemento LCP.
+3. **F38** — `Cache-Control` longo para `/video` e as pastas de imagem
+   (regra de proxy/CDN, ou importar imagens como módulos hasheados).
+4. **F4 / F42** — logos → SVG (ou PNG 192px); vídeo → 540p + CRF + `<source>`
+   WebM/AV1; `MAX_SIDE` do `import-photos.py` → ~900.
+5. **F32** — `overflow-x: clip` também no `html` (hoje só `body`).
+
+**Onda 2 — acessibilidade bloqueante.**
+
+6. **F36** — lightbox: botão de fechar, `Esc`, foco preso, travar scroll do
+   fundo, `role="dialog"` + `aria-modal` + `aria-label`, devolver o foco.
+7. **F29** — `:focus-visible` estilizado (2px, cor da marca) + skip-link.
+8. **F6 / F9 / F8** — subir a luminância do accent no tema night para ~4,5–6:1
+   (o ember já está lá), ou reservá-lo para texto grande e usar `fg`/`copy`
+   nos rótulos; `--color-line` de `.18` → `~.38`.
+9. **F31 / F33** — nav mobile: caber os 4 links (ou menu), `py-3`/`min-h`
+   para 44px de toque.
+
+**Onda 3 — conteúdo e tipografia.**
+
+10. **F16** — subir a escala de rótulo (11→12–13px, 9→11px).
+11. **F17 / F37** — teto menor nos `clamp()` dos títulos; `overflow-wrap`.
+12. **F14** — `<h1>` funcionais nas rotas restantes (`/banda`, `/ao-vivo`,
+    `/contato`).
+13. **F13** — reestruturar os headings de `/ao-vivo` (agrupar Eventos /
+    Galeria, tirar a duplicata).
+14. **F22–F24** — CTA por faixa em `/sons`, botão de contato claro (aposentar
+    "Booking" cru), decidir o que é a "agenda 2026".
+15. **F18 / F19 / F20 / F21** — polimento de texto.
+
+**Onda 4 — performance estrutural.**
+
+16. **F5** — `<img>` → `next/image` (o deploy é Node, o otimizador roda).
+17. **F3** — manter o `three` fora do bundle das rotas e carregar sob demanda.
+18. **F39** — pausar o shader quando rolado para fora de vista
+    (`IntersectionObserver`), não só em `document.hidden`.
+19. **F34 / F35** — paginar / filtrar as galerias de `/ao-vivo`;
+    `aspect-[3/4]` fixo nos integrantes em vez de `vh`.
+
+### Estado do repositório ao fim da auditoria
+
+- Correções aplicadas durante a auditoria: `.video-scrim` (véu, 2 commits) +
+  `aria-hidden` no wrapper do shader (F7).
+- `garden/app/banda/page.jsx` e `garden/app/sons/page.jsx` com edições fora
+  desta auditoria (reformatação + `/sons` com `<h1>` funcional) — **buildam**,
+  ainda sem commit no fim desta etapa.
+- Ferramentas de auditoria (`lighthouse`, `axe-core`, `playwright`) instaladas
+  só no scratchpad, fora do repo.
