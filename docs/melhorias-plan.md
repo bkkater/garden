@@ -181,7 +181,7 @@ F4 parcial (logo menor), F27 (indicar link externo com o ícone).
 
 ---
 
-## Etapa 5 — Redes sociais no site inteiro
+## Etapa 5 — Redes sociais no site inteiro ✅
 
 > (mesmo item — presença além do /contato)
 

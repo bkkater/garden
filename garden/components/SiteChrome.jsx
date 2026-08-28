@@ -1,8 +1,9 @@
 import ShaderVideo from './ShaderVideoClient'
 import Navigation from './Navigation'
+import Footer from './Footer'
 import LoadingScreen from './LoadingScreen'
 
-// Chrome comum a todas as rotas: fundo com shader, navegação e grão.
+// Chrome comum a todas as rotas: fundo com shader, navegação, rodapé e grão.
 export default function SiteChrome({ children }) {
   return (
     <div className="min-h-screen">
@@ -15,6 +16,8 @@ export default function SiteChrome({ children }) {
       <Navigation />
 
       <main className="relative z-[2]">{children}</main>
+
+      <Footer />
 
       <div className="grain" aria-hidden="true" />
 
