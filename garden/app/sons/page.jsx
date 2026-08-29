@@ -32,9 +32,14 @@ export default function Sons() {
         <dl className="flex flex-wrap items-baseline gap-x-8 gap-y-3">
           {[
             { value: '+40 mil', label: 'plays nos streamings', accent: true },
-            { value: releases.length, label: 'singles lançados' },
+            { value: releases.length, label: 'singles lançados', hideOnMobile: true },
           ].map((stat) => (
-            <div key={stat.label} className="flex items-baseline gap-2.5">
+            <div
+              key={stat.label}
+              className={`items-baseline gap-2.5 ${
+                stat.hideOnMobile ? 'hidden sm:flex' : 'flex'
+              }`}
+            >
               <dd
                 className={`font-extrabold leading-none tracking-tighter text-2xl ${
                   stat.accent ? 'text-accent' : 'text-fg'
@@ -50,7 +55,7 @@ export default function Sons() {
         </dl>
         <a
           href="#discografia"
-          className="ml-auto font-mono text-[10px] uppercase tracking-widest text-muted no-underline transition-colors hover:text-accent"
+          className="ml-auto hidden font-mono text-[10px] uppercase tracking-widest text-muted no-underline transition-colors hover:text-accent sm:block"
         >
           Ver discografia <span aria-hidden="true">↓</span>
         </a>
