@@ -3,6 +3,7 @@ import PageShell from '@/components/PageShell'
 import PageHead from '@/components/PageHead'
 import DemoPlayer from '@/components/DemoPlayer'
 import TrackLinkRow from '@/components/TrackLinkRow'
+import GroupHeader from '@/components/GroupHeader'
 import { band, demos, ep1, releases } from '@/lib/content'
 import { ep1Media } from '@/lib/media'
 import { hasAudio } from '@/lib/audio.server'
@@ -105,12 +106,19 @@ export default function Sons() {
       </div>
 
       <section className="mt-20 border-t border-line pt-8">
-        <h2 className="mb-2.5 text-3xl md:text-4xl tracking-tight">EP 1</h2>
-        <p className="max-w-prose leading-relaxed text-copy">
-          As quatro faixas em produção para o próximo EP. Letra completa e prévia
-          do som em cada página.
+        <div className="mb-2.5 flex items-baseline justify-between gap-4">
+          <h2 className="text-3xl md:text-4xl tracking-tight">EP 1</h2>
+          <span className="shrink-0 font-mono text-[10px] uppercase tracking-widest text-muted">
+            {ep1.length} faixas · 2026
+          </span>
+        </div>
+        <p className="mb-8 max-w-prose leading-relaxed text-copy">
+          Éter, Morning Riser, Cos I Lov U e @Me — quatro faixas, um fôlego. Ainda
+          em obra, ainda mudando de forma, mas já existem.
         </p>
-        <ul className="mt-6">
+
+        <GroupHeader glyph="ring" label="Em produção" />
+        <ul>
           {[...ep1]
             .sort((a, b) => (a.n || '').localeCompare(b.n || ''))
             .map((track) =>
@@ -144,18 +152,28 @@ export default function Sons() {
       </section>
 
       <aside className="mt-20 border-t border-line pt-8">
-        <h2 className="mb-2.5 text-3xl md:text-4xl tracking-tight">No estúdio</h2>
-        <p className="max-w-prose leading-relaxed text-copy">
+        <div className="mb-2.5 flex items-baseline justify-between gap-4">
+          <h2 className="text-3xl md:text-4xl tracking-tight">No estúdio</h2>
+          <span className="shrink-0 font-mono text-[10px] uppercase tracking-widest text-muted">
+            {demos.length} faixas
+          </span>
+        </div>
+        <p className="mb-8 max-w-prose leading-relaxed text-copy">
           Demos em processo, sons que ainda estão por vir e que você já pode conferir.
         </p>
-        <ul className="mt-6">
-          {demos.map((demo) =>
-            hasAudio(demo) ? (
-              <DemoPlayer key={demo.slug} demo={demo} />
-            ) : (
-              <TrackLinkRow key={demo.slug} track={demo} />
-            )
-          )}
+
+        <GroupHeader glyph="dashed" label="Em processo" />
+        <ul>
+          {[...demos]
+            // As que dá pra ouvir vêm primeiro.
+            .sort((a, b) => Number(hasAudio(b)) - Number(hasAudio(a)))
+            .map((demo) =>
+              hasAudio(demo) ? (
+                <DemoPlayer key={demo.slug} demo={demo} />
+              ) : (
+                <TrackLinkRow key={demo.slug} track={demo} />
+              ),
+            )}
         </ul>
       </aside>
     </PageShell>

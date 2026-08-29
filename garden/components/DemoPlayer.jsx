@@ -30,22 +30,22 @@ export default function DemoPlayer({ demo, number, label }) {
   const fullToggle = () => (state.isPlaying ? pause() : resume())
 
   const elapsed = Math.round(progress * PREVIEW_SECONDS)
-  let caption = label
+  let stateCaption = null
   if (previewPlaying) {
-    caption = `Tocando prévia · 0:${String(elapsed).padStart(2, '0')} / 0:${PREVIEW_SECONDS}`
+    stateCaption = `Tocando prévia · 0:${String(elapsed).padStart(2, '0')} / 0:${PREVIEW_SECONDS}`
   } else if (previewEnded) {
-    caption = 'Prévia completa'
+    stateCaption = 'Prévia completa'
   } else if (fullPlaying) {
-    caption = `Tocando · ${fmt(progress * state.duration)}`
+    stateCaption = `Tocando · ${fmt(progress * state.duration)}`
   } else if (promoted) {
-    caption = `Pausado · ${fmt(progress * state.duration)}`
+    stateCaption = `Pausado · ${fmt(progress * state.duration)}`
   }
 
   const titleRed = previewPlaying || fullPlaying
 
   return (
     <li
-      className={`relative border-t border-line transition-colors ${
+      className={`relative border-t border-line transition-colors first:border-t-0 ${
         active ? 'bg-accent/[0.07]' : ''
       }`}
     >
@@ -62,16 +62,23 @@ export default function DemoPlayer({ demo, number, label }) {
 
         {/* Nome + legenda — navega para a página da faixa. */}
         <Link href={`/sons/${demo.slug}`} className="group min-w-0 flex-1 no-underline">
-          <p
-            className={`truncate font-display font-semibold leading-tight text-xl tracking-tight transition-colors group-hover:text-accent ${
-              titleRed ? 'text-accent' : 'text-fg'
-            }`}
-          >
-            {demo.title}
-          </p>
-          {caption && (
+          <div className="flex items-baseline gap-2.5">
+            <p
+              className={`truncate font-display font-semibold leading-tight text-xl tracking-tight transition-colors group-hover:text-accent ${
+                titleRed ? 'text-accent' : 'text-fg'
+              }`}
+            >
+              {demo.title}
+            </p>
+            {label && !stateCaption && (
+              <span className="shrink-0 rounded-full border border-line px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-muted">
+                {label}
+              </span>
+            )}
+          </div>
+          {stateCaption && (
             <p className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-muted">
-              {caption}
+              {stateCaption}
             </p>
           )}
         </Link>

@@ -3,7 +3,7 @@ import Link from 'next/link'
 // Linha de faixa sem prévia: só o link para a página da letra.
 export default function TrackLinkRow({ track, number, label }) {
   return (
-    <li className="border-t border-line">
+    <li className="border-t border-line first:border-t-0">
       <Link
         href={`/sons/${track.slug}`}
         className="group flex items-center gap-4 py-5 no-underline"
