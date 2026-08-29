@@ -162,10 +162,11 @@ export default function GlobalPlayer() {
         <button
           onClick={() => setMinimized(false)}
           aria-label="Expandir player"
-          className="text-muted transition-colors hover:text-fg"
+          className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-muted transition-colors hover:text-fg"
           title="Expandir player"
         >
           <IconMaximize />
+          Expandir
         </button>
 
         {/* Fechar */}
