@@ -26,7 +26,7 @@ export default function TrackPlayButton({ track }) {
   }
 
   return (
-    <div className="flex w-full max-w-md items-center gap-4 rounded-full border border-line py-2 pl-2 pr-5">
+    <div className="flex w-full max-w-md items-center gap-4 rounded-full border border-line py-2 pl-2 pr-5 sm:w-[22rem]">
       <button
         type="button"
         onClick={() => play(track)}
@@ -47,9 +47,7 @@ export default function TrackPlayButton({ track }) {
 
       <div className="flex min-w-0 flex-1 flex-col gap-1.5">
         <div className="flex items-baseline justify-between gap-3 font-mono text-[10px] uppercase tracking-widest">
-          <span className={isThis ? 'text-accent' : 'text-fg'}>
-            {track.type === 'Demo' ? 'Ouça a demo' : 'Ouça a faixa'}
-          </span>
+          <span className={isThis ? 'text-accent' : 'text-fg'}>Ouça a prévia</span>
           <span className="shrink-0 tabular-nums text-muted">
             {fmt(progress * duration)} / {fmt(duration)}
           </span>

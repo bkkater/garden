@@ -59,11 +59,17 @@ export default async function TrackDetail({ params }) {
         <span aria-hidden="true">←</span> Voltar para Sons
       </Link>
 
-      <PageHead eyebrow={`03 — Sons / ${track.title}`}>{track.title}</PageHead>
+      <div className="sm:flex sm:items-start sm:justify-between sm:gap-8">
+        <div>
+          <PageHead eyebrow={`03 — Sons / ${track.title}`}>{track.title}</PageHead>
+          {meta && <p className="kicker -mt-6 mb-6 sm:mb-0">{meta}</p>}
+        </div>
+        {playButton && (
+          <div className="mb-14 flex sm:mb-0 sm:shrink-0 sm:pt-8">{playButton}</div>
+        )}
+      </div>
 
-      {meta && <p className="kicker -mt-6 mb-6">{meta}</p>}
-
-      {playButton && <div className="mb-14 flex">{playButton}</div>}
+      <div className="hidden sm:block sm:h-14" aria-hidden="true" />
 
       <article className="mb-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
         {track.cover && (
