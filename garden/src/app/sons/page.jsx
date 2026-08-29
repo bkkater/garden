@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { band } from '@/lib/content'
-import { ep1Media } from '@/lib/media'
+import { band } from '@shared/lib/site'
+import { ep1Media } from '@features/catalog'
 import { PageShell, PageHead, Section, Pill } from '@shared/ui'
 import { TrackPreview } from '@features/player'
 import { demos, ep1, releases, hasAudio, TrackLinkRow } from '@features/catalog'

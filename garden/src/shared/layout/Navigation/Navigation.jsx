@@ -3,8 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { band, navItems } from '@/lib/content'
-import { logos } from '@/lib/media'
+import { band, navItems, logo } from '@shared/lib/site'
 
 export function Navigation() {
   const pathname = usePathname()
@@ -42,7 +41,7 @@ export function Navigation() {
     >
       <Link href="/" className="flex shrink-0 items-center gap-3 text-left">
         <img
-          src={logos.badge}
+          src={logo.badge}
           alt=""
           className="h-11 w-11 rounded-full object-cover"
         />

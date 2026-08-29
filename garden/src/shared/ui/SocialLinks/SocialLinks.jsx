@@ -1,4 +1,4 @@
-import { socials } from '@/lib/content'
+import { socials } from './socials'
 
 // Glyphs monocromáticos 24×24 (fill=currentColor), fonte: simple-icons.
 const ICONS = {

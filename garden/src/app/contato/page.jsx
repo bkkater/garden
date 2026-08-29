@@ -1,6 +1,5 @@
-import { band } from '@/lib/content'
+import { band, logo } from '@shared/lib/site'
 import { PageShell, PageHead, SocialLinks } from '@shared/ui'
-import { contatoMedia } from '@/lib/media'
 import { AGENDA_YEAR } from '@shared/lib/site'
 
 const description = `Booking e contato da Garden Psychedelia — agenda ${AGENDA_YEAR} aberta.`
@@ -34,8 +33,8 @@ export default function Contato() {
 
         <figure className="flex w-44 shrink-0 flex-col items-center text-center">
           <img
-            src={contatoMedia.figure.src}
-            alt={contatoMedia.figure.alt}
+            src={logo.badge}
+            alt="Selo Garden Psychedelia"
             width={176}
             height={176}
             className="size-44 rounded-full object-cover"

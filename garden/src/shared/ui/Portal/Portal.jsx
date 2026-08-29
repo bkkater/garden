@@ -9,7 +9,7 @@ import { createPortal } from 'react-dom'
 // `transform` no elemento. Um ancestral com `transform` vira o containing block
 // do `fixed`, então `inset-0` passa a medir a página inteira em vez da viewport
 // (era isso que fazia a foto ampliada abrir fora da tela).
-export default function Portal({ children }) {
+export function Portal({ children }) {
   if (typeof document === 'undefined') return null
   return createPortal(children, document.body)
 }

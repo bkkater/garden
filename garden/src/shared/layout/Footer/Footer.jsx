@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { band } from '@/lib/content'
+import { band } from '@shared/lib/site'
 import { SocialLinks } from '@shared/ui/SocialLinks'
 
 // Rodapé persistente — contato acessível de qualquer página.

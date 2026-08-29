@@ -1,5 +1,5 @@
 // Singles lançados da Garden. Dados puros — objetos e strings, sem JSX.
-import { covers, livePhotos } from '@/lib/media'
+import { covers } from './media'
 
 export const releases = [
   {
@@ -67,7 +67,7 @@ I couldn't hear my name even if they shouted`,
     type: 'Single',
     plays: '19.614',
     featured: false,
-    cover: livePhotos.festivalBand,
+    cover: '/live/festival/hyakuya-03.jpg',
     note: 'A faixa mais ouvida. O primeiro registro da Garden, onde tudo começa.',
     spotifyTrackId: '30FhEKYtCzszR56DCrouxu',
     lyrics: `I cannot understand
@@ -108,7 +108,7 @@ I again`,
     type: 'Single',
     plays: '13.310',
     featured: false,
-    cover: livePhotos.wp4Matheus,
+    cover: '/live/weird-party-4/waguin-01.jpg',
     note: 'O segundo som. Ainda 2019, ainda o primeiro fôlego.',
     spotifyTrackId: '3U1sUWMpYioR3J6R1m6SIQ',
     lyrics: `It's hard to see that
@@ -150,7 +150,7 @@ In the sunshine of my life`,
     type: 'Single',
     plays: '6.544',
     featured: false,
-    cover: livePhotos.festivalGabriel,
+    cover: '/live/festival/hyakuya-01.jpg',
     note: 'O último som antes da pandemia. Um registro de um tempo que estava prestes a parar.',
     spotifyTrackId: '2plcfAvkI08GVFv13PUmvN',
     lyrics: `He knows well what he wants to do

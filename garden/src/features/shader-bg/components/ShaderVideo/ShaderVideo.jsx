@@ -6,9 +6,9 @@ import * as THREE from 'three'
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
 import { TexturePass } from 'three/addons/postprocessing/TexturePass.js'
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js'
-import videoShader from '@/shaders/videoShader.js'
-import { getShaderSettings } from '@/lib/theme'
-import { video as videoMedia } from '@/lib/media'
+import videoShader from '../../shaders/videoShader.js'
+import { getShaderSettings } from '../../lib/theme'
+import { video as videoMedia } from '../../lib/media'
 
 const settings = getShaderSettings()
 

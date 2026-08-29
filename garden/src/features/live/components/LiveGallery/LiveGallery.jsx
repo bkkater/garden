@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Portal from './Portal'
+import { Portal } from '@shared/ui/Portal'
 
 // Galerias por evento + lightbox. Recebe os grupos já montados do Server Component.
 // `headingLevel` controla o nível do título de cada noite (default h3).
-export default function LiveGallery({ groups, headingLevel: Heading = 'h3' }) {
+export function LiveGallery({ groups, headingLevel: Heading = 'h3' }) {
   const [active, setActive] = useState(null)
 
   // Enquanto o lightbox está aberto: trava o scroll do fundo e fecha no Esc.

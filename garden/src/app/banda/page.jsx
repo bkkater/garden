@@ -1,7 +1,5 @@
-import MemberCard from '@/components/MemberCard'
+import { MemberCard, band, members, bandaMedia } from '@features/band'
 import { PageShell, PageHead } from '@shared/ui'
-import { band, members } from '@/lib/content'
-import { bandaMedia } from '@/lib/media'
 
 const description =
   'A Garden Psychedelia — psicodelia de Campos dos Goytacazes (RJ) desde 2019, cinco integrantes.'

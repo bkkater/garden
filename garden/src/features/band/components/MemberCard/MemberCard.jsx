@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from 'react'
 const SLIDE_INTERVAL = 4000 // ms entre trocas
 const FADE_DURATION = 700   // ms da transição CSS
 
-export default function MemberCard({ member }) {
+export function MemberCard({ member }) {
   const images = member.images ?? [member.image]
   const [current, setCurrent] = useState(0)
   const [prev, setPrev] = useState(null)
