@@ -13,8 +13,9 @@ import {
 const initial = {
   track: null,      // { slug, title, type, audio }
   isPlaying: false,
-  progress: 0,      // 0–1
-  duration: 0,
+  progress: 0,      // 0–1 (dentro do previewLimit, se houver)
+  duration: 0,      // duração efetiva (limitada ao previewLimit)
+  fullDuration: 0,  // duração real da faixa
   volume: 0.8,
   previewLimit: null, // segundos — quando setado, a reprodução para nesse ponto
 }
@@ -28,6 +29,7 @@ function reducer(state, action) {
         isPlaying: true,
         progress: 0,
         duration: 0,
+        fullDuration: 0,
         previewLimit: action.previewLimit ?? null,
       }
     case 'PLAY':
@@ -42,7 +44,11 @@ function reducer(state, action) {
     case 'TICK':
       return { ...state, progress: action.progress, duration: action.duration }
     case 'METADATA':
-      return { ...state, duration: action.duration }
+      return {
+        ...state,
+        duration: action.duration,
+        fullDuration: action.fullDuration ?? state.fullDuration,
+      }
     case 'VOLUME':
       return { ...state, volume: action.volume }
     case 'ENDED':
@@ -155,6 +161,7 @@ export function PlayerProvider({ children }) {
     dispatch({
       type: 'METADATA',
       duration: limit ? Math.min(limit, el.duration) : el.duration,
+      fullDuration: el.duration,
     })
   }
 

@@ -59,12 +59,11 @@ export default async function TrackDetail({ params }) {
         <span aria-hidden="true">←</span> Voltar para Sons
       </Link>
 
-      <div className="flex items-start justify-between gap-6">
-        <PageHead eyebrow={`03 — Sons / ${track.title}`}>{track.title}</PageHead>
-        {playButton && (
-          <div className="hidden shrink-0 pt-9 sm:block">{playButton}</div>
-        )}
-      </div>
+      <PageHead eyebrow={`03 — Sons / ${track.title}`}>{track.title}</PageHead>
+
+      {meta && <p className="kicker -mt-6 mb-6">{meta}</p>}
+
+      {playButton && <div className="mb-14 flex">{playButton}</div>}
 
       <article className="mb-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
         {track.cover && (
@@ -82,7 +81,6 @@ export default async function TrackDetail({ params }) {
           </figure>
         )}
         <div className={track.cover ? '' : 'lg:col-span-2'}>
-          {meta && <p className="kicker">{meta}</p>}
           {track.note && (
             <p className="my-3 max-w-prose leading-relaxed text-copy">
               {track.note}
@@ -93,19 +91,16 @@ export default async function TrackDetail({ params }) {
               {track.plays} plays
             </p>
           )}
-          <div className="flex flex-wrap items-center gap-3">
-            {playButton && <span className="sm:hidden">{playButton}</span>}
-            {track.spotifyTrackId && (
-              <a
-                href={`https://open.spotify.com/track/${track.spotifyTrackId}`}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center rounded-full border border-fg px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest no-underline transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg"
-              >
-                Ouvir no Spotify
-              </a>
-            )}
-          </div>
+          {track.spotifyTrackId && (
+            <a
+              href={`https://open.spotify.com/track/${track.spotifyTrackId}`}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center rounded-full border border-fg px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest no-underline transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg"
+            >
+              Ouvir no Spotify
+            </a>
+          )}
         </div>
 
       </article>
