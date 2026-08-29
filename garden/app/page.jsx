@@ -27,7 +27,7 @@ export default function Home() {
       />
 
       {/* Hero — sobre o shader */}
-      <section className="flex min-h-[88vh] flex-col justify-between px-4 pt-28 pb-12 lg:px-8">
+      <section className="flex min-h-dvh flex-col justify-between px-4 pt-28 pb-12 lg:px-8">
         <p className="kicker">
           {band.city}, {band.state} · desde {band.since}
         </p>

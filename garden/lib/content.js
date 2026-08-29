@@ -54,7 +54,7 @@ export const homeSections = [
     index: '01',
     label: 'Banda',
     cta: 'Conhecer a banda',
-    teaser: 'Cinco amigos em Campos dos Goytacazes, na cena do rock alternativo desde 2019.',
+    teaser: 'VI amigos em Campos dos Goytacazes, na cena do rock alternativo desde 2019.',
     image: bandaMedia.hero.src,
   },
   {
