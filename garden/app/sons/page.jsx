@@ -28,9 +28,33 @@ export default function Sons() {
         EPs, singles e o que ainda está por vir.
       </PageHead>
 
-      <p className="mb-16 font-mono text-xs uppercase tracking-widest text-accent">
-        +40.000 plays nos streamings
-      </p>
+      <div className="mb-16 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-t border-line pt-5">
+        <dl className="flex flex-wrap items-baseline gap-x-8 gap-y-3">
+          {[
+            { value: '+40 mil', label: 'plays nos streamings', accent: true },
+            { value: releases.length, label: 'singles lançados' },
+          ].map((stat) => (
+            <div key={stat.label} className="flex items-baseline gap-2.5">
+              <dd
+                className={`font-extrabold leading-none tracking-tighter text-2xl ${
+                  stat.accent ? 'text-accent' : 'text-fg'
+                }`}
+              >
+                {stat.value}
+              </dd>
+              <dt className="font-mono text-[10px] uppercase tracking-widest text-muted">
+                {stat.label}
+              </dt>
+            </div>
+          ))}
+        </dl>
+        <a
+          href="#discografia"
+          className="ml-auto font-mono text-[10px] uppercase tracking-widest text-muted no-underline transition-colors hover:text-accent"
+        >
+          Ver discografia <span aria-hidden="true">↓</span>
+        </a>
+      </div>
 
       <article className="mb-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
         <figure>
@@ -49,14 +73,16 @@ export default function Sons() {
           <p className="kicker">
             {featured.year} · {featured.type}
           </p>
-          <h2 className="my-3 font-extrabold leading-none tracking-tighter text-5xl md:text-6xl lg:text-7xl">
-            {featured.title}
-          </h2>
+          <div className="my-3 flex flex-wrap items-center gap-x-4 gap-y-3">
+            <h2 className="font-extrabold leading-none tracking-tighter text-5xl md:text-6xl lg:text-7xl">
+              {featured.title}
+            </h2>
+            <span className="rounded-full border border-accent px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-accent">
+              Novo lançamento
+            </span>
+          </div>
           <p className="max-w-prose leading-relaxed text-copy">{featured.note}</p>
-          <p className="my-4 font-mono text-xs uppercase tracking-widest text-accent">
-            {featured.plays} plays
-          </p>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
             <a
               href={band.spotify}
               target="_blank"
@@ -75,7 +101,7 @@ export default function Sons() {
         </div>
       </article>
 
-      <div>
+      <div id="discografia" className="scroll-mt-24">
         {rest.map((item) => (
           <article
             key={item.title}
