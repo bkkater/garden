@@ -1,5 +1,5 @@
 // Cabeçalho padrão das subpáginas: eyebrow em mono + headline grande.
-export default function PageHead({ eyebrow, children }) {
+export function PageHead({ eyebrow, children }) {
   return (
     <header className="mb-12 max-w-4xl">
       <p className="kicker">{eyebrow}</p>

@@ -2,8 +2,8 @@ import { IBM_Plex_Mono, Syne } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { ACTIVE_THEME } from '@/lib/theme'
-import { siteUrl } from '@/lib/site'
-import SiteChrome from '@/components/SiteChrome'
+import { siteUrl } from '@shared/lib/site'
+import { SiteChrome } from '@shared/layout'
 import './globals.css'
 
 // Duas famílias, self-hosted via next/font:

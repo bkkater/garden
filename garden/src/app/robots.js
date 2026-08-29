@@ -1,4 +1,4 @@
-import { siteUrl } from '@/lib/site'
+import { siteUrl } from '@shared/lib/site'
 
 export default function robots() {
   return {

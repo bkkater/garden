@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import SocialLinks from './SocialLinks'
 import { band } from '@/lib/content'
+import { SocialLinks } from '@shared/ui/SocialLinks'
 
 // Rodapé persistente — contato acessível de qualquer página.
-export default function Footer() {
+export function Footer() {
   return (
     <footer className="relative z-[2] border-t border-line bg-bg px-4 py-12 lg:px-8">
       <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">

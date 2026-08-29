@@ -34,7 +34,7 @@ function Vinyl() {
 // Tela de carregamento no estilo linkinpark.com: fundo escuro, um vinil creme
 // girando com um sulco em vermelho. Some quando o documento e as fontes
 // terminam de carregar.
-export default function LoadingScreen() {
+export function LoadingScreen() {
   const [dismissed, setDismissed] = useState(false)
   const [gone, setGone] = useState(false)
 

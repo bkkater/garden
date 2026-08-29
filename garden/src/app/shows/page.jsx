@@ -1,9 +1,8 @@
 import LiveGallery from '@/components/LiveGallery';
-import PageHead from '@/components/PageHead';
-import PageShell from '@/components/PageShell';
 import { agenda, band, events, posters } from '@/lib/content';
+import { PageHead, PageShell } from '@shared/ui';
 import { galleryByEvent } from '@/lib/media';
-import { AGENDA_YEAR } from '@/lib/site';
+import { AGENDA_YEAR } from '@shared/lib/site';
 
 const description = `Festival Troque o Disco, as Weird Parties e os próximos shows da Garden. Agenda ${AGENDA_YEAR} aberta.`;
 

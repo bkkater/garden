@@ -6,7 +6,7 @@ import {
   memberSlides,
   posterFiles,
 } from './media';
-import { AGENDA_YEAR } from './site';
+import { AGENDA_YEAR } from '@shared/lib/site';
 
 export const band = {
   name: 'Garden Psychedelia',

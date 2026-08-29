@@ -1,10 +1,8 @@
 import Link from 'next/link'
-import PageShell from '@/components/PageShell'
-import PageHead from '@/components/PageHead'
 import DemoPlayer from '@/components/DemoPlayer'
 import TrackLinkRow from '@/components/TrackLinkRow'
-import GroupHeader from '@/components/GroupHeader'
 import { band, demos, ep1, releases } from '@/lib/content'
+import { PageShell, PageHead, Section, Pill } from '@shared/ui'
 import { ep1Media } from '@/lib/media'
 import { hasAudio } from '@/lib/audio.server'
 
@@ -82,9 +80,7 @@ export default function Sons() {
             <h2 className="font-extrabold leading-none tracking-tighter text-5xl md:text-6xl lg:text-7xl">
               {featured.title}
             </h2>
-            <span className="rounded-full border border-accent px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-accent">
-              Novo lançamento
-            </span>
+            <Pill tone="accent">Novo lançamento</Pill>
           </div>
           <p className="max-w-prose leading-relaxed text-copy">{featured.note}</p>
           <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
@@ -136,20 +132,17 @@ export default function Sons() {
         ))}
       </div>
 
-      <section className="mt-20 border-t border-line pt-8">
-        <div className="mb-2.5 flex items-baseline justify-between gap-4">
-          <h2 className="text-3xl md:text-4xl tracking-tight">EP 1</h2>
-          <span className="shrink-0 font-mono text-[10px] uppercase tracking-widest text-muted">
-            {ep1.length} faixas · 2026
-          </span>
-        </div>
+      <Section as="section" className="mt-20 border-t border-line pt-8">
+        <Section.Header count={`${ep1.length} faixas · 2026`} variant="plain">
+          EP 1
+        </Section.Header>
         <p className="mb-8 max-w-prose leading-relaxed text-copy">
           Éter, Morning Riser, Cos I Lov U e @Me — quatro faixas, um fôlego. Ainda
           em obra, ainda mudando de forma, mas já existem.
         </p>
 
-        <GroupHeader glyph="ring" label="Em produção" />
-        <ul>
+        <Section.Rule glyph="ring">Em produção</Section.Rule>
+        <Section.List>
           {[...ep1]
             .sort((a, b) => (a.n || '').localeCompare(b.n || ''))
             .map((track) =>
@@ -159,7 +152,7 @@ export default function Sons() {
                 <TrackLinkRow key={track.slug} track={track} number={track.n} />
               )
             )}
-        </ul>
+        </Section.List>
 
         <h3 className="kicker mt-12">Prévia da estética</h3>
         <p className="mt-3 max-w-prose leading-relaxed text-copy">
@@ -180,21 +173,18 @@ export default function Sons() {
         <p className="mt-2.5 font-mono text-xs uppercase tracking-widest text-muted">
           Fotos por Flávia Motta
         </p>
-      </section>
+      </Section>
 
-      <aside className="mt-20 border-t border-line pt-8">
-        <div className="mb-2.5 flex items-baseline justify-between gap-4">
-          <h2 className="text-3xl md:text-4xl tracking-tight">No estúdio</h2>
-          <span className="shrink-0 font-mono text-[10px] uppercase tracking-widest text-muted">
-            {demos.length} faixas
-          </span>
-        </div>
+      <Section as="aside" className="mt-20 border-t border-line pt-8">
+        <Section.Header count={`${demos.length} faixas`} variant="plain">
+          No estúdio
+        </Section.Header>
         <p className="mb-8 max-w-prose leading-relaxed text-copy">
           Demos em processo, sons que ainda estão por vir e que você já pode conferir.
         </p>
 
-        <GroupHeader glyph="dashed" label="Em processo" />
-        <ul>
+        <Section.Rule glyph="dashed">Em processo</Section.Rule>
+        <Section.List>
           {[...demos]
             // As que dá pra ouvir vêm primeiro.
             .sort((a, b) => Number(hasAudio(b)) - Number(hasAudio(a)))
@@ -205,8 +195,8 @@ export default function Sons() {
                 <TrackLinkRow key={demo.slug} track={demo} />
               ),
             )}
-        </ul>
-      </aside>
+        </Section.List>
+      </Section>
     </PageShell>
   )
 }

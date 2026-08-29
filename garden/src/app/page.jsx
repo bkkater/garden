@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import SectionPreview from '@/components/SectionPreview'
 import { band, homeIntro, homeSections } from '@/lib/content'
-import { AGENDA_YEAR, siteUrl } from '@/lib/site'
+import { AGENDA_YEAR, siteUrl } from '@shared/lib/site'
 
 const jsonLd = {
   '@context': 'https://schema.org',

@@ -1,9 +1,8 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import PageShell from '@/components/PageShell'
-import PageHead from '@/components/PageHead'
 import TrackPlayButton from '@/components/TrackPlayButton'
 import { demos, ep1, tracks, trackBySlug } from '@/lib/content'
+import { PageShell, PageHead, Section, Pill } from '@shared/ui'
 import { hasAudio } from '@/lib/audio.server'
 
 export const dynamicParams = false
@@ -52,9 +51,9 @@ export default async function TrackDetail({ params }) {
   )
 
   const otherGroups = [
-    { key: 'spotify', title: 'No Spotify', hint: 'Ouvir na íntegra', items: onSpotify },
-    { key: 'ep1', title: 'EP 1', hint: 'Prévia disponível', items: inEp1 },
-    { key: 'studio', title: 'No estúdio', hint: 'Sem mixagem final', items: inStudio },
+    { key: 'spotify', title: 'No Spotify', hint: 'Ouvir na íntegra', glyph: 'dot', badge: 'Novo lançamento', tone: 'accent', items: onSpotify },
+    { key: 'ep1', title: 'EP 1', hint: 'Prévia disponível', glyph: 'ring', badge: 'Inédito', items: inEp1 },
+    { key: 'studio', title: 'No estúdio', hint: 'Sem mixagem final', glyph: 'dashed', badge: 'Demo', items: inStudio },
   ].filter((g) => g.items.length > 0)
 
   const totalOthers = otherGroups.reduce((n, g) => n + g.items.length, 0)
@@ -143,48 +142,24 @@ export default async function TrackDetail({ params }) {
       )}
 
       {otherGroups.length > 0 && (
-        <section className="mt-20 border-t border-line pt-8">
-          <div className="mb-10 flex items-baseline justify-between gap-4">
-            <h2 className="font-extrabold tracking-tighter text-3xl md:text-4xl">
-              Ver outros sons
-            </h2>
-            <p className="shrink-0 font-mono text-[10px] uppercase tracking-widest text-muted">
-              {totalOthers} {totalOthers === 1 ? 'faixa' : 'faixas'} ·{' '}
-              {otherGroups.length}{' '}
-              {otherGroups.length === 1 ? 'origem' : 'origens'}
-            </p>
-          </div>
+        <Section as="section" className="mt-20 border-t border-line pt-8">
+          <Section.Header
+            className="mb-10"
+            count={`${totalOthers} ${totalOthers === 1 ? 'faixa' : 'faixas'} · ${
+              otherGroups.length
+            } ${otherGroups.length === 1 ? 'origem' : 'origens'}`}
+          >
+            Ver outros sons
+          </Section.Header>
 
           <div className="space-y-12">
             {otherGroups.map((g) => (
               <div key={g.key}>
-                {/* Cabeçalho do grupo — glifo + rótulo + régua + dica */}
-                <div className="mb-2 flex items-center gap-3">
-                  <span
-                    aria-hidden="true"
-                    className={[
-                      'h-2 w-2 shrink-0 rounded-full',
-                      g.key === 'spotify'
-                        ? 'bg-accent'
-                        : g.key === 'ep1'
-                          ? 'border border-muted'
-                          : 'border border-dashed border-muted',
-                    ].join(' ')}
-                  />
-                  <span
-                    className={`shrink-0 font-mono text-[10px] uppercase tracking-widest ${
-                      g.key === 'spotify' ? 'text-accent' : 'text-muted'
-                    }`}
-                  >
-                    {g.title}
-                  </span>
-                  <span className="h-px flex-1 bg-line" aria-hidden="true" />
-                  <span className="shrink-0 font-mono text-[10px] uppercase tracking-widest text-muted">
-                    {g.hint}
-                  </span>
-                </div>
+                <Section.Rule glyph={g.glyph} hint={g.hint}>
+                  {g.title}
+                </Section.Rule>
 
-                <ul>
+                <Section.List>
                   {g.items.map((t) => (
                     <li
                       key={t.slug}
@@ -198,29 +173,21 @@ export default async function TrackDetail({ params }) {
                           {t.title}
                         </span>
 
-                        {g.key === 'spotify' && t.featured && (
-                          <span className="shrink-0 rounded-full border border-accent px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-accent">
-                            Novo lançamento
-                          </span>
-                        )}
-                        {g.key === 'ep1' && (
-                          <span className="shrink-0 rounded-full border border-line px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-muted">
-                            Inédito
-                          </span>
-                        )}
-                        {g.key === 'studio' && (
-                          <span className="shrink-0 rounded-full border border-line px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-muted">
-                            Demo
-                          </span>
-                        )}
+                        {g.key === 'spotify'
+                          ? t.featured && (
+                              <Pill tone="accent" className="shrink-0">
+                                {g.badge}
+                              </Pill>
+                            )
+                          : <Pill className="shrink-0">{g.badge}</Pill>}
                       </Link>
                     </li>
                   ))}
-                </ul>
+                </Section.List>
               </div>
             ))}
           </div>
-        </section>
+        </Section>
       )}
     </PageShell>
   )

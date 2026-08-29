@@ -1,6 +1,5 @@
-import PageShell from '@/components/PageShell'
-import PageHead from '@/components/PageHead'
 import MemberCard from '@/components/MemberCard'
+import { PageShell, PageHead } from '@shared/ui'
 import { band, members } from '@/lib/content'
 import { bandaMedia } from '@/lib/media'
 

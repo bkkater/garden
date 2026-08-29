@@ -25,7 +25,7 @@ function Icon({ name }) {
  *  - "list" (padrão): ícone + rótulo + handle, um por linha, com filete
  *  - "row": só os ícones, em linha (footer)
  */
-export default function SocialLinks({ variant = 'list', className = '' }) {
+export function SocialLinks({ variant = 'list', className = '' }) {
   if (variant === 'row') {
     return (
       <ul className={`flex items-center gap-1 ${className}`}>

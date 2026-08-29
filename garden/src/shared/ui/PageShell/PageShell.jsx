@@ -1,7 +1,7 @@
 // Envelope das subpáginas: uma faixa curta de shader no topo como respiro,
 // depois fundo sólido com um fade. O offset é pequeno o bastante para o
 // cabeçalho da página (eyebrow + <h1>) já aparecer sem scroll.
-export default function PageShell({ children }) {
+export function PageShell({ children }) {
   return (
     <div className="relative z-[2] mt-[24vh] bg-bg sm:mt-[28vh]">
       <div

@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import PageShell from '@/components/PageShell'
-import PageHead from '@/components/PageHead'
+import { PageShell, PageHead } from '@shared/ui'
 
 export default function NotFound() {
   return (

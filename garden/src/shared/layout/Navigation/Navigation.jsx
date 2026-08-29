@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { band, navItems } from '@/lib/content'
 import { logos } from '@/lib/media'
 
-export default function Navigation() {
+export function Navigation() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)

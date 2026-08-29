@@ -1,9 +1,7 @@
-import PageShell from '@/components/PageShell'
-import PageHead from '@/components/PageHead'
-import SocialLinks from '@/components/SocialLinks'
 import { band } from '@/lib/content'
+import { PageShell, PageHead, SocialLinks } from '@shared/ui'
 import { contatoMedia } from '@/lib/media'
-import { AGENDA_YEAR } from '@/lib/site'
+import { AGENDA_YEAR } from '@shared/lib/site'
 
 const description = `Booking e contato da Garden Psychedelia — agenda ${AGENDA_YEAR} aberta.`
 

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePlayer } from '@/lib/PlayerContext'
+import { Pill } from '@shared/ui/Pill'
 
 // Prévia direto da lista de Nossas músicas.
 const PREVIEW_SECONDS = 30
@@ -71,9 +72,7 @@ export default function DemoPlayer({ demo, number, label }) {
               {demo.title}
             </p>
             {label && !stateCaption && (
-              <span className="shrink-0 rounded-full border border-line px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-muted">
-                {label}
-              </span>
+              <Pill className="shrink-0">{label}</Pill>
             )}
           </div>
           {stateCaption && (
