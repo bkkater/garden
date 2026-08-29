@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import TrackPlayButton from '@/components/TrackPlayButton'
 import { demos, ep1, tracks, trackBySlug } from '@/lib/content'
 import { PageShell, PageHead, Section, Pill } from '@shared/ui'
+import { TrackPlayButton } from '@features/player'
 import { hasAudio } from '@/lib/audio.server'
 
 export const dynamicParams = false

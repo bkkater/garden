@@ -1,12 +1,7 @@
 'use client'
 
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useReducer,
-  useRef,
-} from 'react'
+import { useCallback, useReducer, useRef } from 'react'
+import { PlayerContext } from './PlayerContext'
 
 // ─── Estado ────────────────────────────────────────────────────────────────
 
@@ -76,8 +71,6 @@ function reducer(state, action) {
 }
 
 // ─── Context ───────────────────────────────────────────────────────────────
-
-const PlayerContext = createContext(null)
 
 export function PlayerProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initial)
@@ -213,10 +206,4 @@ export function PlayerProvider({ children }) {
       />
     </PlayerContext.Provider>
   )
-}
-
-export function usePlayer() {
-  const ctx = useContext(PlayerContext)
-  if (!ctx) throw new Error('usePlayer deve ser usado dentro de <PlayerProvider>')
-  return ctx
 }

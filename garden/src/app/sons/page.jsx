@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import DemoPlayer from '@/components/DemoPlayer'
 import TrackLinkRow from '@/components/TrackLinkRow'
 import { band, demos, ep1, releases } from '@/lib/content'
 import { PageShell, PageHead, Section, Pill } from '@shared/ui'
+import { TrackPreview } from '@features/player'
 import { ep1Media } from '@/lib/media'
 import { hasAudio } from '@/lib/audio.server'
 
@@ -147,7 +147,7 @@ export default function Sons() {
             .sort((a, b) => (a.n || '').localeCompare(b.n || ''))
             .map((track) =>
               hasAudio(track) ? (
-                <DemoPlayer key={track.slug} demo={track} number={track.n} label="Inédita" />
+                <TrackPreview key={track.slug} track={track} number={track.n} label="Inédita" />
               ) : (
                 <TrackLinkRow key={track.slug} track={track} number={track.n} />
               )
@@ -190,7 +190,7 @@ export default function Sons() {
             .sort((a, b) => Number(hasAudio(b)) - Number(hasAudio(a)))
             .map((demo) =>
               hasAudio(demo) ? (
-                <DemoPlayer key={demo.slug} demo={demo} />
+                <TrackPreview key={demo.slug} track={demo} />
               ) : (
                 <TrackLinkRow key={demo.slug} track={demo} />
               ),

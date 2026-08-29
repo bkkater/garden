@@ -4,6 +4,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { ACTIVE_THEME } from '@/lib/theme'
 import { siteUrl } from '@shared/lib/site'
 import { SiteChrome } from '@shared/layout'
+import { GlobalPlayer } from '@features/player'
+import { AppProviders } from './providers'
 import './globals.css'
 
 // Duas famílias, self-hosted via next/font:
@@ -67,7 +69,9 @@ export default function RootLayout({ children }) {
       className={`${syne.variable} ${plexMono.variable}`}
     >
       <body>
-        <SiteChrome>{children}</SiteChrome>
+        <AppProviders>
+          <SiteChrome player={<GlobalPlayer />}>{children}</SiteChrome>
+        </AppProviders>
         <Analytics />
         <SpeedInsights />
       </body>

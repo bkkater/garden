@@ -1,16 +1,8 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { usePlayer } from '@/lib/PlayerContext'
-
-function fmt(s) {
-  if (!s || Number.isNaN(s)) return '0:00'
-  const m = Math.floor(s / 60)
-  const sec = Math.floor(s % 60)
-    .toString()
-    .padStart(2, '0')
-  return `${m}:${sec}`
-}
+import { usePlayer } from '../../hooks/usePlayer'
+import { fmt } from '../GlobalPlayer/parts/format'
 
 function VolumeIcon({ muted }) {
   const common = {
@@ -39,7 +31,7 @@ function VolumeIcon({ muted }) {
   )
 }
 
-export default function TrackPlayButton({ track }) {
+export function TrackPlayButton({ track }) {
   const { state, play, promote, seek, setVolume } = usePlayer()
 
   const isThis = state.track?.slug === track.slug
