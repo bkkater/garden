@@ -1,10 +1,9 @@
 import Link from 'next/link'
-import TrackLinkRow from '@/components/TrackLinkRow'
-import { band, demos, ep1, releases } from '@/lib/content'
+import { band } from '@/lib/content'
+import { ep1Media } from '@/lib/media'
 import { PageShell, PageHead, Section, Pill } from '@shared/ui'
 import { TrackPreview } from '@features/player'
-import { ep1Media } from '@/lib/media'
-import { hasAudio } from '@/lib/audio.server'
+import { demos, ep1, releases, hasAudio, TrackLinkRow } from '@features/catalog'
 
 const description =
   'Singles, o EP 1 em produção e as demos da Garden Psychedelia — com letras.'

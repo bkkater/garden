@@ -1,4 +1,4 @@
-import { tracks } from '@/lib/content'
+import { tracks } from '@features/catalog'
 import { siteUrl } from '@shared/lib/site'
 
 const routes = [

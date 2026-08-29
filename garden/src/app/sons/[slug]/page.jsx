@@ -1,9 +1,8 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { demos, ep1, tracks, trackBySlug } from '@/lib/content'
-import { PageShell, PageHead, Section, Pill } from '@shared/ui'
+import { PageShell, PageHead } from '@shared/ui'
 import { TrackPlayButton } from '@features/player'
-import { hasAudio } from '@/lib/audio.server'
+import { tracks, trackBySlug, hasAudio, OtherSounds } from '@features/catalog'
 
 export const dynamicParams = false
 
@@ -37,26 +36,6 @@ export default async function TrackDetail({ params }) {
   if (!track) notFound()
 
   const meta = [track.year, track.type].filter(Boolean).join(' · ')
-
-  // "Ver outros sons": agrupado por origem. Cada faixa aparece em um grupo só,
-  // com prioridade Spotify > EP 1 > estúdio.
-  const notThis = (t) => t.slug !== track.slug
-  const onSpotify = tracks.filter((t) => notThis(t) && t.spotifyTrackId)
-  const spotifySlugs = new Set(onSpotify.map((t) => t.slug))
-  const inEp1 = ep1.filter(
-    (t) => notThis(t) && !spotifySlugs.has(t.slug) && hasAudio(t),
-  )
-  const inStudio = demos.filter(
-    (t) => notThis(t) && !spotifySlugs.has(t.slug) && hasAudio(t),
-  )
-
-  const otherGroups = [
-    { key: 'spotify', title: 'No Spotify', hint: 'Ouvir na íntegra', glyph: 'dot', badge: 'Novo lançamento', tone: 'accent', items: onSpotify },
-    { key: 'ep1', title: 'EP 1', hint: 'Prévia disponível', glyph: 'ring', badge: 'Inédito', items: inEp1 },
-    { key: 'studio', title: 'No estúdio', hint: 'Sem mixagem final', glyph: 'dashed', badge: 'Demo', items: inStudio },
-  ].filter((g) => g.items.length > 0)
-
-  const totalOthers = otherGroups.reduce((n, g) => n + g.items.length, 0)
 
   const playButton = hasAudio(track) ? (
     <TrackPlayButton
@@ -141,54 +120,7 @@ export default async function TrackDetail({ params }) {
         </section>
       )}
 
-      {otherGroups.length > 0 && (
-        <Section as="section" className="mt-20 border-t border-line pt-8">
-          <Section.Header
-            className="mb-10"
-            count={`${totalOthers} ${totalOthers === 1 ? 'faixa' : 'faixas'} · ${
-              otherGroups.length
-            } ${otherGroups.length === 1 ? 'origem' : 'origens'}`}
-          >
-            Ver outros sons
-          </Section.Header>
-
-          <div className="space-y-12">
-            {otherGroups.map((g) => (
-              <div key={g.key}>
-                <Section.Rule glyph={g.glyph} hint={g.hint}>
-                  {g.title}
-                </Section.Rule>
-
-                <Section.List>
-                  {g.items.map((t) => (
-                    <li
-                      key={t.slug}
-                      className="border-t border-line first:border-t-0 last:border-b"
-                    >
-                      <Link
-                        href={`/sons/${t.slug}`}
-                        className="group flex items-baseline gap-2.5 py-5 no-underline"
-                      >
-                        <span className="truncate font-display font-semibold leading-tight text-lg tracking-tight text-fg transition-colors group-hover:text-accent">
-                          {t.title}
-                        </span>
-
-                        {g.key === 'spotify'
-                          ? t.featured && (
-                              <Pill tone="accent" className="shrink-0">
-                                {g.badge}
-                              </Pill>
-                            )
-                          : <Pill className="shrink-0">{g.badge}</Pill>}
-                      </Link>
-                    </li>
-                  ))}
-                </Section.List>
-              </div>
-            ))}
-          </div>
-        </Section>
-      )}
+      <OtherSounds currentSlug={track.slug} />
     </PageShell>
   )
 }
