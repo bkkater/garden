@@ -1,4 +1,5 @@
 import {
+  bandaMedia,
   covers,
   liveGallery,
   livePhotos,
@@ -54,7 +55,7 @@ export const homeSections = [
     label: 'Banda',
     cta: 'Conhecer a banda',
     teaser: 'Cinco amigos em Campos dos Goytacazes, na cena do rock alternativo desde 2019.',
-    image: livePhotos.festivalBand,
+    image: bandaMedia.hero.src,
   },
   {
     to: '/shows',

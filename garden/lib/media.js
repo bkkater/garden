@@ -81,9 +81,9 @@ export const livePhotos = {
 
 export const bandaMedia = {
   hero: {
-    src: livePhotos.festivalBand,
-    alt: 'Garden Psychedelia no Festival Troque o Disco',
-    caption: 'Festival Troque o Disco · foto Hyakuya',
+    src: '/members/garden.jpg',
+    alt: 'Os cinco integrantes da Garden Psychedelia em pé no campo',
+    caption: 'Garden Psychedelia',
   },
 }
 
