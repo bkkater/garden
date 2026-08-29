@@ -45,8 +45,7 @@ export const navItems = [
 ];
 
 // Home = vitrine. Uma linha por seção, cada uma linkando para a página cheia.
-export const homeIntro =
-  'Psicodelia como referência. Alternativo por natureza.';
+export const homeIntro = 'Psyched Records.';
 
 export const homeSections = [
   {
