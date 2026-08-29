@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 // Bloco de prévia de uma seção na Home. O card inteiro é um link.
-export default function SectionPreview({
+export function SectionPreview({
   index,
   label,
   cta,

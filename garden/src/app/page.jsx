@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import SectionPreview from '@/components/SectionPreview'
+import { SectionPreview } from './_components/SectionPreview'
 import { band } from '@shared/lib/site'
 import { homeIntro, homeSections } from './_data/home'
 import { AGENDA_YEAR, siteUrl } from '@shared/lib/site'

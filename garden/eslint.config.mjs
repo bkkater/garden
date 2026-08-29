@@ -11,7 +11,7 @@ import next from 'eslint-config-next/core-web-vitals'
 //
 // Duas camadas de defesa:
 //  - import/no-restricted-paths pega imports relativos (../../app/...);
-//  - no-restricted-imports pega os aliases (@app, @features, @/…), que o
+//  - no-restricted-imports pega os aliases (@app, @features), que o
 //    resolver nem sempre consegue mapear.
 
 const boundaries = {
@@ -48,7 +48,7 @@ const boundaries = {
       {
         patterns: [
           {
-            group: ['@features/*/*', '@/features/*/*'],
+            group: ['@features/*/*'],
             message:
               'Importe features apenas pela API pública: @features/<nome>, nunca por caminho interno.',
           },
@@ -66,7 +66,7 @@ const sharedLayer = {
       {
         patterns: [
           {
-            group: ['@app/*', '@/app/*', '@features/*', '@/features/*'],
+            group: ['@app/*', '@features/*'],
             message: 'shared/ é transversal: não importe de app/ nem de features/.',
           },
         ],
@@ -83,11 +83,11 @@ const featuresLayer = {
       {
         patterns: [
           {
-            group: ['@app/*', '@/app/*'],
+            group: ['@app/*'],
             message: 'features/ não importa app/ (a dependência é app → features).',
           },
           {
-            group: ['@features/*/*', '@/features/*/*'],
+            group: ['@features/*/*'],
             message:
               'Uma feature não importa caminho interno de outra — só a API pública @features/<nome>.',
           },
