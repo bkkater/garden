@@ -117,25 +117,47 @@ export default function ShaderVideo() {
     const element = videoRef.current
     if (!element || reducedMotion) return
 
+    // iOS Safari: o autoplay inline exige a propriedade `muted` setada via JS
+    // (não só o atributo) e `playsinline`; e não começa a bufferizar sozinho
+    // com preload="metadata".
+    element.muted = true
+    element.defaultMuted = true
+    element.setAttribute('playsinline', '')
+    element.setAttribute('webkit-playsinline', '')
+
+    const tryPlay = () => element.play().catch(() => {})
+
     const activate = () => {
-      element.play().catch(() => {})
+      tryPlay()
       setVideo(element)
     }
 
     if (element.readyState >= 2) activate()
     element.addEventListener('loadeddata', activate)
     element.addEventListener('canplay', activate)
-    element.play().catch(() => {})
+    element.load()
+    tryPlay()
+
+    // Se o iOS bloquear o autoplay (ex: Modo Pouca Energia), o primeiro
+    // toque em qualquer lugar destrava o vídeo.
+    const onFirstInteract = () => {
+      tryPlay()
+      activate()
+    }
+    document.addEventListener('touchstart', onFirstInteract, { once: true, passive: true })
+    document.addEventListener('pointerdown', onFirstInteract, { once: true })
 
     const onVisibility = () => {
       if (document.hidden) element.pause()
-      else element.play().catch(() => {})
+      else tryPlay()
     }
     document.addEventListener('visibilitychange', onVisibility)
 
     return () => {
       element.removeEventListener('loadeddata', activate)
       element.removeEventListener('canplay', activate)
+      document.removeEventListener('touchstart', onFirstInteract)
+      document.removeEventListener('pointerdown', onFirstInteract)
       document.removeEventListener('visibilitychange', onVisibility)
     }
   }, [reducedMotion])
@@ -146,7 +168,7 @@ export default function ShaderVideo() {
   }
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full bg-bg">
       <video
         ref={videoRef}
         src={videoMedia.background}
@@ -154,9 +176,14 @@ export default function ShaderVideo() {
         loop
         playsInline
         autoPlay
-        preload="metadata"
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-0"
+        preload="auto"
+        // opacity 0 real quebra a textura de vídeo no WebGL do iOS — mantém um
+        // valor mínimo não-zero; o Canvas (opaco) cobre o vídeo de qualquer forma.
+        style={{ opacity: 0.02 }}
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
       />
+
+      {!video && <div className="absolute inset-0 bg-bg" aria-hidden="true" />}
 
       {video && (
         <Canvas

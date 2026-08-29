@@ -2,8 +2,11 @@ import Link from 'next/link'
 import PageShell from '@/components/PageShell'
 import PageHead from '@/components/PageHead'
 import DemoPlayer from '@/components/DemoPlayer'
+import TrackLinkRow from '@/components/TrackLinkRow'
+import GroupHeader from '@/components/GroupHeader'
 import { band, demos, ep1, releases } from '@/lib/content'
 import { ep1Media } from '@/lib/media'
+import { hasAudio } from '@/lib/audio.server'
 
 const description =
   'Singles, o EP 1 em produção e as demos da Garden Psychedelia — com letras.'
@@ -25,9 +28,38 @@ export default function Sons() {
         EPs, singles e o que ainda está por vir.
       </PageHead>
 
-      <p className="mb-16 font-mono text-xs uppercase tracking-widest text-accent">
-        +40.000 plays nos streamings
-      </p>
+      <div className="mb-16 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-t border-line pt-5">
+        <dl className="flex flex-wrap items-baseline gap-x-8 gap-y-3">
+          {[
+            { value: '+40 mil', label: 'plays nos streamings', accent: true },
+            { value: releases.length, label: 'singles lançados', hideOnMobile: true },
+          ].map((stat) => (
+            <div
+              key={stat.label}
+              className={`items-baseline gap-2.5 ${
+                stat.hideOnMobile ? 'hidden sm:flex' : 'flex'
+              }`}
+            >
+              <dd
+                className={`font-extrabold leading-none tracking-tighter text-2xl ${
+                  stat.accent ? 'text-accent' : 'text-fg'
+                }`}
+              >
+                {stat.value}
+              </dd>
+              <dt className="font-mono text-[10px] uppercase tracking-widest text-muted">
+                {stat.label}
+              </dt>
+            </div>
+          ))}
+        </dl>
+        <a
+          href="#discografia"
+          className="ml-auto hidden font-mono text-[10px] uppercase tracking-widest text-muted no-underline transition-colors hover:text-accent sm:block"
+        >
+          Ver discografia <span aria-hidden="true">↓</span>
+        </a>
+      </div>
 
       <article className="mb-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
         <figure>
@@ -46,14 +78,16 @@ export default function Sons() {
           <p className="kicker">
             {featured.year} · {featured.type}
           </p>
-          <h2 className="my-3 font-extrabold leading-none tracking-tighter text-5xl md:text-6xl lg:text-7xl">
-            {featured.title}
-          </h2>
+          <div className="my-3 flex flex-wrap items-center gap-x-4 gap-y-3">
+            <h2 className="font-extrabold leading-none tracking-tighter text-5xl md:text-6xl lg:text-7xl">
+              {featured.title}
+            </h2>
+            <span className="rounded-full border border-accent px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-accent">
+              Novo lançamento
+            </span>
+          </div>
           <p className="max-w-prose leading-relaxed text-copy">{featured.note}</p>
-          <p className="my-4 font-mono text-xs uppercase tracking-widest text-accent">
-            {featured.plays} plays
-          </p>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
             <a
               href={band.spotify}
               target="_blank"
@@ -72,7 +106,7 @@ export default function Sons() {
         </div>
       </article>
 
-      <div>
+      <div id="discografia" className="scroll-mt-24">
         {rest.map((item) => (
           <article
             key={item.title}
@@ -103,29 +137,28 @@ export default function Sons() {
       </div>
 
       <section className="mt-20 border-t border-line pt-8">
-        <h2 className="mb-2.5 text-3xl md:text-4xl tracking-tight">EP 1</h2>
-        <p className="max-w-prose leading-relaxed text-copy">
-          As quatro faixas em produção para o próximo EP. Letra completa e prévia
-          do som em cada página.
+        <div className="mb-2.5 flex items-baseline justify-between gap-4">
+          <h2 className="text-3xl md:text-4xl tracking-tight">EP 1</h2>
+          <span className="shrink-0 font-mono text-[10px] uppercase tracking-widest text-muted">
+            {ep1.length} faixas · 2026
+          </span>
+        </div>
+        <p className="mb-8 max-w-prose leading-relaxed text-copy">
+          Éter, Morning Riser, Cos I Lov U e @Me — quatro faixas, um fôlego. Ainda
+          em obra, ainda mudando de forma, mas já existem.
         </p>
-        <ul className="mt-6">
-          {ep1.map((track) =>
-            track.audio ? (
-              <DemoPlayer key={track.slug} demo={track} />
-            ) : (
-              <li key={track.slug} className="border-t border-line">
-                <Link
-                  href={`/sons/${track.slug}`}
-                  className="flex items-center gap-3 py-3 font-mono text-xs uppercase tracking-widest text-muted no-underline transition-colors hover:text-accent"
-                >
-                  <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-current">
-                    <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6L0 12V0z"/></svg>
-                  </span>
-                  {track.title}
-                </Link>
-              </li>
-            )
-          )}
+
+        <GroupHeader glyph="ring" label="Em produção" />
+        <ul>
+          {[...ep1]
+            .sort((a, b) => (a.n || '').localeCompare(b.n || ''))
+            .map((track) =>
+              hasAudio(track) ? (
+                <DemoPlayer key={track.slug} demo={track} number={track.n} label="Inédita" />
+              ) : (
+                <TrackLinkRow key={track.slug} track={track} number={track.n} />
+              )
+            )}
         </ul>
 
         <h3 className="kicker mt-12">Prévia da estética</h3>
@@ -150,28 +183,28 @@ export default function Sons() {
       </section>
 
       <aside className="mt-20 border-t border-line pt-8">
-        <h2 className="mb-2.5 text-3xl md:text-4xl tracking-tight">No estúdio</h2>
-        <p className="max-w-prose leading-relaxed text-copy">
+        <div className="mb-2.5 flex items-baseline justify-between gap-4">
+          <h2 className="text-3xl md:text-4xl tracking-tight">No estúdio</h2>
+          <span className="shrink-0 font-mono text-[10px] uppercase tracking-widest text-muted">
+            {demos.length} faixas
+          </span>
+        </div>
+        <p className="mb-8 max-w-prose leading-relaxed text-copy">
           Demos em processo, sons que ainda estão por vir e que você já pode conferir.
         </p>
-        <ul className="mt-6">
-          {demos.map((demo) =>
-            demo.audio ? (
-              <DemoPlayer key={demo.slug} demo={demo} />
-            ) : (
-              <li key={demo.slug} className="border-t border-line">
-                <Link
-                  href={`/sons/${demo.slug}`}
-                  className="flex items-center gap-3 py-3 font-mono text-xs uppercase tracking-widest text-muted no-underline transition-colors hover:text-accent"
-                >
-                  <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-current">
-                    <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6L0 12V0z"/></svg>
-                  </span>
-                  {demo.title}
-                </Link>
-              </li>
-            )
-          )}
+
+        <GroupHeader glyph="dashed" label="Em processo" />
+        <ul>
+          {[...demos]
+            // As que dá pra ouvir vêm primeiro.
+            .sort((a, b) => Number(hasAudio(b)) - Number(hasAudio(a)))
+            .map((demo) =>
+              hasAudio(demo) ? (
+                <DemoPlayer key={demo.slug} demo={demo} />
+              ) : (
+                <TrackLinkRow key={demo.slug} track={demo} />
+              ),
+            )}
         </ul>
       </aside>
     </PageShell>

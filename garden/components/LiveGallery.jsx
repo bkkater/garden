@@ -1,11 +1,25 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Portal from './Portal'
 
 // Galerias por evento + lightbox. Recebe os grupos já montados do Server Component.
 // `headingLevel` controla o nível do título de cada noite (default h3).
 export default function LiveGallery({ groups, headingLevel: Heading = 'h3' }) {
   const [active, setActive] = useState(null)
+
+  // Enquanto o lightbox está aberto: trava o scroll do fundo e fecha no Esc.
+  useEffect(() => {
+    if (!active) return
+    const onKey = (e) => e.key === 'Escape' && setActive(null)
+    window.addEventListener('keydown', onKey)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prev
+    }
+  }, [active])
 
   return (
     <>
@@ -42,20 +56,22 @@ export default function LiveGallery({ groups, headingLevel: Heading = 'h3' }) {
       ))}
 
       {active && (
-        <div
-          role="presentation"
-          onClick={() => setActive(null)}
-          className="fixed inset-0 z-30 flex cursor-zoom-out flex-col items-center justify-center bg-overlay p-10"
-        >
-          <img
-            src={active.src}
-            alt=""
-            className="max-h-[82vh] max-w-[92vw] object-contain"
-          />
-          <p className="mt-4 font-mono text-xs uppercase tracking-widest">
-            {active.event} · foto {active.credit}
-          </p>
-        </div>
+        <Portal>
+          <div
+            role="presentation"
+            onClick={() => setActive(null)}
+            className="fixed inset-0 z-50 flex cursor-zoom-out flex-col items-center justify-center bg-overlay p-10"
+          >
+            <img
+              src={active.src}
+              alt=""
+              className="max-h-[82vh] max-w-[92vw] object-contain"
+            />
+            <p className="mt-4 font-mono text-xs uppercase tracking-widest">
+              {active.event} · foto {active.credit}
+            </p>
+          </div>
+        </Portal>
       )}
     </>
   )
