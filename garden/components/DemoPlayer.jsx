@@ -3,85 +3,166 @@
 import Link from 'next/link'
 import { usePlayer } from '@/lib/PlayerContext'
 
-export default function DemoPlayer({ demo }) {
-  const { state, play } = usePlayer()
+// Prévia direto da lista de Nossas músicas.
+const PREVIEW_SECONDS = 30
+
+function fmt(s) {
+  if (!s || Number.isNaN(s)) return '0:00'
+  const m = Math.floor(s / 60)
+  return `${m}:${String(Math.floor(s % 60)).padStart(2, '0')}`
+}
+
+export default function DemoPlayer({ demo, number, label }) {
+  const { state, play, pause, resume, promote } = usePlayer()
 
   const isThis = state.track?.slug === demo.slug
-  const isPlaying = isThis && state.isPlaying
+  const inPreview = isThis && state.previewLimit != null
+  const previewPlaying = inPreview && state.isPlaying
+  const previewEnded = isThis && state.previewEnded
+  // "Promovida": virou faixa inteira (sem limite) e já rolou algo.
+  const promoted = isThis && state.previewLimit == null && (state.isPlaying || state.progress > 0)
+  const fullPlaying = promoted && state.isPlaying
 
-  // Clique no círculo ▶/⏸ — só toca, sem navegar
-  const handlePlayButton = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    play(demo)
+  const progress = isThis ? Math.min(1, Math.max(0, state.progress)) : 0
+  const active = previewPlaying || previewEnded || promoted
+
+  const previewTrigger = () => play(demo, { previewSeconds: PREVIEW_SECONDS })
+  const fullToggle = () => (state.isPlaying ? pause() : resume())
+
+  const elapsed = Math.round(progress * PREVIEW_SECONDS)
+  let stateCaption = null
+  if (previewPlaying) {
+    stateCaption = `Tocando prévia · 0:${String(elapsed).padStart(2, '0')} / 0:${PREVIEW_SECONDS}`
+  } else if (previewEnded) {
+    stateCaption = 'Prévia completa'
+  } else if (fullPlaying) {
+    stateCaption = `Tocando · ${fmt(progress * state.duration)}`
+  } else if (promoted) {
+    stateCaption = `Pausado · ${fmt(progress * state.duration)}`
   }
 
-  // Clique no nome — toca E navega para a letra (via Link normal)
-  const handleLinkClick = () => {
-    play(demo)
-  }
+  const titleRed = previewPlaying || fullPlaying
 
   return (
-    <li className="border-t border-line">
-      <div className="flex items-center gap-3 py-3">
-
-        {/* Botão de play/pause — não navega */}
-        <button
-          onClick={handlePlayButton}
-          aria-label={`${isPlaying ? 'Pausar' : 'Reproduzir'} ${demo.title}`}
-          className={[
-            'flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-all duration-200 hover:border-accent hover:text-accent',
-            isPlaying ? 'border-accent text-accent' : 'border-current',
-          ].join(' ')}
-        >
-          {isPlaying ? (
-            <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true">
-              <rect x="0" y="0" width="3" height="12" rx="1" />
-              <rect x="7" y="0" width="3" height="12" rx="1" />
-            </svg>
-          ) : (
-            <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true">
-              <path d="M0 0l10 6L0 12V0z" />
-            </svg>
-          )}
-        </button>
-
-        {/* Nome da faixa — navega para a letra E inicia a música */}
-        <Link
-          href={`/sons/${demo.slug}`}
-          onClick={handleLinkClick}
-          className={[
-            'flex-1 font-mono text-xs uppercase tracking-widest no-underline transition-colors duration-150 hover:text-accent',
-            isThis ? 'text-accent' : '',
-          ].join(' ')}
-        >
-          {demo.title}
-        </Link>
-
-        {/* Barrinhas animadas "tocando agora" */}
-        {isPlaying && (
-          <span className="flex items-end gap-[3px]" aria-hidden="true">
-            {[0, 0.2, 0.1].map((delay, i) => (
-              <span
-                key={i}
-                style={{
-                  display: 'block',
-                  width: '3px',
-                  borderRadius: '2px',
-                  background: 'var(--color-accent)',
-                  animation: `pipBar 0.8s ease-in-out ${delay}s infinite alternate`,
-                }}
-              />
-            ))}
-            <style>{`
-              @keyframes pipBar {
-                from { height: 4px; }
-                to   { height: 14px; }
-              }
-            `}</style>
+    <li
+      className={`relative border-t border-line transition-colors first:border-t-0 ${
+        active ? 'bg-accent/[0.07]' : ''
+      }`}
+    >
+      <div className="flex items-center gap-4 py-5">
+        {number && (
+          <span
+            className={`shrink-0 font-mono text-[10px] tabular-nums ${
+              active ? 'text-accent/70' : 'text-muted/60'
+            }`}
+          >
+            {number}
           </span>
         )}
+
+        {/* Nome + legenda — navega para a página da faixa. */}
+        <Link href={`/sons/${demo.slug}`} className="group min-w-0 flex-1 no-underline">
+          <div className="flex items-baseline gap-2.5">
+            <p
+              className={`truncate font-display font-semibold leading-tight text-xl tracking-tight transition-colors group-hover:text-accent ${
+                titleRed ? 'text-accent' : 'text-fg'
+              }`}
+            >
+              {demo.title}
+            </p>
+            {label && !stateCaption && (
+              <span className="shrink-0 rounded-full border border-line px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-muted">
+                {label}
+              </span>
+            )}
+          </div>
+          {stateCaption && (
+            <p className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-muted">
+              {stateCaption}
+            </p>
+          )}
+        </Link>
+
+        {/* Controles à direita conforme o estado */}
+        {previewEnded ? (
+          <div className="flex shrink-0 items-center gap-2">
+            <button
+              type="button"
+              onClick={previewTrigger}
+              aria-label={`Repetir prévia de ${demo.title}`}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:text-fg"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+                <path d="M3 3v5h5" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={promote}
+              aria-label={`Continuar ouvindo ${demo.title}`}
+              className="flex items-center gap-2 rounded-full bg-accent py-2 pl-3 pr-4 font-mono text-[10px] uppercase tracking-widest text-bg transition-transform hover:scale-105 active:scale-95"
+            >
+              <svg width="9" height="11" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true">
+                <path d="M0 0l10 6L0 12V0z" />
+              </svg>
+              Continuar ouvindo
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={promoted ? fullToggle : previewTrigger}
+            aria-label={`${
+              previewPlaying || fullPlaying ? 'Pausar' : 'Ouvir'
+            } ${demo.title}`}
+            className={[
+              'flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105 active:scale-95',
+              previewPlaying || fullPlaying
+                ? 'bg-accent text-bg'
+                : promoted
+                  ? 'bg-accent text-bg'
+                  : 'border border-line text-muted hover:text-fg',
+            ].join(' ')}
+          >
+            {previewPlaying ? (
+              <span className="flex items-end gap-[2px]" aria-hidden="true">
+                {[0, 0.2, 0.1].map((delay, i) => (
+                  <span
+                    key={i}
+                    style={{
+                      display: 'block',
+                      width: '2.5px',
+                      borderRadius: '2px',
+                      background: 'currentColor',
+                      animation: `pipBar 0.8s ease-in-out ${delay}s infinite alternate`,
+                    }}
+                  />
+                ))}
+                <style>{`@keyframes pipBar { from { height: 4px } to { height: 13px } }`}</style>
+              </span>
+            ) : fullPlaying ? (
+              <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true">
+                <rect x="0" y="0" width="3" height="12" rx="1" />
+                <rect x="7" y="0" width="3" height="12" rx="1" />
+              </svg>
+            ) : (
+              <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true">
+                <path d="M0 0l10 6L0 12V0z" />
+              </svg>
+            )}
+          </button>
+        )}
       </div>
+
+      {/* Borda inferior vira barra de progresso */}
+      {active && (
+        <div
+          className="absolute inset-x-0 bottom-0 h-[2px] bg-accent"
+          style={{ width: `${progress * 100}%`, transition: 'width 0.15s linear' }}
+          aria-hidden="true"
+        />
+      )}
     </li>
   )
 }
