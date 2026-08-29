@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { usePlayer } from '@/lib/PlayerContext'
 
 // ─── Ícones inline (sem dependência extra) ─────────────────────────────────
@@ -50,11 +50,47 @@ function IconMaximize() {
   )
 }
 
-function IconClose() {
+function IconMinimize() {
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  )
+}
+
+function IconClose({ size = 12 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
       <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
     </svg>
+  )
+}
+
+// ─── Equalizer: barrinhas ao lado do nome da faixa ─────────────────────────
+// Sempre visível quando há faixa no player; a animação congela quando pausado.
+function EqBars({ playing = true, className = '' }) {
+  return (
+    <span
+      className={`flex shrink-0 items-end gap-[2px] ${className}`}
+      aria-hidden="true"
+    >
+      {[0, 0.2, 0.1].map((delay, i) => (
+        <span
+          key={i}
+          style={{
+            display: 'block',
+            width: '2.5px',
+            height: '4px',
+            borderRadius: '2px',
+            background: 'var(--color-accent)',
+            opacity: playing ? 1 : 0.4,
+            animation: `eqBar 0.8s ease-in-out ${delay}s infinite alternate`,
+            animationPlayState: playing ? 'running' : 'paused',
+          }}
+        />
+      ))}
+      <style>{`@keyframes eqBar { from { height: 4px } to { height: 13px } }`}</style>
+    </span>
   )
 }
 
@@ -75,6 +111,18 @@ export default function GlobalPlayer() {
   const volRef = useRef(volume)
   const [minimized, setMinimized] = useState(false)
   const pathname = usePathname()
+
+  // Esc: encolhe a barra expandida; na pílula, fecha de vez.
+  useEffect(() => {
+    if (!track) return
+    const onKey = (e) => {
+      if (e.key !== 'Escape') return
+      if (minimized) close()
+      else setMinimized(true)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [track, minimized, close])
 
   // Não mostra a barra quando:
   //  - não há faixa carregada;
@@ -185,7 +233,7 @@ export default function GlobalPlayer() {
           onClick={close}
           aria-label="Fechar player"
           className="text-muted transition-colors hover:text-fg"
-          title="Fechar player"
+          title="Fechar (interrompe a faixa)"
         >
           <IconClose />
         </button>
@@ -248,7 +296,7 @@ export default function GlobalPlayer() {
           WebkitBackdropFilter: 'blur(20px) saturate(1.4)',
         }}
       >
-        <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 md:gap-6 md:px-8">
+        <div className="flex items-center gap-4 px-4 py-3 md:gap-6 lg:px-8">
 
           {/* Esquerda — Play / Pause */}
           <button
@@ -259,45 +307,28 @@ export default function GlobalPlayer() {
             {isPlaying ? <IconPause /> : <IconPlay />}
           </button>
 
-          {/* Centro — faixa + legenda + tempo */}
-          <div className="flex min-w-0 flex-1 items-center justify-between gap-3">
-            <div className="flex min-w-0 items-center gap-3">
-              <Link
-                href={`/sons/${track.slug}`}
-                className="group min-w-0 no-underline"
-                aria-label={`Ver letra de ${track.title}`}
-              >
-                <p className="truncate font-display font-semibold leading-tight text-sm transition-colors group-hover:text-accent md:text-base">
-                  {track.title}
-                  <span className="ml-1.5 font-mono text-[10px] text-muted opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true">↗</span>
-                </p>
-                <p className="font-mono text-[10px] uppercase tracking-widest text-muted">
-                  {track.type} — {isPlaying ? 'Tocando' : 'Pausado'}
-                </p>
-              </Link>
-              {isPlaying && (
-                <span className="flex shrink-0 items-end gap-[2px]" aria-hidden="true">
-                  {[0, 0.2, 0.1].map((delay, i) => (
-                    <span
-                      key={i}
-                      style={{
-                        display: 'block',
-                        width: '2.5px',
-                        borderRadius: '2px',
-                        background: 'var(--color-accent)',
-                        animation: `pipBar 0.8s ease-in-out ${delay}s infinite alternate`,
-                      }}
-                    />
-                  ))}
-                </span>
-              )}
-            </div>
+          {/* Centro — faixa + legenda + barrinhas + tempo */}
+          <div className="flex min-w-0 flex-1 items-center gap-3">
+            <Link
+              href={`/sons/${track.slug}`}
+              className="group min-w-0 no-underline"
+              aria-label={`Ver letra de ${track.title}`}
+            >
+              <p className="truncate font-display font-semibold leading-tight text-sm transition-colors group-hover:text-accent md:text-base">
+                {track.title}
+                <span className="ml-1.5 font-mono text-[10px] text-muted opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true">↗</span>
+              </p>
+              <p className="font-mono text-[10px] uppercase tracking-widest text-muted">
+                {track.type} — {isPlaying ? 'Tocando' : 'Pausado'}
+              </p>
+            </Link>
+            <EqBars playing={isPlaying} />
             <span className="shrink-0 font-mono text-[11px] tabular-nums text-muted">
               {fmt(elapsed)} / {fmt(duration)}
             </span>
           </div>
 
-          {/* Direita — volume + fechar */}
+          {/* Direita — volume + ações */}
           <div className="flex shrink-0 items-center gap-3 md:gap-4">
             <div className="hidden items-center gap-2 md:flex">
               <button
@@ -323,15 +354,28 @@ export default function GlobalPlayer() {
               />
             </div>
 
-            {/* X — tocando: minimiza; pausado/parado: fecha de vez */}
-            <button
-              onClick={() => (isPlaying ? setMinimized(true) : close())}
-              aria-label={isPlaying ? 'Minimizar player' : 'Fechar player'}
-              className="flex h-7 w-7 items-center justify-center rounded-full text-muted transition-colors hover:bg-line/40 hover:text-fg"
-              title={isPlaying ? 'Minimizar' : 'Fechar'}
-            >
-              <IconClose />
-            </button>
+            {/* Separador entre volume e ações */}
+            <span className="hidden h-5 w-px bg-line md:block" aria-hidden="true" />
+
+            {/* Ações independentes: ⌄ sempre encolhe, ✕ sempre fecha e interrompe. */}
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setMinimized(true)}
+                aria-label="Minimizar player"
+                className="flex h-7 w-7 items-center justify-center rounded-full text-muted transition-colors hover:bg-line/40 hover:text-fg"
+                title="Minimizar"
+              >
+                <IconMinimize />
+              </button>
+              <button
+                onClick={close}
+                aria-label="Fechar player"
+                className="flex h-7 w-7 items-center justify-center rounded-full text-muted transition-colors hover:bg-line/40 hover:text-fg"
+                title="Fechar (interrompe a faixa)"
+              >
+                <IconClose size={10} />
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -340,10 +384,6 @@ export default function GlobalPlayer() {
         @keyframes playerSlideUp {
           from { transform: translateY(100%); opacity: 0; }
           to   { transform: translateY(0);    opacity: 1; }
-        }
-        @keyframes pipBar {
-          from { height: 4px; }
-          to   { height: 14px; }
         }
       `}</style>
     </div>
