@@ -1,3 +1,5 @@
+import { bandaMedia } from '@features/band'
+
 // Home = vitrine. Uma linha por seção, cada uma linkando para a página cheia.
 export const homeIntro =
   'Psicodelia como referência. Alternativo por natureza.'
@@ -9,7 +11,7 @@ export const homeSections = [
     label: 'Banda',
     cta: 'Conhecer a banda',
     teaser: 'Cinco amigos em Campos dos Goytacazes, na cena do rock alternativo desde 2019.',
-    image: '/live/festival/hyakuya-03.jpg',
+    image: bandaMedia.hero.src,
   },
   {
     to: '/shows',

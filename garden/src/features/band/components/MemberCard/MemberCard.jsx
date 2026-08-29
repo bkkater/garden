@@ -37,7 +37,7 @@ export function MemberCard({ member }) {
           src={images[prev]}
           alt={`${member.name}, ${member.role}`}
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover object-[center_18%] [filter:contrast(1.12)_saturate(0.82)]"
+          className="absolute inset-0 h-full w-full object-cover object-center [filter:contrast(1.12)_saturate(0.82)]"
           style={{
             opacity: fading ? 0 : 1,
             transition: `opacity ${FADE_DURATION}ms ease-in-out`,
@@ -50,7 +50,7 @@ export function MemberCard({ member }) {
         key={`curr-${current}`}
         src={images[current]}
         alt={`${member.name}, ${member.role}`}
-        className="h-[58vh] w-full object-cover object-[center_18%] transition-[transform,filter] duration-500 ease-out [filter:contrast(1.12)_saturate(0.82)] group-hover:scale-[1.02] group-hover:[filter:contrast(1.15)_saturate(0.65)]"
+        className="h-[58vh] w-full object-cover object-center transition-[transform,filter] duration-500 ease-out [filter:contrast(1.12)_saturate(0.82)] group-hover:scale-[1.02] group-hover:[filter:contrast(1.15)_saturate(0.65)]"
         style={{
           opacity: fading ? 0 : 1,
           transform: fading ? 'scale(1.03)' : 'scale(1)',
