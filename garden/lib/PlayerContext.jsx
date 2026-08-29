@@ -18,6 +18,7 @@ const initial = {
   fullDuration: 0,  // duração real da faixa
   volume: 0.8,
   previewLimit: null, // segundos — quando setado, a reprodução para nesse ponto
+  previewEnded: false, // true quando a prévia rodou até o limite
 }
 
 function reducer(state, action) {
@@ -31,11 +32,13 @@ function reducer(state, action) {
         duration: 0,
         fullDuration: 0,
         previewLimit: action.previewLimit ?? null,
+        previewEnded: false,
       }
     case 'PLAY':
       return {
         ...state,
         isPlaying: true,
+        previewEnded: false,
         previewLimit:
           action.previewLimit !== undefined ? action.previewLimit : state.previewLimit,
       }
@@ -43,6 +46,18 @@ function reducer(state, action) {
       return { ...state, isPlaying: false }
     case 'TICK':
       return { ...state, progress: action.progress, duration: action.duration }
+    case 'PREVIEW_END':
+      return { ...state, isPlaying: false, progress: 1, previewEnded: true }
+    case 'PROMOTE':
+      // Passa de prévia para faixa inteira, seguindo de onde estava.
+      return {
+        ...state,
+        previewLimit: null,
+        previewEnded: false,
+        isPlaying: action.play ?? state.isPlaying,
+        progress: action.progress ?? state.progress,
+        duration: action.duration || state.fullDuration || state.duration,
+      }
     case 'METADATA':
       return {
         ...state,
@@ -110,6 +125,21 @@ export function PlayerProvider({ children }) {
     dispatch({ type: 'PLAY' })
   }, [])
 
+  /** Converte a prévia (em curso ou recém-terminada) na faixa inteira,
+   *  seguindo de onde a prévia estava. */
+  const promote = useCallback(() => {
+    const el = audioRef.current
+    const full = el?.duration || 0
+    const shouldPlay = state.isPlaying || state.previewEnded
+    if (el && shouldPlay) el.play().catch(() => {})
+    dispatch({
+      type: 'PROMOTE',
+      play: shouldPlay,
+      duration: full,
+      progress: full && el ? el.currentTime / full : state.progress,
+    })
+  }, [state.isPlaying, state.previewEnded, state.progress])
+
   /** ratio: 0–1 */
   const seek = useCallback(
     (ratio) => {
@@ -145,8 +175,7 @@ export function PlayerProvider({ children }) {
     const limit = state.previewLimit
     if (limit && el.currentTime >= limit) {
       el.pause()
-      el.currentTime = 0
-      dispatch({ type: 'ENDED' })
+      dispatch({ type: 'PREVIEW_END' })
       return
     }
 
@@ -170,7 +199,9 @@ export function PlayerProvider({ children }) {
   // ─────────────────────────────────────────────────────────────────────────
 
   return (
-    <PlayerContext.Provider value={{ state, play, pause, resume, seek, setVolume, close }}>
+    <PlayerContext.Provider
+      value={{ state, play, pause, resume, promote, seek, setVolume, close }}
+    >
       {children}
       {/* Elemento de áudio único — nunca desmonta */}
       <audio

@@ -111,13 +111,15 @@ export default function Sons() {
           do som em cada página.
         </p>
         <ul className="mt-6">
-          {ep1.map((track) =>
-            hasAudio(track) ? (
-              <DemoPlayer key={track.slug} demo={track} />
-            ) : (
-              <TrackLinkRow key={track.slug} track={track} />
-            )
-          )}
+          {[...ep1]
+            .sort((a, b) => (a.n || '').localeCompare(b.n || ''))
+            .map((track) =>
+              hasAudio(track) ? (
+                <DemoPlayer key={track.slug} demo={track} number={track.n} label="Inédita" />
+              ) : (
+                <TrackLinkRow key={track.slug} track={track} number={track.n} />
+              )
+            )}
         </ul>
 
         <h3 className="kicker mt-12">Prévia da estética</h3>

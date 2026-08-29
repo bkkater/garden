@@ -1,17 +1,28 @@
 import Link from 'next/link'
 
 // Linha de faixa sem prévia: só o link para a página da letra.
-export default function TrackLinkRow({ track }) {
+export default function TrackLinkRow({ track, number, label }) {
   return (
     <li className="border-t border-line">
       <Link
         href={`/sons/${track.slug}`}
-        className="group flex items-center gap-2.5 py-3 font-mono text-xs uppercase tracking-widest text-muted no-underline transition-colors hover:text-accent"
+        className="group flex items-center gap-4 py-5 no-underline"
       >
-        <span className="underline decoration-line decoration-1 underline-offset-4 group-hover:decoration-accent">
-          {track.title}
-        </span>
-        <span className="sr-only">— ver letra</span>
+        {number && (
+          <span className="shrink-0 font-mono text-[10px] tabular-nums text-muted/60">
+            {number}
+          </span>
+        )}
+        <div className="min-w-0 flex-1">
+          <p className="truncate font-display font-semibold leading-tight text-xl tracking-tight text-fg transition-colors group-hover:text-accent">
+            {track.title}
+          </p>
+          {label && (
+            <p className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-muted">
+              {label}
+            </p>
+          )}
+        </div>
       </Link>
     </li>
   )
