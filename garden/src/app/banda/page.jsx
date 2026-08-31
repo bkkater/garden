@@ -15,7 +15,7 @@ export default function Banda() {
   return (
     <PageShell>
       <PageHead eyebrow="01 — Banda">
-        Alternativo por natureza. Sério por escolha.
+        Autoral desde 2019.
       </PageHead>
 
       <blockquote className="mb-16 max-w-[46ch] font-normal leading-snug text-xl md:text-2xl text-copy">

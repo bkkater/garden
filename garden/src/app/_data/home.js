@@ -1,8 +1,7 @@
 import { bandaMedia } from '@features/band'
 
 // Home = vitrine. Uma linha por seção, cada uma linkando para a página cheia.
-export const homeIntro =
-  'Psicodelia como referência. Alternativo por natureza.'
+export const homeIntro = 'Psyched Records.'
 
 export const homeSections = [
   {
@@ -10,7 +9,7 @@ export const homeSections = [
     index: '01',
     label: 'Banda',
     cta: 'Conhecer a banda',
-    teaser: 'Cinco amigos em Campos dos Goytacazes, na cena do rock alternativo desde 2019.',
+    teaser: '6 amigos em Campos dos Goytacazes, na cena do rock alternativo desde 2019.',
     image: bandaMedia.hero.src,
   },
   {
