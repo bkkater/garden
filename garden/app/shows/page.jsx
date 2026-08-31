@@ -50,9 +50,10 @@ export default function AoVivo() {
         </h2>
         <p className='mt-3 mb-12 max-w-prose text-lg leading-relaxed text-copy'>
           Se a cena não te abraça, abrace a cena. As Weird Parties são os eventos
-          que a própria Garden organiza — line-up, espaço, cartaz, tudo montado
-          por nós — pra fazer o palco que a gente queria tocar e chamar outros
-          artistas junto. Já foram quatro, entre edições de Halloween e de Natal.
+          que a própria Garden organiza — line-up, espaço, cartaz, montados por
+          nós em colaboração com outros artistas — pra fazer o palco que a gente
+          queria tocar e chamar outros artistas junto. Já foram quatro, entre
+          edições de Halloween e de Natal.
         </p>
 
         <h3 className='kicker'>Cartazes</h3>
