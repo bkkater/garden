@@ -29,7 +29,6 @@ export const band = contact
 
 export const logo = {
   badge: '/logos/logo-badge.png',
-  red: '/logos/logo-red.png',
 }
 
 // `key` casa com a chave em messages/*.json (namespace "nav").
