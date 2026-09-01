@@ -1,0 +1,161 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  html,
+  body {
+    min-height: 100%;
+    /* corta qualquer transbordo horizontal — o shader e o grão são fixed
+       inset-0 e podem reportar largura inflada (F32 da auditoria). */
+    overflow-x: clip;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-display);
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+/* Rótulo pequeno em mono, repetido em várias páginas (ex-".tag"/".page-head p").
+   Tamanho = text-xs (0.75rem); tracking = tracking-widest (0.1em). */
+@utility kicker {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Véu escuro entre o shader e o conteúdo: melhora a leitura sem apagar o vídeo.
+   Mais denso no topo (nav + kicker) e no rodapé (quote da Home); no meio deixa
+   o shader aparecer. Fica atrás do <main> (z-2), então não escurece o texto. */
+.video-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-bg) 96%, transparent) 0%,
+    color-mix(in srgb, var(--color-bg) 68%, transparent) 22%,
+    color-mix(in srgb, var(--color-bg) 62%, transparent) 55%,
+    color-mix(in srgb, var(--color-bg) 92%, transparent) 100%
+  );
+}
+
+/* Grão sobre toda a página. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fotos entram com fade + leve deslocamento conforme sobem na viewport.
+   Scroll-driven via animation-timeline; só é aplicado onde há suporte
+   (senão o elemento ficaria preso em opacity:0) e fora de reduced-motion. */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 28%;
+    }
+  }
+}
+
+@keyframes mark-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes mark-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.82;
+  }
+  50% {
+    transform: scale(1.07);
+    opacity: 1;
+  }
+}
+
+/* Vinil girando na tela de carregamento. */
+.sound-vinyl {
+  animation: mark-spin 4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sound-vinyl {
+    animation: none;
+  }
+}
+
+/* Tela de carregamento: se o JS travar, revela o site sozinha. */
+.loading-screen {
+  animation: loading-failsafe 0.5s ease 5s forwards;
+}
+
+@keyframes loading-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
