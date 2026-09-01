@@ -55,17 +55,16 @@ export function Navigation() {
         </span>
       </Link>
 
-      {/* Desktop — linha de links, separados por barra */}
+      {/* Desktop — linha de links, separados por ponto */}
       <nav className="hidden flex-1 items-center justify-end gap-3 lg:flex">
         {navItems.map((item, i) => {
           const active = pathname === item.to
           return (
             <span key={item.to} className="flex items-center gap-3">
               {i > 0 && (
-                <span
-                  aria-hidden="true"
-                  className="h-3 w-px bg-line"
-                />
+                <span aria-hidden="true" className="text-muted/50">
+                  ·
+                </span>
               )}
               <Link
                 href={item.to}
