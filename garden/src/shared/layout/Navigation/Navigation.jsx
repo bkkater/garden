@@ -1,12 +1,14 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
+import { Link, usePathname } from '@shared/i18n/navigation'
 import { band, navItems, logo } from '@shared/lib/site'
+import { LocaleSwitch } from '@shared/ui/LocaleSwitch'
 
 export function Navigation() {
   const pathname = usePathname()
+  const t = useTranslations('nav')
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -71,39 +73,45 @@ export function Navigation() {
                   active ? 'text-accent mix-blend-normal' : ''
                 }`}
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             </span>
           )
         })}
       </nav>
 
-      <a
-        href={`mailto:${band.email}`}
-        className="hidden shrink-0 rounded-full border border-fg px-4 py-2 font-mono text-xs uppercase tracking-widest no-underline mix-blend-normal transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg lg:inline-block"
-      >
-        Booking
-      </a>
+      <div className="hidden shrink-0 items-center gap-4 mix-blend-normal lg:flex">
+        <LocaleSwitch />
+        <a
+          href={`mailto:${band.email}`}
+          className="rounded-full border border-fg px-4 py-2 font-mono text-xs uppercase tracking-widest no-underline transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg"
+        >
+          {t('booking')}
+        </a>
+      </div>
 
-      {/* Mobile — botão hambúrguer */}
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-controls="mobile-menu"
-        aria-label={open ? 'Fechar menu' : 'Abrir menu'}
-        className="ml-auto flex size-11 shrink-0 flex-col items-center justify-center gap-1.5 mix-blend-normal lg:hidden"
-      >
-        <span
-          className={`h-px w-6 bg-fg transition-transform duration-200 ${open ? 'translate-y-[7px] rotate-45' : ''}`}
-        />
-        <span
-          className={`h-px w-6 bg-fg transition-opacity duration-200 ${open ? 'opacity-0' : ''}`}
-        />
-        <span
-          className={`h-px w-6 bg-fg transition-transform duration-200 ${open ? '-translate-y-[7px] -rotate-45' : ''}`}
-        />
-      </button>
+      {/* Mobile — seletor de idioma + hambúrguer */}
+      <div className="ml-auto flex shrink-0 items-center gap-3 mix-blend-normal lg:hidden">
+        <LocaleSwitch onNavigate={() => setOpen(false)} />
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          aria-label={open ? t('closeMenu') : t('openMenu')}
+          className="flex size-11 shrink-0 flex-col items-center justify-center gap-1.5"
+        >
+          <span
+            className={`h-px w-6 bg-fg transition-transform duration-200 ${open ? 'translate-y-[7px] rotate-45' : ''}`}
+          />
+          <span
+            className={`h-px w-6 bg-fg transition-opacity duration-200 ${open ? 'opacity-0' : ''}`}
+          />
+          <span
+            className={`h-px w-6 bg-fg transition-transform duration-200 ${open ? '-translate-y-[7px] -rotate-45' : ''}`}
+          />
+        </button>
+      </div>
 
       {/* Mobile — painel */}
       {open && (
@@ -123,7 +131,7 @@ export function Navigation() {
                   active ? 'text-accent' : ''
                 }`}
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             )
           })}
@@ -132,7 +140,7 @@ export function Navigation() {
             onClick={() => setOpen(false)}
             className="mt-5 inline-block rounded-full border border-fg px-5 py-2.5 font-mono text-xs uppercase tracking-widest no-underline transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg"
           >
-            Booking
+            {t('booking')}
           </a>
         </nav>
       )}

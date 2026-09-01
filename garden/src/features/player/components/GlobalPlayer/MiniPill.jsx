@@ -1,14 +1,16 @@
 'use client'
 
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+import { Link } from '@shared/i18n/navigation'
 import { IconPlay, IconPause, IconMaximize, IconClose } from './parts/icons'
 
 // Player minimizado: pílula compacta no canto inferior direito.
 export function MiniPill({ track, isPlaying, onPlayPause, onExpand, onClose }) {
+  const t = useTranslations('player')
   return (
     <div
       role="region"
-      aria-label="Player de áudio minimizado"
+      aria-label={t('regionMinimized')}
       className="fixed bottom-4 right-4 z-50 flex items-center gap-3 rounded-full border border-line px-4 py-2.5 shadow-2xl transition-transform duration-300 hover:scale-105"
       style={{
         background: 'color-mix(in srgb, var(--color-bg) 90%, transparent)',
@@ -20,7 +22,7 @@ export function MiniPill({ track, isPlaying, onPlayPause, onExpand, onClose }) {
       {/* Play/Pause rápido */}
       <button
         onClick={onPlayPause}
-        aria-label={isPlaying ? 'Pausar' : 'Reproduzir'}
+        aria-label={isPlaying ? t('pause') : t('play')}
         className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-bg transition-transform hover:scale-105 active:scale-95"
       >
         {isPlaying ? <IconPause size={10} /> : <IconPlay size={10} />}
@@ -64,20 +66,20 @@ export function MiniPill({ track, isPlaying, onPlayPause, onExpand, onClose }) {
       {/* Botão expandir */}
       <button
         onClick={onExpand}
-        aria-label="Expandir player"
+        aria-label={t('expand')}
         className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-muted transition-colors hover:text-fg"
-        title="Expandir player"
+        title={t('expand')}
       >
         <IconMaximize />
-        Expandir
+        {t('expandShort')}
       </button>
 
       {/* Fechar */}
       <button
         onClick={onClose}
-        aria-label="Fechar player"
+        aria-label={t('close')}
         className="text-muted transition-colors hover:text-fg"
-        title="Fechar (interrompe a faixa)"
+        title={t('closeHint')}
       >
         <IconClose />
       </button>

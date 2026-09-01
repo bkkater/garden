@@ -1,25 +1,29 @@
-import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
 import { Section, Pill } from '@shared/ui'
+import { Link } from '@shared/i18n/navigation'
 import { tracks, ep1, demos } from '../../data'
 import { hasAudio } from '../../lib/hasAudio.server'
 
 // Bloco "Ver outros sons" no fim da página de uma faixa. Agrupa as demais
 // faixas por origem (Spotify > EP 1 > estúdio); cada uma aparece num grupo só.
-export function OtherSounds({ currentSlug }) {
-  const notThis = (t) => t.slug !== currentSlug
-  const onSpotify = tracks.filter((t) => notThis(t) && t.spotifyTrackId)
-  const spotifySlugs = new Set(onSpotify.map((t) => t.slug))
+export async function OtherSounds({ currentSlug }) {
+  const t = await getTranslations('track')
+  const tMusic = await getTranslations('music')
+
+  const notThis = (item) => item.slug !== currentSlug
+  const onSpotify = tracks.filter((item) => notThis(item) && item.spotifyTrackId)
+  const spotifySlugs = new Set(onSpotify.map((item) => item.slug))
   const inEp1 = ep1.filter(
-    (t) => notThis(t) && !spotifySlugs.has(t.slug) && hasAudio(t),
+    (item) => notThis(item) && !spotifySlugs.has(item.slug) && hasAudio(item),
   )
   const inStudio = demos.filter(
-    (t) => notThis(t) && !spotifySlugs.has(t.slug) && hasAudio(t),
+    (item) => notThis(item) && !spotifySlugs.has(item.slug) && hasAudio(item),
   )
 
   const groups = [
-    { key: 'spotify', title: 'No Spotify', hint: 'Ouvir na íntegra', glyph: 'dot', badge: 'Novo lançamento', featuredOnly: true, items: onSpotify },
-    { key: 'ep1', title: 'EP 1', hint: 'Prévia disponível', glyph: 'ring', badge: 'Inédito', items: inEp1 },
-    { key: 'studio', title: 'No estúdio', hint: 'Sem mixagem final', glyph: 'dashed', badge: 'Demo', items: inStudio },
+    { key: 'spotify', title: t('onSpotify'), hint: t('listenFull'), glyph: 'dot', badge: t('newRelease'), tone: 'accent', featuredOnly: true, items: onSpotify },
+    { key: 'ep1', title: 'EP 1', hint: t('previewAvailable'), glyph: 'ring', badge: t('unreleased'), items: inEp1 },
+    { key: 'studio', title: t('inStudio'), hint: t('noFinalMix'), glyph: 'dashed', badge: 'Demo', items: inStudio },
   ].filter((g) => g.items.length > 0)
 
   if (groups.length === 0) return null
@@ -30,11 +34,11 @@ export function OtherSounds({ currentSlug }) {
     <Section as="section" className="mt-20 border-t border-line pt-8">
       <Section.Header
         className="mb-10"
-        count={`${total} ${total === 1 ? 'faixa' : 'faixas'} · ${
-          groups.length
-        } ${groups.length === 1 ? 'origem' : 'origens'}`}
+        count={`${tMusic('tracksCount', { count: total })} · ${t('sourcesCount', {
+          count: groups.length,
+        })}`}
       >
-        Ver outros sons
+        {t('seeOther')}
       </Section.Header>
 
       <div className="space-y-12">
@@ -45,26 +49,28 @@ export function OtherSounds({ currentSlug }) {
             </Section.Rule>
 
             <Section.List>
-              {g.items.map((t) => (
+              {g.items.map((item) => (
                 <li
-                  key={t.slug}
+                  key={item.slug}
                   className="border-t border-line first:border-t-0 last:border-b"
                 >
                   <Link
-                    href={`/sons/${t.slug}`}
+                    href={`/sons/${item.slug}`}
                     className="group flex items-baseline gap-2.5 py-5 no-underline"
                   >
                     <span className="truncate font-display font-semibold leading-tight text-lg tracking-tight text-fg transition-colors group-hover:text-accent">
-                      {t.title}
+                      {item.title}
                     </span>
 
-                    {g.featuredOnly
-                      ? t.featured && (
-                          <Pill tone="accent" className="shrink-0">
-                            {g.badge}
-                          </Pill>
-                        )
-                      : <Pill className="shrink-0">{g.badge}</Pill>}
+                    {g.featuredOnly ? (
+                      item.featured && (
+                        <Pill tone="accent" className="shrink-0">
+                          {g.badge}
+                        </Pill>
+                      )
+                    ) : (
+                      <Pill className="shrink-0">{g.badge}</Pill>
+                    )}
                   </Link>
                 </li>
               ))}

@@ -1,20 +1,28 @@
-import { band, logo } from '@shared/lib/site'
+import { getTranslations } from 'next-intl/server'
+import { band, logo, AGENDA_YEAR } from '@shared/lib/site'
 import { PageShell, PageHead, SocialLinks } from '@shared/ui'
-import { AGENDA_YEAR } from '@shared/lib/site'
+import { pageMetadata } from '@shared/lib/seo'
 
-const description = `Booking e contato da Garden Psychedelia — agenda ${AGENDA_YEAR} aberta.`
-
-export const metadata = {
-  title: 'Contato',
-  description,
-  alternates: { canonical: '/contato' },
-  openGraph: { title: 'Contato — Garden Psychedelia', description, url: '/contato' },
+export async function generateMetadata({ params }) {
+  const { locale } = await params
+  return pageMetadata({
+    locale,
+    href: '/contato',
+    namespace: 'contact.meta',
+    values: { year: AGENDA_YEAR },
+  })
 }
 
-export default function Contato() {
+export default async function Contato() {
+  const t = await getTranslations('contact')
+  const tCommon = await getTranslations('common')
+  const tMedia = await getTranslations('media')
+
   return (
     <PageShell>
-      <PageHead eyebrow="04 — Contato">Agenda {AGENDA_YEAR} aberta.</PageHead>
+      <PageHead eyebrow={t('eyebrow')}>
+        {t('headline', { year: AGENDA_YEAR })}
+      </PageHead>
 
       <a
         href={`mailto:${band.email}`}
@@ -25,22 +33,21 @@ export default function Contato() {
 
       <div className="flex flex-col gap-12 md:flex-row md:items-start md:gap-16">
         <div className="md:flex-1">
-          <p className="max-w-prose leading-relaxed text-copy">
-            Fale com a Garden pelo e-mail ou pelas redes.
-          </p>
+          <p className="max-w-prose leading-relaxed text-copy">{t('body')}</p>
           <SocialLinks className="mt-7 max-w-md" />
         </div>
 
         <figure className="flex w-44 shrink-0 flex-col items-center text-center">
           <img
             src={logo.badge}
-            alt="Selo Garden Psychedelia"
+            alt={tMedia('badgeAlt')}
             width={176}
             height={176}
             className="size-44 rounded-full object-cover"
           />
           <figcaption className="mt-3 font-mono text-xs uppercase leading-relaxed tracking-widest text-muted">
-            {band.city} — {band.state} · desde {band.since}
+            {band.city} — {band.state} ·{' '}
+            {tCommon('sinceYear', { year: band.since })}
           </figcaption>
         </figure>
       </div>

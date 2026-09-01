@@ -10,8 +10,6 @@ export const releases = [
     plays: '2.198',
     featured: true,
     cover: covers.dbawot,
-    coverCredit: 'Arte por Marina Vicente',
-    note: 'Lançamento mais recente. A síntese da nossa nova identidade sonora.',
     spotifyTrackId: '0YznfY0th8l3O1CBo61SHL',
     lyrics: `I saw you yesterday
 You went out just to please me
@@ -68,7 +66,6 @@ I couldn't hear my name even if they shouted`,
     plays: '19.614',
     featured: false,
     cover: '/live/festival/hyakuya-03.jpg',
-    note: 'A faixa mais ouvida. O primeiro registro da Garden, onde tudo começa.',
     spotifyTrackId: '30FhEKYtCzszR56DCrouxu',
     lyrics: `I cannot understand
 What passes in your hand
@@ -109,7 +106,6 @@ I again`,
     plays: '13.310',
     featured: false,
     cover: '/live/weird-party-4/waguin-01.jpg',
-    note: 'O segundo som. Ainda 2019, ainda o primeiro fôlego.',
     spotifyTrackId: '3U1sUWMpYioR3J6R1m6SIQ',
     lyrics: `It's hard to see that
 We dont need to hide behind this shell
@@ -151,7 +147,6 @@ In the sunshine of my life`,
     plays: '6.544',
     featured: false,
     cover: '/live/festival/hyakuya-01.jpg',
-    note: 'O último som antes da pandemia. Um registro de um tempo que estava prestes a parar.',
     spotifyTrackId: '2plcfAvkI08GVFv13PUmvN',
     lyrics: `He knows well what he wants to do
 He can teach you one lesson or two

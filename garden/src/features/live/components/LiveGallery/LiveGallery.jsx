@@ -1,12 +1,15 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { Portal } from '@shared/ui/Portal'
 
 // Galerias por evento + lightbox. Recebe os grupos já montados do Server Component.
 // `headingLevel` controla o nível do título de cada noite (default h3).
 export function LiveGallery({ groups, headingLevel: Heading = 'h3' }) {
   const [active, setActive] = useState(null)
+  const t = useTranslations('gallery')
+  const tCommon = useTranslations('common')
 
   // Enquanto o lightbox está aberto: trava o scroll do fundo e fecha no Esc.
   useEffect(() => {
@@ -25,7 +28,7 @@ export function LiveGallery({ groups, headingLevel: Heading = 'h3' }) {
     <>
       {groups.map((group) => (
         <section key={group.event} className="mb-14">
-          <p className="kicker">{group.shots.length} fotos</p>
+          <p className="kicker">{t('photosCount', { count: group.shots.length })}</p>
           <Heading className="my-2 font-extrabold tracking-tighter text-2xl md:text-3xl">
             {group.event}
           </Heading>
@@ -41,7 +44,7 @@ export function LiveGallery({ groups, headingLevel: Heading = 'h3' }) {
               >
                 <img
                   src={shot.src}
-                  alt={`${shot.event}, foto ${shot.credit}`}
+                  alt={t('shotAlt', { event: shot.event, credit: shot.credit })}
                   loading="lazy"
                   className="h-full min-h-[280px] w-full object-cover transition-[transform,filter] duration-500 ease-out [filter:contrast(1.08)_saturate(0.8)] group-hover:scale-[1.02] group-hover:[filter:contrast(1.15)_saturate(0.6)]"
                 />
@@ -68,7 +71,7 @@ export function LiveGallery({ groups, headingLevel: Heading = 'h3' }) {
               className="max-h-[82vh] max-w-[92vw] object-contain"
             />
             <p className="mt-4 font-mono text-xs uppercase tracking-widest">
-              {active.event} · foto {active.credit}
+              {active.event} · {tCommon('photoBy', { credit: active.credit })}
             </p>
           </div>
         </Portal>

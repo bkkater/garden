@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@shared/i18n/navigation'
 import { cn } from '@shared/lib/cn'
 
 // Linha de faixa da lista de /sons — layout único para as variações com e sem

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@shared/i18n/navigation'
 
 // Bloco de prévia de uma seção na Home. O card inteiro é um link.
 export function SectionPreview({

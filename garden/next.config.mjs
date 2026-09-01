@@ -1,3 +1,7 @@
+import createNextIntlPlugin from 'next-intl/plugin'
+
+const withNextIntl = createNextIntlPlugin('./src/shared/i18n/request.js')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // 'standalone' é só para o deploy self-hosted (Docker). Na Vercel o empacotamento
@@ -7,4 +11,4 @@ const nextConfig = {
   reactStrictMode: true,
 }
 
-export default nextConfig
+export default withNextIntl(nextConfig)

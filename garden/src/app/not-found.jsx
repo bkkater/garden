@@ -1,16 +1,16 @@
-import Link from 'next/link'
-import { PageShell, PageHead } from '@shared/ui'
+import { getLocale, getMessages } from 'next-intl/server'
+import { SiteDocument } from '@app/_components/SiteDocument'
+import { NotFoundPage } from '@app/_components/NotFoundPage'
 
-export default function NotFound() {
+// 404 de URL desconhecida: cai aqui porque nenhuma rota casa, o que preserva o
+// status 404 e a renderização no servidor. O idioma vem do proxy.
+export default async function NotFound() {
+  const locale = await getLocale()
+  const messages = await getMessages({ locale })
+
   return (
-    <PageShell>
-      <PageHead eyebrow="404">Essa página não existe.</PageHead>
-      <Link
-        href="/"
-        className="inline-block border border-fg px-4 py-3 text-xs uppercase tracking-widest no-underline transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-bg"
-      >
-        Voltar ao início
-      </Link>
-    </PageShell>
+    <SiteDocument locale={locale} messages={messages}>
+      <NotFoundPage />
+    </SiteDocument>
   )
 }

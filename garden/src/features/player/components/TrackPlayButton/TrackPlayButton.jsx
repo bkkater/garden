@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { usePlayer } from '../../hooks/usePlayer'
 import { fmt } from '../GlobalPlayer/parts/format'
 
@@ -33,6 +34,7 @@ function VolumeIcon({ muted }) {
 
 export function TrackPlayButton({ track }) {
   const { state, play, promote, seek, setVolume } = usePlayer()
+  const t = useTranslations('player')
 
   const isThis = state.track?.slug === track.slug
   const isPlaying = isThis && state.isPlaying
@@ -79,7 +81,7 @@ export function TrackPlayButton({ track }) {
       <button
         type="button"
         onClick={() => play(track)}
-        aria-label={`${isPlaying ? 'Pausar' : 'Reproduzir'} ${track.title}`}
+        aria-label={`${isPlaying ? t('pause') : t('play')} ${track.title}`}
         className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent text-bg transition-transform duration-200 hover:scale-105 active:scale-95"
       >
         {isPlaying ? (
@@ -98,7 +100,7 @@ export function TrackPlayButton({ track }) {
         <div className="flex items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-widest">
           <span className="flex items-center gap-2">
             <span className={isThis ? 'text-accent' : 'text-fg'}>
-              {isPlaying ? 'Tocando agora' : 'Ouça a faixa'}
+              {isPlaying ? t('nowPlaying') : t('listenTrack')}
             </span>
             {isPlaying && (
               <span className="flex items-end gap-[2px]" aria-hidden="true">
@@ -125,7 +127,7 @@ export function TrackPlayButton({ track }) {
 
         <div
           role={isThis ? 'slider' : undefined}
-          aria-label={isThis ? 'Posição da faixa' : undefined}
+          aria-label={isThis ? t('position') : undefined}
           aria-valuenow={isThis ? Math.round(progress * 100) : undefined}
           aria-valuemin={isThis ? 0 : undefined}
           aria-valuemax={isThis ? 100 : undefined}
@@ -145,7 +147,7 @@ export function TrackPlayButton({ track }) {
         <button
           type="button"
           onClick={() => setVolOpen((o) => !o)}
-          aria-label="Volume"
+          aria-label={t('volume')}
           aria-expanded={volOpen}
           className={`flex items-center justify-center transition-colors hover:text-fg ${
             volOpen ? 'text-fg' : 'text-muted'
@@ -163,7 +165,7 @@ export function TrackPlayButton({ track }) {
               step={0.02}
               value={state.volume}
               onChange={(e) => setVolume(parseFloat(e.target.value))}
-              aria-label="Ajustar volume"
+              aria-label={t('adjustVolume')}
               aria-orientation="vertical"
               className="w-1 cursor-pointer appearance-none rounded-full"
               style={{
@@ -179,7 +181,7 @@ export function TrackPlayButton({ track }) {
             <button
               type="button"
               onClick={toggleMute}
-              aria-label={muted ? 'Ativar som' : 'Silenciar'}
+              aria-label={muted ? t('unmute') : t('mute')}
               className="shrink-0 text-muted transition-colors hover:text-fg"
             >
               <VolumeIcon muted={muted} />

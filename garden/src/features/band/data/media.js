@@ -40,10 +40,7 @@ export const memberSlides = {
   ],
 }
 
+// Textos alternativos vivem no namespace "media" dos dicionários.
 export const bandaMedia = {
-  hero: {
-    src: '/members/garden.jpg',
-    alt: 'Os cinco integrantes da Garden Psychedelia em pé no campo',
-    caption: 'Garden Psychedelia',
-  },
+  hero: { src: '/members/garden.jpg' },
 }

@@ -32,9 +32,10 @@ export const logo = {
   red: '/logos/logo-red.png',
 }
 
+// `key` casa com a chave em messages/*.json (namespace "nav").
 export const navItems = [
-  { to: '/banda', index: '01', label: 'A banda' },
-  { to: '/shows', index: '02', label: 'Shows' },
-  { to: '/sons', index: '03', label: 'Nossas músicas' },
-  { to: '/contato', index: '04', label: 'Contato' },
+  { to: '/banda', index: '01', key: 'band' },
+  { to: '/shows', index: '02', key: 'shows' },
+  { to: '/sons', index: '03', key: 'music' },
+  { to: '/contato', index: '04', key: 'contact' },
 ]

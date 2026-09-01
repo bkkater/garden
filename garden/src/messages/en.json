@@ -1,0 +1,235 @@
+{
+  "meta": {
+    "description": "Garden Psychedelia — a psychedelic band from Campos dos Goytacazes (RJ), active since 2019. Records, live footage, and contact.",
+    "keywords": [
+      "Garden Psychedelia",
+      "psychedelia",
+      "rock",
+      "Campos dos Goytacazes",
+      "band",
+      "Weird Party"
+    ]
+  },
+  "nav": {
+    "band": "The band",
+    "shows": "Shows",
+    "music": "Our music",
+    "contact": "Contact",
+    "booking": "Booking",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "locale": {
+    "label": "Language",
+    "pt": "Portuguese",
+    "en": "English",
+    "switchTo": "View the site in {language}"
+  },
+  "common": {
+    "country": "Brazil",
+    "sinceYear": "since {year}",
+    "plays": "{count} plays",
+    "coverOf": "Cover of {title}",
+    "photoBy": "photo {credit}"
+  },
+  "home": {
+    "intro": "Psyched Records.",
+    "agendaOpen": "{year} calendar open",
+    "listenSpotify": "Listen on Spotify",
+    "seeAgenda": "See the calendar",
+    "sections": {
+      "band": {
+        "label": "Band",
+        "cta": "Meet the band",
+        "teaser": "6 friends in Campos dos Goytacazes, in the alternative rock scene since 2019."
+      },
+      "shows": {
+        "label": "Shows",
+        "cta": "See the calendar",
+        "teaser": "Festival Troque o Disco, the Weird Parties, and upcoming shows."
+      },
+      "music": {
+        "label": "Music",
+        "cta": "Listen to Garden",
+        "teaser": "Dbawot is the latest release and marks Garden’s return."
+      },
+      "contact": {
+        "label": "Contact",
+        "cta": "Talk to Garden",
+        "teaser": "talktogarden@gmail.com — for shows, festivals, and the live circuit."
+      }
+    }
+  },
+  "band": {
+    "meta": {
+      "title": "Band",
+      "description": "Garden Psychedelia — psychedelia from Campos dos Goytacazes (RJ) since 2019, five members."
+    },
+    "eyebrow": "01 — Band",
+    "headline": "Original since 2019.",
+    "quote": "The apotheosis of friendship. The energetic explosion born of aesthetics and demand. Garden exists to meet the need for genuine expression.",
+    "about": "Since 2019, by friends and for everyone. Our foundation is rock and roll, but our references are bigger than our labels. We live in the making, but we court the crowd. We want to provoke you, we want to impress you. Calendar always open.",
+    "live": "With five shows across different rooms and gatherings, 2025 was a year of expansion and consolidation for Garden on stage, strengthening the link between its original music and the community that moves the city’s independent culture. In 2026, Garden opens a new chapter with the single “DBAWOT” and a new EP on the way.",
+    "origin": "Origin",
+    "since": "Since",
+    "base": "Base",
+    "baseValue": "Rock and roll + psychedelia",
+    "lineup": "Lineup",
+    "members": "Members"
+  },
+  "shows": {
+    "meta": {
+      "title": "Shows",
+      "description": "Festival Troque o Disco, the Weird Parties, and Garden’s upcoming shows. {year} calendar open."
+    },
+    "eyebrow": "02 — Shows",
+    "headline": "Shows, festivals, and Weird Parties.",
+    "agendaTitle": "{year} calendar",
+    "status": "The {year} calendar is open.",
+    "detail": "No confirmed dates yet.",
+    "callGarden": "Hit up Garden",
+    "ourEvents": "Our events",
+    "ourEventsBody": "If the scene won’t hold you, hold the scene. Weird Parties are the nights Garden puts together — lineup, room, poster, built by us with other artists — so we can play the stage we wanted and bring others with us. Four so far, between Halloween and Christmas editions.",
+    "posters": "Posters",
+    "alreadyHappened": "Already happened",
+    "alreadyHappenedBody": "One festival, four Weird Parties, and plenty of other stories.",
+    "showsAndParties": "Shows and parties",
+    "photosByNight": "Photos by night",
+    "events": {
+      "festival": "Live set at the third edition of Campos dos Goytacazes’ biggest music festival.",
+      "weirdParty": "Garden’s own nights: live set, DJs, an exhibition, and a packed house."
+    }
+  },
+  "music": {
+    "meta": {
+      "title": "Music",
+      "description": "Singles, EP 1 in the works, and Garden Psychedelia demos — with lyrics."
+    },
+    "eyebrow": "03 — Music",
+    "headline": "EPs, singles, and what’s still coming.",
+    "playsValue": "+40k",
+    "playsStreaming": "plays on streaming",
+    "singlesReleased": "singles released",
+    "seeDiscography": "See discography",
+    "newRelease": "New release",
+    "listenSpotify": "Listen on Spotify",
+    "seeMore": "See more",
+    "ep1Blurb": "Éter, Morning Riser, Cos I Lov U and @Me — four tracks, one breath. Still in the works, still changing shape, but they already exist.",
+    "tracksYear": "{count} tracks · {year}",
+    "inProduction": "In production",
+    "unreleased": "Unreleased",
+    "aestheticPreview": "Visual preview",
+    "aestheticBody": "The photos that come with the release — Garden turning a corner in the look, too.",
+    "photosBy": "Photos by Flávia Motta",
+    "inStudio": "In the studio",
+    "tracksCount": "{count, plural, one {# track} other {# tracks}}",
+    "studioBlurb": "Demos in progress — sounds still on the way, already here to hear.",
+    "inProgress": "In progress"
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact",
+      "description": "Booking and contact for Garden Psychedelia — {year} calendar open."
+    },
+    "eyebrow": "04 — Contact",
+    "headline": "{year} calendar open.",
+    "body": "Reach Garden by email or on socials."
+  },
+  "track": {
+    "metaDescription": "Lyrics for {title} — Garden Psychedelia.",
+    "backToMusic": "Back to Music",
+    "lyrics": "Lyrics",
+    "listenSpotify": "Listen on Spotify",
+    "seeOther": "See other tracks",
+    "sourcesCount": "{count, plural, one {# source} other {# sources}}",
+    "onSpotify": "On Spotify",
+    "listenFull": "Listen in full",
+    "previewAvailable": "Preview available",
+    "inStudio": "In the studio",
+    "noFinalMix": "No final mix",
+    "newRelease": "New release",
+    "unreleased": "Unreleased"
+  },
+  "player": {
+    "playingPreview": "Playing preview · 0:{elapsed} / 0:{limit}",
+    "previewComplete": "Preview complete",
+    "playingTime": "Playing · {time}",
+    "pausedTime": "Paused · {time}",
+    "repeatPreview": "Replay preview of {title}",
+    "keepListening": "Keep listening",
+    "keepListeningAria": "Keep listening to {title}",
+    "pause": "Pause",
+    "listen": "Listen",
+    "play": "Play",
+    "nowPlaying": "Now playing",
+    "listenTrack": "Listen to the track",
+    "position": "Track position",
+    "volume": "Volume",
+    "adjustVolume": "Adjust volume",
+    "unmute": "Unmute",
+    "mute": "Mute",
+    "expand": "Expand player",
+    "expandShort": "Expand",
+    "region": "Audio player",
+    "regionMinimized": "Minimized audio player",
+    "close": "Close player",
+    "closeHint": "Close (stops the track)",
+    "progress": "Progress",
+    "seeLyrics": "See lyrics for {title}",
+    "playing": "Playing",
+    "paused": "Paused",
+    "minimize": "Minimize player",
+    "minimizeHint": "Minimize"
+  },
+  "gallery": {
+    "photosCount": "{count, plural, one {# photo} other {# photos}}",
+    "shotAlt": "{event}, photo {credit}"
+  },
+  "notFound": {
+    "eyebrow": "404",
+    "headline": "This page doesn’t exist.",
+    "backHome": "Back to the start"
+  },
+  "members": {
+    "Milton": "Vocals",
+    "Gabriel": "Guitar",
+    "Matheus": "Guitar",
+    "Bianca": "Drums",
+    "Bob": "Bass"
+  },
+  "tracks": {
+    "dbawot": {
+      "note": "Latest release. The synthesis of our new sonic identity.",
+      "coverCredit": "Artwork by Marina Vicente"
+    },
+    "we-again": {
+      "note": "The most-played track. Garden’s first recording, where it all starts."
+    },
+    "shell": {
+      "note": "The second song. Still 2019, still the first breath."
+    },
+    "madman": {
+      "note": "The last song before the pandemic. A record of a time that was about to stop."
+    }
+  },
+  "media": {
+    "bandaHeroAlt": "The five members of Garden Psychedelia standing in a field",
+    "bandaHeroCaption": "Garden Psychedelia",
+    "badgeAlt": "Garden Psychedelia badge",
+    "ep1": [
+      "Garden walking by the reservoir, a sign that reads DBAWOT",
+      "The band around a blanket with instruments, paints, and an easel",
+      "The five members seen from below, heads forming a circle",
+      "Garden standing in the grass, late-afternoon light",
+      "Portrait of the band in the field, looking at the camera",
+      "Two guitars and drumsticks left on the grass"
+    ]
+  },
+  "error": {
+    "listTitle": "Something is off-key.",
+    "listBody": "Could not load the music right now. Try again in a moment.",
+    "trackTitle": "This track would not play.",
+    "trackBody": "Something failed while loading this page.",
+    "retry": "Try again"
+  }
+}
