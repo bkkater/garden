@@ -55,16 +55,17 @@ export function Navigation() {
         </span>
       </Link>
 
-      {/* Desktop — linha de links, separados por ponto */}
+      {/* Desktop — linha de links, separados por barra */}
       <nav className="hidden flex-1 items-center justify-end gap-3 lg:flex">
         {navItems.map((item, i) => {
           const active = pathname === item.to
           return (
             <span key={item.to} className="flex items-center gap-3">
               {i > 0 && (
-                <span aria-hidden="true" className="text-muted/50">
-                  ·
-                </span>
+                <span
+                  aria-hidden="true"
+                  className="h-3 w-px bg-line"
+                />
               )}
               <Link
                 href={item.to}
@@ -81,6 +82,10 @@ export function Navigation() {
       </nav>
 
       <div className="hidden shrink-0 items-center gap-4 mix-blend-normal lg:flex">
+        <span
+          aria-hidden="true"
+          className="h-6 w-px bg-line"
+        />
         <LocaleSwitch />
         <a
           href={`mailto:${band.email}`}
@@ -93,6 +98,7 @@ export function Navigation() {
       {/* Mobile — seletor de idioma + hambúrguer */}
       <div className="ml-auto flex shrink-0 items-center gap-3 mix-blend-normal lg:hidden">
         <LocaleSwitch onNavigate={() => setOpen(false)} />
+        <span aria-hidden="true" className="h-6 w-px bg-line" />
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
