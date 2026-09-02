@@ -39,9 +39,9 @@ export async function generateMetadata({ params }) {
       description,
       images: [
         {
-          url: '/covers/dbawot.jpg',
+          url: '/og-cover.jpg',
           width: 1200,
-          height: 1200,
+          height: 630,
           alt: 'Garden Psychedelia',
         },
       ],
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }) {
       card: 'summary_large_image',
       title: 'Garden Psychedelia',
       description,
-      images: ['/covers/dbawot.jpg'],
+      images: ['/og-cover.jpg'],
     },
     icons: { icon: '/favicon.svg' },
   }

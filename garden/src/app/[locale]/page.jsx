@@ -22,6 +22,7 @@ export default async function Home() {
     genre: 'Psychedelic rock',
     email: band.email,
     url: siteUrl,
+    image: `${siteUrl}/og-cover.jpg`,
     sameAs: [band.instagram, band.youtube, band.tiktok, band.spotify],
   }
 
